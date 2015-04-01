@@ -1,43 +1,64 @@
-This sets up a basic blog. Create a virtualenv first that has markdown2 installed:
+### Installation. 
 
-	cd ~
-	virtualenv mezpress/ENV
-	source mezpress/ENV/bin/activate
-	pip install markdown2
+To get Lark up and running, first make sure you've got the modules below installed. (You may want to use a virtualenv.) 
 
+	pip install markdown2 yaml xml
 
-In terminal, go to the directory you want to set up the blog in. 
+Then run the following: 
 
-Either the root directory or a subdirectory should include a `_posts' subdirectory. 
-
-The root directory should also include a '_layouts' subdirectory and also a config.py and mezpress.py file. 
-
-Run: 
-
-	python mezpress.py
-
-That will cycle through all _posts subdirectories and produce a root/_site subdirectory containing the static site. 
-
-To view the output locally, run: 
-
+	mkdir ~/lark
+	cd ~/lark
+	git clone https://github.com/chrismeserole/lark.git
+	python lark.py
 	cd _site; python -m SimpleHTTPServer; cd ..
 
-Then got to 'localhost:8000' in a browser.
+If you open localhost:8000 in your browser, you should now see a skeleton site. 
+
+In the future I may release lark as a python module, but for now this works fine.
+
+### HOW LARK WORKS 
+
+Lark works by scanning the root directory *and all subdirectories* for a _posts subdirectory. 
+
+If you want to host a simple blog at the root of your lark directory, like Jekyll or most other static site generators, the structure of lark allows you to do that easily. 
+
+However, by scanning all subdirectorys for a _posts subdirectory, it also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
+
+### LARK'S STRUCTURE
+
+A simple install of lark will look like the following: 
+
+	lark/
+		_drafts
+		_posts
+		_pages
+		_layouts
+		_snippets
+		_site
+		_config.yaml
+		lark.py
+		larklib.py
+		readme.md
+
+The _drafts folder is for files you are not yet ready to publish. Lark does not parse them.
+
+The _posts folder is for files to be published. Lark parses any file there with an `.md` or `.markdown` file type.
+
+The _pages folder is for any files you want to publish off the root. The URL slug will be the same as the title, and will not include a date. The files should be of a `.md` or `.markdown` file type. 
+
+The _layouts folder contains a single html template that is parsed. (Note: in the future Lark may allow for multiple templates.)
+
+The _snippets folder contains any html, js or text snippets you would like to use in your templates. If there is a file named `twitter_script.js` in the _snippets folder, then if you put `{{ snippet.twitter_script }}` in the template layout, it will be parsed. Note that the file name and snippet parse tag must match exactly. 
+
+The _site folder is where Lark publishes the static site you can then upload. 
+
+The _config.yaml file is where you set basic defaults. Within your html template, any value in _config.yaml can be included. For example, the NAME field in _config.yaml can be parsed into your template as {{ site.name }}. 
+
+The lark.py file iteratively builds the site, and calls on several classes in larklib.py to do so. 
+
 
 ### DEFAULT SETTINGS
 
-DEFAULT_INDEX. Set this to '' if you want to create a blog at the root of your site. Otherwise specify the relevant category/subdirectory that you want to appear at the root. 
+PERMALINK_STYLE. The first option is 'date', which defaults to a permalink structure of root/[category/]Year/Month/Day/slug, with the slug being compiled from the title. The second option is 'no-date', which defaults to root/[category/]slug.
 
-ROOT_PATH. If this is not set, it defaults to the current directory in terminal. 
-
-PERMALINK_STYLE. Either 'date', which defaults to root/[category/]Year/Month/Day/slug. Or 'no-date', which defaults to root/slug.
-
-### _POSTS CONFIG.MD FILE
-Each category/subdirectory with a _posts subdirectory can also have a '_config.md' file. 
-
-You can use this to set DESCRIPTION and PERMALINK_STYLE for each individual category.
-
-### PAGES
-
-Mezpress also allows for pages. All markdown files in '../root/pages/_posts/' will produce pages at root.
-
+[TODO: fill out more of the defaults.]
