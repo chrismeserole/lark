@@ -29,13 +29,15 @@ However, by scanning all subdirectorys for a _posts folder, Lark also lets you h
 A simple install of lark will look like the following: 
 
 	lark/
-		_drafts
-		_posts
-		_pages
-		_layouts
-		_snippets
-		_site
+		_drafts/
+		_posts/
+		_pages/
+		_layouts/
+		_snippets/
+		_site/
 		_config.yaml
+		css/
+		img/
 		lark.py
 		larklib.py
 		readme.md
@@ -52,9 +54,19 @@ The **_snippets** folder contains any html, js or text snippets you would like t
 
 The **_site** folder is where Lark publishes the static site you can then upload. 
 
-The **_config.yaml** file is where you set basic defaults. Within your html template, any value in **_config.yaml** can be included. For example, the `NAME` field in _config.yaml can be parsed into your template as `{{ site.name }}`. 
+The **css** folder is not required, but may be used to store all `.css` files.
 
-The lark.py file iteratively builds the site, and calls on several classes in larklib.py to do so. 
+The **img** folder is also not required, but may be used to store all image files. 
+
+The **_config.yaml** file is where you set basic defaults. Within your html template, any value in _config.yaml can be included. For example, the `NAME` field in _config.yaml can be parsed into your template as `{{ site.name }}`. 
+
+The **lark.py** file iteratively builds the site, and calls on several classes in larklib.py to do so. 
+
+### Excepted Files
+
+With the exception of the underscored folders listed above, Lark does not open any file or subdirectory beginning with `.` or `_`.
+
+All other files, save those in a _posts subdirectory, are copied into the _site file at runtime with the same directory structure.
 
 
 ### Default Settings
