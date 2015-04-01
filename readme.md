@@ -1,4 +1,4 @@
-### Installation. 
+### Installing Lark 
 
 To get Lark up and running, first make sure you've got the modules below installed. (You may want to use a virtualenv.) 
 
@@ -16,7 +16,7 @@ If you open localhost:8000 in your browser, you should now see a skeleton site.
 
 In the future I may release lark as a python module, but for now this works fine.
 
-### HOW LARK WORKS 
+### How Lark Works 
 
 Lark works by scanning the root directory *and all subdirectories* for a _posts subdirectory. 
 
@@ -24,7 +24,7 @@ If you want to host a simple blog at the root of your lark directory, like Jekyl
 
 However, by scanning all subdirectorys for a _posts subdirectory, it also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
 
-### LARK'S STRUCTURE
+### Lark's Structure
 
 A simple install of lark will look like the following: 
 
@@ -57,8 +57,17 @@ The _config.yaml file is where you set basic defaults. Within your html template
 The lark.py file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
 
-### DEFAULT SETTINGS
+### Default Settings
 
 PERMALINK_STYLE. The first option is 'date', which defaults to a permalink structure of root/[category/]Year/Month/Day/slug, with the slug being compiled from the title. The second option is 'no-date', which defaults to root/[category/]slug.
 
 [TODO: fill out more of the defaults.]
+
+
+### Deploying to S3
+
+If you've got s3cmd installed, you can deploy using the following: 
+
+	s3cmd sync _site/ s3://[YOUR-BUCKET]/ --delete-removed
+
+
