@@ -2,7 +2,7 @@
 
 To get Lark up and running, first make sure you've got the modules below installed. (You may want to use a virtualenv.) 
 
-	pip install markdown2 yaml xml
+	pip install markdown2 pyyaml
 
 Then run the following: 
 
@@ -62,16 +62,17 @@ The **_config.yaml** file is where you set basic defaults. Within your html temp
 
 The **lark.py** file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
+
 ### Excepted Files
 
-With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_`.
+With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_` or ending with '.py', '.pyc', '.yml' or '.yaml'. The excepted file types can be changed in _config.yaml. 
 
 All other files are copied recursively, with the same directory structure, into the _site/ folder at runtime. 
 
 
 ### Default Settings
 
-PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink structure of `root/[category/]Year/Month/Day/slug`, with the slug being compiled from the title. The second option is 'no-date', which corresponds to `root/[category/]slug`.
+PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink structure of `root/[subdirectory/]Year/Month/Day/slug`, with the slug being compiled from the title. The second option is 'no-date', which corresponds to `root/[subdirectory/]slug`.
 
 [TODO: fill out more of the defaults.]
 

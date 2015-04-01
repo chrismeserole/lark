@@ -20,6 +20,13 @@ Gentium Basic License URI: http://scripts.sil.org/OFL
 /* HTML5 elements */
 article, aside, dialog, figure, figcaption, footer, header, hgroup, nav, section, small {display: block}
 
+
+html, body {
+	height: 100%;
+	padding: 0em;
+	margin: 0em;
+}
+
 /* Basic */
 body 
 	{
@@ -55,8 +62,7 @@ a:hover
 
 img 
 	{
-		margin: 1em 0 0;
-		padding:  0em;
+		padding: 1em 0 0;
 	}
 
 
@@ -127,9 +133,11 @@ pre code
 /* keeps footer at bottom */
 .wrapper 
 	{
+		margin: 0 auto -3em;
 	    min-height: 100%;
 	    height: auto !important;
 	    height: 100%;
+
  	}
 
 
@@ -158,8 +166,7 @@ pre code
 		font-size: 1.8em; 
 		line-height: 0.2em;
 		letter-spacing: .25em; 
-		margin-top: 3px;
-		padding: 0 0 0em;
+		padding-top: 3px 0em 0em;
 		color: black;
 		font: Georgia,Serif;
 	}
@@ -272,7 +279,7 @@ article
 .entry-content h1, .entry-content h2, .entry-content h3, 
 .entry-content h4, .entry-content h5, .entry-content h6 
 	{
-		margin: 1.5em 0 1em;
+		padding: 1.5em 0 1em;
 		font-weight: normal;
 	}
 
@@ -318,7 +325,7 @@ article
 .entry-date h6
 	{
 		clear: both;
-		margin: 0 0 1.25em;
+		padding: 0 0 1.25em;
 		font-size: .9em;
 		color: #ababab;
 		font-weight: normal;
@@ -346,8 +353,8 @@ article
 
 .twitter-class 
 	{
-		margin-top: 4px;
-		margin-right: 0.5em;
+		padding-top: 4px;
+		padding-right: 0.5em;
 	}
 
 .twitter-class a, .fb-share-button a

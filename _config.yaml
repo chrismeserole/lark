@@ -40,10 +40,3 @@ EXCEPTED_PREFIXES: [ '_', '.' ]
 
 # Excepted suffixes (python script won't parse files with this suffix):
 EXCEPTED_SUFFIXES: ( '.py', '.pyc', '.yaml', '.yml' )
-
-USE_TWITTER_SNIPPET: True
-USE_GOOGLE_ANALYTICS_SNIPPET: False
-USE_MAILCHIMP_SNIPPET: True
-
-
-
