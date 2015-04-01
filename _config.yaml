@@ -1,0 +1,49 @@
+
+# Name of site
+NAME: 'exemplum'
+
+# Name of site author
+AUTHOR: 'Tacitus Ciceronis'
+
+# Author Twitter Handle
+TWITTER_USERNAME: cicero
+
+# Site description
+DESCRIPTION: "ludem ludem ludem"
+
+# Permalink style. Options: 'date' and 'no-date'
+PERMALINK_STYLE: "date"
+
+# Default file for home page. If not using a page or subdirectory as home, use ''
+DEFAULT_INDEX: ''
+
+# Max number of entries allowed
+MAX_INDEX_ENTRIES: 10
+
+# Local url 
+LOCAL_URL: 'localhost:8000'
+
+# URL of production site
+SITE_URL: 'http://example.org'
+
+# Set path of _layouts directory relative to local root working directory
+LAYOUT_PATH: '_layouts'
+
+# Set path of _layouts directory relative to local root working directory
+OUTPUT_PATH: '_site'
+
+# Set path of _snippets directory relative to local root working directory
+SNIPPET_PATH: '_snippets'
+
+# Excepted prefixes (python script won't parse files with this prefix):
+EXCEPTED_PREFIXES: [ '_', '.' ]
+
+# Excepted suffixes (python script won't parse files with this suffix):
+EXCEPTED_SUFFIXES: ( '.py', '.pyc', '.yaml', '.yml' )
+
+USE_TWITTER_SNIPPET: True
+USE_GOOGLE_ANALYTICS_SNIPPET: False
+USE_MAILCHIMP_SNIPPET: True
+
+
+

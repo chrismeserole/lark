@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<html lang="en-US">
+  <head>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<meta charset="UTF-8"/>
+
+	<meta name="viewport" content="initial-scale=1.0">
+	<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/style.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="{{ site.author }}" />
+
+
+	<title>{{ site.title_tag }}</title>
+
+</head>
+<body>
+  	<div class="wrapper">
+
+		<header id="header">
+			<div id="banner">
+				<h1><a href="{{ site.banner_url }}">{{ site.banner_text }}</a></h1>
+			</div>
+			<nav id="nav">
+		        <ul>
+		      		<li><a href="/about">About</a></li>		
+		      		<li>&middot;</li>	
+		      		<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A8000%2F&screen_name={{ site.twitter_username }}&tw_p=followbutton" class="popup">Twitter</a></li>
+		      		<li>&middot;</li>		
+					<li><a href="/subscribe">Subscribe</a></li>
+		       </ul>
+		    </nav>
+		</header>
+
+		<div id="content">
+	    	<section>
+	    		<article>
+
+	    			{{ content_loop }}
+
+					<h2 class="entry-title"><a rel="archive" href="{{ post.url }}">{{ post.title }}</a></h2>
+				    
+				    <div class="entry-content">
+				    		{{ post.content }}
+				    </div>
+
+				    <div class = "entry-footer">
+
+				    {{ entry_only }}
+
+
+		    			<div class="entry-share">
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer={{ site.url_encoded }}&text={{ post.title_encoded }}&tw_p=tweetbutton&url={{ post.url_encoded }}&via={{ site.twitter_username }}" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="{{ site.url }}{{ post.url }}" data-layout="button"></div>
+						</div>
+
+		    			<div class="entry-date"><h6>{{ post.date_text }}</h6></div>
+
+					</div><!-- ends .entry-footer -->
+
+						    {{ single_entry_only }}
+						    		{{ snippet.mailchimp_form }}
+						    {{ single_entry_only }}
+
+				    {{ entry_only }}
+
+
+				    {{ content_loop }}
+
+				</article>
+			</section>
+		</div>
+
+	</div><!-- ends .wrapper -->
+
+
+	<footer id="footer">            
+		<div id="footer-info">
+			<p>&copy; {{ site.author }} 2015</p>
+		</div>
+	</footer>
+
+
+	<script>
+		var x = document.getElementsByTagName('a');
+		for (var i=0;i<x.length;i++) {
+			if (x[i].getAttribute('type') == 'popup') {
+				x[i].onclick = function () {
+					return pop(this.href)
+				}
+				x[i].title += ' (Popup)';
+			}
+		}
+	</script>
+
+	{{ snippet.twitter_script }}
+	{{ snippet.facebook_script }}
+	{{ snippet.mailchimp_script }}
+
+  </body>
+</html>

@@ -1,0 +1,411 @@
+/*
+Theme Name: Ghostwriter
+Theme URI: http://www.brunocavalcante.com.br/blog/2011/01/tema-wordpress-ghostwriter/
+Description: A minimal theme focused on typography.
+Version: 1.4
+Author: Bruno Cavalcante
+Author URI: http://www.brunocavalcante.com.br
+Tags: two-columns, fixed-width, right-sidebar
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Gentium Basic License: SIL Open Font License
+Gentium Basic License URI: http://scripts.sil.org/OFL
+*/
+
+
+/* Float Fix */
+#content:after, #header:after, #pagination ul:after, #nav ul:after, .entry-content:after, #footer:after, .entry-content p:after 
+{content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
+
+/* HTML5 elements */
+article, aside, dialog, figure, figcaption, footer, header, hgroup, nav, section, small {display: block}
+
+/* Basic */
+body 
+	{
+		color: #333; 
+		font: 1em/1.5em 'Open Sans', 'Source Sans Pro', Georgia, Palatino, Ubuntu, serif; 
+		margin: 0 auto; 
+		background: #fff;
+	}
+
+#header, #nav, h1, h2
+	{	
+		font-weight: normal;
+		font-family: 'Crimson Text', 'Open Sans', Georgia, serif; 
+	}
+
+p
+	{
+		margin: 1.2em 0;
+	}
+
+/* a {color: #39c #2b6cc2 <-- original} */
+a 	
+	{
+		color: #0b60c2; 
+		text-decoration: underline
+	}
+
+a:hover 
+	{
+		text-decoration: underline; 
+	}
+
+
+img 
+	{
+		margin: 1em 0 0;
+		padding:  0em;
+	}
+
+
+blockquote 
+	{
+		border-left: 2px solid #ccc; 
+		margin: 1.5em 1em 1.5em; 
+		padding: 0 1em; 
+		size: 1em
+	}
+
+code 
+	{
+		font-weight: strong;
+		background: dotted #efefef;
+		font-weight: bold;
+		border: 1px #ccc solid;
+		color: green; 
+		padding: 0.2em 0.3em;
+		border-radius: 0.3em;
+	}
+
+blockquote code 
+	{
+		border-left: 1px solid #green;
+		border-radius: 0em;
+		margin: 1.5em 0em 1.5em -1.5em;
+		padding: 1em;
+		size: 2em;
+		min-height: 3em;
+	}
+
+pre 
+	{
+		border-left: 1px solid green;
+		padding: .15em 2em .15em 0.5em;
+		background: #ffe;
+	}
+
+
+pre code 
+	{
+		padding: 0em; 
+		border: none;
+		color: black;	
+	}
+
+
+
+/* Structure */
+#header, #footer, #nav
+	{
+		width: 100%; 
+		margin: 0 auto;
+	}
+
+#content, #footer-info
+	{
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
+#content 
+	{
+		min-height: 24em;
+	}
+
+/* keeps footer at bottom */
+.wrapper 
+	{
+	    min-height: 100%;
+	    height: auto !important;
+	    height: 100%;
+ 	}
+
+
+
+/* Header */
+
+#header 
+	{
+		text-align: center;
+	}
+
+#banner 
+	{	
+		padding: 2em 0em 1em;
+		border-bottom: 1px solid #ddd;
+	}
+
+#header a 
+	{
+		text-decoration: none;
+		text-transform: lowercase;
+	}
+
+#header h1 
+	{ 		
+		font-size: 1.8em; 
+		line-height: 0.2em;
+		letter-spacing: .25em; 
+		margin-top: 3px;
+		padding: 0 0 0em;
+		color: black;
+		font: Georgia,Serif;
+	}
+
+#header h1 a
+	{
+		text-decoration: none;
+		color: black;
+		text-transform: uppercase;
+	}
+
+#header h1 a:hover
+	{
+		border-bottom: 1px solid black;
+	}
+	
+#nav 
+	{	
+		padding: 1em 0;  
+		font-style: italic;
+		line-height: 1em;
+		color: #aaa;
+	}
+
+#nav ul 
+	{
+		padding: 0em;
+		margin: 0em auto;
+		list-style-type: none; 
+	}
+
+#nav li 
+	{  
+		padding: 0 .2em;
+		display: inline; 
+	}
+
+#nav li a 
+	{
+		color: #aaa;
+	}
+
+#nav li a:hover 
+	{
+		color: #000;
+		text-decoration: underline; 
+	}
+
+
+/* Footer */
+#footer 
+	{
+	    min-height: 3em; /* .push must be the same height as .footer */
+    	background: #000;
+		clear: both;
+		font-color: #ccc;
+		font-size: .8em;
+	}
+
+#footer a, #footer p  
+	{
+		color: #ccc;
+	}
+
+#footer-info 
+	{
+		text-align: center;
+		padding: 1em 1em; 
+	}
+
+
+/* Content */
+#content 
+	{
+		padding-top: 3em;
+	}
+
+#content p 
+	{
+		font-size: 1em; 
+		line-height: 1.8em;
+	}
+
+#content h1, #content h2
+	{ 
+		font-size: 1.6em;
+		line-height: 1.1em;
+		margin: 0;
+	}
+
+#content h1 a, #content h2 a 
+	{ 
+		text-decoration: none;
+	}
+
+
+
+
+/* Post */
+article 
+	{
+		padding: 1em 1em 6em;
+	}
+
+.entry-content 
+	{
+	padding: 1em 0em 0em;
+	}
+
+.entry-content h1, .entry-content h2, .entry-content h3, 
+.entry-content h4, .entry-content h5, .entry-content h6 
+	{
+		margin: 1.5em 0 1em;
+		font-weight: normal;
+	}
+
+.entry-content h3
+	{
+		font-size: 1.05em; 
+		text-transform: uppercase;
+		letter-spacing: .05em;
+	}
+
+
+#content ul.entry-share-buttons 
+	{
+		list-style-type: none;
+		padding: 0em;
+		margin: 0em;
+	}
+
+#content ul.entry-share-buttons li 
+	{
+		display: inline;
+	}	
+
+
+.entry-footer 
+	{
+		padding-bottom: 6em;
+	}
+
+.entry-content h3, .entry-content h4 
+	{
+		color: #ccc; 
+		font-weight: normal;
+		text-transform: uppercase
+	}
+
+.entry-content h5 
+	{
+		font-size: 1em
+	}
+
+
+.entry-date h6
+	{
+		clear: both;
+		margin: 0 0 1.25em;
+		font-size: .9em;
+		color: #ababab;
+		font-weight: normal;
+	}
+
+.entry-content p, .entry-summary p 
+	{
+		text-align: left; 
+		zoom: 1
+	}
+
+.entry-content img 
+	{
+		height: auto; 
+		width: 100%; 
+	}
+
+.entry-content img.aligncenter 
+	{	
+		clear: both;
+		display: block;
+		margin-left: auto;
+		margin-right: auto
+	}
+
+.twitter-class 
+	{
+		margin-top: 4px;
+		margin-right: 0.5em;
+	}
+
+.twitter-class a, .fb-share-button a
+	{
+		padding: 0em;
+		margin: 0em;
+		color: red;
+	}
+
+
+.twitter-class, .fb-share-button 
+	{
+		float: left;
+		clear: none;
+	}
+
+
+h2.email-signup 
+	{
+		font-size: .9em;
+		padding: 0 0 .75em;
+	}
+
+#mc_embed_signup
+	{
+		background:#fff; 
+		clear:left; 
+		border: 1px solid #ccc;
+	}
+
+#mc_embed_signup input.button 
+	{
+
+	    background: #111;
+	    -moz-border-radius:0px;
+	    -webkit-border-radius:0px;
+	    border-radius:0px;
+	    display:inline-block;
+	    font-weight: normal;
+
+	}
+
+
+ @media only screen and (max-width: 720px) {
+	#nav, #content, #footer-info, #banner
+	{
+		width: 100%;
+	}
+}
+
+
+@media only screen and (max-width: 480px) {
+       #banner  {
+        	border-bottom: 1px #ababab solid;
+        }
+
+        #nav li a {
+        	color: #999;
+        }
+}
+
