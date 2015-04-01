@@ -42,21 +42,21 @@ A simple install of lark will look like the following:
 		larklib.py
 		readme.md
 
-The **_drafts** folder is for files you are not yet ready to publish. Lark does not parse them.
+The **_drafts/** folder is for files you are not yet ready to publish. Lark does not parse them.
 
-The **_posts** folder is for files to be published. Lark parses any file there with an `.md` or `.markdown` file type.
+The **_posts/** folder is for files to be published. Lark parses any file there with an `.md` or `.markdown` file type.
 
-The **_pages** folder is for any files you want to publish off the root. The URL slug will be the same as the title, and will not include a date. The files should be of a `.md` or `.markdown` file type. 
+The **_pages/** folder is for any files you want to publish off the root. The URL slug will be the same as the title, and will not include a date. The files should be of a `.md` or `.markdown` file type. 
 
-The **_layouts** folder contains a single html template that is parsed. (Note: in the future Lark may allow for multiple templates.)
+The **_layouts/** folder contains a single html template that is parsed. (Note: in the future Lark may allow for multiple templates.)
 
-The **_snippets** folder contains any html, js or text snippets you would like to use in your templates. If there is a file named `twitter_script.js` in the _snippets folder, then if you put `{{ snippet.twitter_script }}` in the template layout, it will be parsed. Note that the file name and snippet parse tag must match exactly. 
+The **_snippets/** folder contains any html, js or text snippets you would like to use in your templates. If there is a file named `twitter_script.js` in the _snippets folder, then if you put `{{ snippet.twitter_script }}` in the template layout, it will be parsed. Note that the file name and snippet parse tag must match exactly. 
 
-The **_site** folder is where Lark publishes the static site you can then upload. 
+The **_site/** folder is where Lark publishes the static site you can then upload. 
 
-The **css** folder is not required, but may be used to store all `.css` files.
+The **css/** folder is not required, but may be used to store all `.css` files.
 
-The **img** folder is also not required, but may be used to store all image files. 
+The **img/** folder is also not required, but may be used to store all image files. 
 
 The **_config.yaml** file is where you set basic defaults. Within your html template, any value in _config.yaml can be included. For example, the `NAME` field in _config.yaml can be parsed into your template as `{{ site.name }}`. 
 
@@ -64,14 +64,14 @@ The **lark.py** file iteratively builds the site, and calls on several classes i
 
 ### Excepted Files
 
-With the exception of the underscored folders listed above, Lark does not open any file or subdirectory beginning with `.` or `_`.
+With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_`.
 
-All other files, save those in a _posts subdirectory, are copied into the _site file at runtime with the same directory structure.
+All other files are copied recursively, with the same directory structure, into the _site/ folder at runtime. 
 
 
 ### Default Settings
 
-PERMALINK_STYLE. The first option is 'date', which defaults to a permalink structure of root/[category/]Year/Month/Day/slug, with the slug being compiled from the title. The second option is 'no-date', which defaults to root/[category/]slug.
+PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink structure of `root/[category/]Year/Month/Day/slug`, with the slug being compiled from the title. The second option is 'no-date', which corresponds to `root/[category/]slug`.
 
 [TODO: fill out more of the defaults.]
 
