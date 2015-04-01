@@ -14,15 +14,15 @@ Then run the following:
 
 If you open localhost:8000 in your browser, you should now see a skeleton site. 
 
-In the future I may release lark as a python module, but for now this works fine.
+In the future I may release Lark as a python module, but for now this works fine.
 
 ### How Lark Works 
 
-Lark works by scanning the root directory *and all subdirectories* for a _posts subdirectory. 
+Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
 
-If you want to host a simple blog at the root of your lark directory, like Jekyll or most other static site generators, the structure of lark allows you to do that easily. 
+If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
-However, by scanning all subdirectorys for a _posts subdirectory, it also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
+However, by scanning all subdirectorys for a _posts folder, Lark also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
 
 ### Lark's Structure
 
