@@ -124,7 +124,6 @@ class Util(object):
 		util = Util()
 		print category.name
 		if category.permalink_style.lower() == "no-date" or category.name == "root_pages":
-			print '2jad'
 			entry_output_path = util.ensure_directory( os.path.join( category.output_directory, post.slug ) )
 
 		else:		
@@ -332,8 +331,6 @@ class FileHandler(object):
 		 	except: 
 		 		date_text = str(datetime.datetime.now())
 		 		self.undated == True
-
-		 	print date_text
 
 			post_date_split = date_text.split( "-", 2 )
 			

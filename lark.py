@@ -61,8 +61,9 @@ for item in root_items:
 	# skip files with excepted prefixes (e.g., '_', '.')
 	if item[0] in site.excepted_prefixes:
 		continue
+
 	# skip files with excepted suffixes (e.g., '.py')
-	if item.endswith( site.excepted_suffixes ):
+	if item.endswith( tuple(site.excepted_suffixes) ):
 		continue
 
 	# set item source path

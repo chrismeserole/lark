@@ -6,9 +6,7 @@ To get Lark up and running, first make sure you've got the modules below install
 
 Then run the following: 
 
-	mkdir ~/lark
-	cd ~/lark
-	git clone https://github.com/chrismeserole/lark.git
+	git clone https://github.com/chrismeserole/lark.git; cd lark
 	python lark.py
 	cd _site; python -m SimpleHTTPServer; cd ..
 

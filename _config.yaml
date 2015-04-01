@@ -39,4 +39,4 @@ SNIPPET_PATH: '_snippets'
 EXCEPTED_PREFIXES: [ '_', '.' ]
 
 # Excepted suffixes (python script won't parse files with this suffix):
-EXCEPTED_SUFFIXES: ( '.py', '.pyc', '.yaml', '.yml' )
+EXCEPTED_SUFFIXES: ['.py', '.pyc', '.yaml', '.yml']

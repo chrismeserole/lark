@@ -222,19 +222,39 @@ pre code
 	    min-height: 3em; /* .push must be the same height as .footer */
     	background: #000;
 		clear: both;
-		font-color: #ccc;
+		color: #ccc;
 		font-size: .8em;
 	}
 
 #footer a, #footer p  
 	{
 		color: #ccc;
+		text-decoration: none
 	}
 
 #footer-info 
 	{
 		text-align: center;
-		padding: 1em 1em; 
+		padding: 1.5em 1em; 
+	}
+
+#footer-info ul 
+	{
+		padding: 0em;
+		margin: 0em;
+		list-style-type: none
+	}
+
+#footer-info li 
+	{
+		display: inline;
+		padding-right: .5em
+	}
+
+#footer-info .copyright 
+	{
+		border-left: 1px solid #666;
+		padding-left: 1em;
 	}
 
 
@@ -268,7 +288,7 @@ pre code
 /* Post */
 article 
 	{
-		padding: 1em 1em 6em;
+		padding: 1em 1em;
 	}
 
 .entry-content 
@@ -294,7 +314,7 @@ article
 #content ul.entry-share-buttons 
 	{
 		list-style-type: none;
-		padding: 0em;
+		padding: 1.5em 0em;
 		margin: 0em;
 	}
 
@@ -325,7 +345,7 @@ article
 .entry-date h6
 	{
 		clear: both;
-		padding: 0 0 1.25em;
+		padding: 1.5em 0;
 		font-size: .9em;
 		color: #ababab;
 		font-weight: normal;
@@ -356,14 +376,6 @@ article
 		padding-top: 4px;
 		padding-right: 0.5em;
 	}
-
-.twitter-class a, .fb-share-button a
-	{
-		padding: 0em;
-		margin: 0em;
-		color: red;
-	}
-
 
 .twitter-class, .fb-share-button 
 	{
@@ -405,7 +417,6 @@ h2.email-signup
 	}
 }
 
-
 @media only screen and (max-width: 480px) {
        #banner  {
         	border-bottom: 1px #ababab solid;
@@ -415,4 +426,3 @@ h2.email-signup
         	color: #999;
         }
 }
-

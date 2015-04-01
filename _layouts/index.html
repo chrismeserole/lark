@@ -15,6 +15,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="author" content="{{ site.author }}" />
 
+
 	<title>{{ site.title_tag }}</title>
 
 </head>
@@ -29,7 +30,7 @@
 		        <ul>
 		      		<li><a href="/about">About</a></li>		
 		      		<li>&middot;</li>	
-		      		<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A8000%2F&screen_name={{ site.twitter_username }}&tw_p=followbutton" class="popup">Twitter</a></li>
+		      		<li><a href="https://twitter.com/intent/follow?original_referer={{ site.url_encoded }}&screen_name={{ site.twitter_username }}&tw_p=followbutton" class="popup">Twitter</a></li>
 		      		<li>&middot;</li>		
 					<li><a href="/subscribe">Subscribe</a></li>
 		       </ul>
@@ -60,11 +61,13 @@
 
 		    			<div class="entry-date"><h6>{{ post.date_text }}</h6></div>
 
-					</div><!-- ends .entry-footer -->
 
 						    {{ single_entry_only }}
 						    		{{ snippet.mailchimp_form }}
 						    {{ single_entry_only }}
+
+					</div><!-- ends .entry-footer -->
+
 
 				    {{ entry_only }}
 
@@ -75,12 +78,19 @@
 			</section>
 		</div>
 
+
 	</div><!-- ends .wrapper -->
 
 
 	<footer id="footer">            
 		<div id="footer-info">
-			<p>&copy; {{ site.author }} 2015</p>
+				<ul>
+		      		<li><a href="/about">About</a></li>		
+		      		<li><a href="https://twitter.com/intent/follow?original_referer={{ site.url_encoded }}&screen_name={{ site.twitter_username }}&tw_p=followbutton" class="popup">Twitter</a></li>		
+					<li><a href="/subscribe">Subscribe</a></li>
+					<li class="copyright">&copy; {{ site.author }} 2015</li>
+
+		       </ul>
 		</div>
 	</footer>
 
