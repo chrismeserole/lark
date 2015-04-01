@@ -52,7 +52,7 @@ The _snippets folder contains any html, js or text snippets you would like to us
 
 The _site folder is where Lark publishes the static site you can then upload. 
 
-The _config.yaml file is where you set basic defaults. Within your html template, any value in _config.yaml can be included. For example, the NAME field in _config.yaml can be parsed into your template as {{ site.name }}. 
+The _config.yaml file is where you set basic defaults. Within your html template, any value in **_config.yaml** can be included. For example, the `NAME` field in **_config.yaml** can be parsed into your template as `{{ site.name }}`. 
 
 The lark.py file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
