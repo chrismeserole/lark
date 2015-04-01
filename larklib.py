@@ -1,333 +1,455 @@
 import re
 import os
-import sys
-import shutil
 import markdown2
 import datetime, time
-from xml.sax.saxutils import escape #for rss feed
-from pygments import highlight
-from pygments.lexers import PythonLexer
-from pygments.formatters import HtmlFormatter
-from niebuhrlib import Util, FileHandler, Category, Post, Snippet, Site, Parse
+import shutil
+import yaml
+import urllib
+
+class Struct:
+    def __init__(self, **entries): 
+        self.__dict__.update(entries)
 
 
+class Site(object):
 
-#
-# get site variables (site.name, site.author, etc)
-# 
-site = Site().config_vars
+	def __init__( self ):
 
+		# get root path
+		root_path = os.getcwd()
 
-# 
-#	get Utility object
-#
-util = Util()
+		# load _config.yaml
+		try:
+			with open( os.path.join( root_path, '_config.yaml' ), 'rb') as f: 
+				config_file = f.read()
+		except: 
+			raise RuntimeError( "Could not find or read _config.yaml file" )
 
-#
-#	CHECK FOR config.py && _layouts/
-#
-util.confirm_layouts( site.layout_path )
+		# load yaml config file
+		config_dict = yaml.load( config_file )
 
-#
-#	ENSURE site.output_path EXISTS & IS EMPTY
-#
-util.prepare_output_dir( site.output_path )
+		# make all keys lowercase
+		config_dict = dict((k.lower(), v) for k,v in config_dict.iteritems())
 
+		# convert all dict keys to attributes in site.global_vars object
+		self.config_vars = Struct( **config_dict )
 
-# 
-#	INITIATE SNIPPET CLASS
-#
-snippet = Snippet( site )
-
-#
-#	1. GET LOCATION OF ALL DIRECTORIES IN site.root_path THAT HAVE _POSTS SUBDIRECTORY
-#	2. COPY ALL OTHER UNEXCEPTED DIRS AND FILES TO site.output_path
-#	3. CONFIRM THAT THERE IS AT LEAST ONE _POSTS SUBDIRECTORY
-#
-
-# initialize list of all categories/subdirs
-categories = []
-
-# check if there is a _POSTS or _PAGES file in rootpath, add to '' category list
-if os.path.isdir( os.path.join( site.root_path, '_posts' ) ):
-	categories.append( 'root_posts' )
-
-# check if there is a _POSTS or _PAGES file in rootpath, add to '' category list
-if os.path.isdir( os.path.join( site.root_path, '_pages' ) ):
-	categories.append( 'root_pages' )
+		# add further globals
+		self.config_vars.root_path = root_path
+		self.config_vars.layout_path = os.path.join( root_path, self.config_vars.layout_path )
+		self.config_vars.output_path = os.path.join( root_path, self.config_vars.output_path )
+		self.config_vars.url = self.config_vars.site_url
+		self.config_vars.url_encoded = urllib.quote_plus( self.config_vars.url )
 
 
-# get a list of all items in root path
-root_items = os.listdir( site.root_path )
+	def set_header_vars( self, site, post_title, category, index=False ):
 
-# loop through every item name in root path
-for item in root_items:
-
-	# skip files with excepted prefixes (e.g., '_', '.')
-	if item[0] in site.excepted_prefixes:
-		continue
-	# skip files with excepted suffixes (e.g., '.py')
-	if item.endswith( site.excepted_suffixes ):
-		continue
-
-	# set item source path
-	item_source_path = os.path.join( site.root_path, item )
-
-	#
-	#	Check if item is a directory
-	#
-	if os.path.isdir( item_source_path ):
-
-		# 
-		#	If item is a directory with a _posts subdirectory, then add to 
-		#	'category' list but don't copy anything.
-		#
-		if os.path.exists( os.path.join( item_source_path, '_posts' ) ):
-			categories.append( item )
-
-		#
-		#	If _posts directory doesnt exist, then copy all contents
-		#	recursively into site.output_path.
-		#
-		else:
-			item_layout_path = os.path.join( site.output_path, item )
-			shutil.copytree( item_source_path, item_layout_path )
-
-	#
-	#	Copy all unexcepted files in site.root_path to site.output_path
-	#
-	elif os.path.isfile( item_source_path ):
-		shutil.copy2( item_source_path, os.path.join( site.output_path, item ) )
-
-
-#
-# confirm that there is at least one _posts directory
-#
-util.confirm_posts( categories )
-
-
-#
-#	PREPARE HTML TEMPLATE. (Retrieves templates & parses snippets.)
-#
-html_template = util.prep_html_template( site )
-
-
-#
-#
-#	LOOP THROUGH EACH CATEGORY (IE, EACH _POSTS SUBDIRECTORY)
-#
-#
-
-for category_name in categories: 
-
-	# get category object
-	category = Category( category_name, site )
-
-	# initialize variable to store all posts within category in memory
-	posts_heap = []
-
-	# loop through each item in /root/category/_posts
-	for file_name in category.posts_list:
-
-		# set file_name path, namely: /root/category/_posts/entry
-		file_source_path = os.path.join( category.posts_source_path, file_name )
-
-		# verify file_name is a file rather than subdirectory
-		if not os.path.isfile( file_source_path ):
-			continue 
-
-		# verify file_name has approved file extension
-		if not file_name.endswith( '.md' ) and not file_name.endswith( '.markdown' ):
-			continue 
-
-		#
-		#	CREATE AND WRITE POSTS
-		#
-
-		# create post object that returns post.title, post.content, etc
-		post = Post( file_source_path, category, site )
-
-		# add site.title_tag, site.banner_url, site.banner_text
-		site = Site().set_header_vars( site, post.title, category, index=False  )
-
-		# replace all site tags, e.g. {{ site.url }}
-		post_template = Parse().replace_tags( 'site', site, html_template )
-
-		# replace all post tags, e.g. {{ post.title }}
-		post_template = Parse().replace_tags( 'post', post, post_template )
-
-		# since this is single post, just delete both content & single entry tags
-		post_template = post_template.replace( '{{ content_loop }}', '' )
-		post_template = post_template.replace( '{{ single_entry_only }}', '' )
-
-		# for pages, ignore all content between {{ entry_only }} tags
 		if category.name == 'root_pages':
-			post_template = post_template.split( '{{ entry_only }}' )
-			post_template = "%s%s" % ( post_template[0], post_template[2] )
-			
+			site.title_tag_text = '%s > %s' % ( post_title, site.name )
+			site.banner_text = site.name.replace(' ', '')
+			site.banner_url = '/'
+
+		elif category.name == 'root_posts': 
+			if index is True:
+				site.title_tag = '%s' % ( site.name )
+			else:
+				site.title_tag = '%s > %s ' % ( post_title, site.name )
+
+			site.banner_text = site.name.replace(' ', '')
+			site.banner_url = '/'
+
 		else:
-			post_template = post_template.replace( '{{ entry_only }}', '' )
+			if index is True: 
+				site.title_tag = '%s > %s' % ( site.name, category.name )
+			else:
+				site.title_tag = '%s > %s > %s' % ( post_title, category.name, site.name )
+
+			site.banner_text = '%s/%s' % ( site.name.replace(' ', ''), category.upper() )
+			site.banner_url = '/%s/' % ( category.name )
+
+		site.title_tag_encoded = urllib.quote_plus( site.title_tag )
+
+		return site
+
+
+
+class Util(object):
+
+
+	def create_slug_from_title( self, title ):
+		post_slug = title.strip().lower()
+
+		post_slug = post_slug.replace( " ", "-")
+		post_slug = post_slug.replace( "/", "-")
+		post_slug = post_slug.replace( ".", "")
+
+		post_slug = post_slug.replace( "'", "")
+		post_slug = post_slug.replace( ":", "")
+		post_slug = post_slug.replace( ";", "")
+		post_slug = post_slug.replace( "!", "")
+		post_slug = post_slug.replace( ",", "")
+		post_slug = post_slug.replace( "?", "")
+		post_slug = post_slug.replace( "\"", "")
+		post_slug = post_slug.replace( "(", "")
+		post_slug = post_slug.replace( ")", "")
+		post_slug = post_slug.replace( "#", "")
+		post_slug = post_slug.replace( "\\", "-")
+		post_slug = post_slug.replace( "&", "-and-")
+
+		return post_slug
+
+
+	def ensure_directory( self, directory ):
+		if not os.path.exists( directory ):
+			os.makedirs( directory )
+		return directory
+
+
+	def prep_html_template( self, site ):
+
+		snippets = Snippet( site )
+
+		with open( os.path.join( site.layout_path, 'index.html' ), 'rb' ) as f:
+			html_template = f.read()
 
 		# replace snippets
-		post_template = Parse().replace_tags( 'snippet', site, post_template )
+		html_template = Parse().replace_tags( 'snippet', snippets.dict, html_template )
 
-		# write the post_template to file 
-		util.write_entry( post_template, category, post, site  )
-
-		# append post itself to heap, for reuse in category & rss files
-		posts_heap.append( post )
-		
+		return html_template
 
 
-	#
-	#	End the pass through the for loop if the current category is "pages"
-	#
-	if category.name == 'root_pages':
-		continue
+	def write_entry( self, my_html, category, post, site ):
 
-	#
-	#	Sort posts by timestamp
-	#
-	posts_heap = sorted( posts_heap, key=lambda post_data: post.date.timestamp, reverse=True )
+		util = Util()
+		print category.name
+		if category.permalink_style.lower() == "no-date" or category.name == "root_pages":
+			print '2jad'
+			entry_output_path = util.ensure_directory( os.path.join( category.output_directory, post.slug ) )
 
+		else:		
+			entry_output_path = util.ensure_directory( os.path.join( category.output_directory, post.date.year ) )
+			entry_output_path = util.ensure_directory( os.path.join( entry_output_path, post.date.month ) )
+			entry_output_path = util.ensure_directory( os.path.join( entry_output_path, post.date.day ) )
+			entry_output_path = util.ensure_directory( os.path.join( entry_output_path, post.slug ) )
 
-	#
-	#	GENERATE CATEGORY INDEX
-	#
+		entry_output_path_index = os.path.join( entry_output_path, 'index.html' )
 
-	#
-	#	Regenerate site.title_tag, site.banner_url, site.banner_link
-	#
-	# add site.title_tag, site.banner_url, site.banner_text
-	site = Site().set_header_vars( site, '', category, index=True  )
+		with open( entry_output_path_index, 'w' ) as f:
+			my_html = my_html.encode("utf-8") # was running into error w/o this with some chars
+			f.write( my_html )
+			print 'Published %s' % entry_output_path_index	
 
-	# replace all site tags, e.g. {{ site.url }}
-	post_template = Parse().replace_tags( 'site', site, html_template )
-
-	# split category template on content_loop tags
-	category_template = post_template.split( "{{ content_loop }}" )
-
-	content_html = category_template[1]
-	footer_html = category_template[2]
-
-	category_template = category_template[0]
-
-	count = 0
-
-	for post in posts_heap:
-
-		## for category page, we want everything between {{ entry_only }} tages 
-		post_entry_html = content_html.replace( '{{ entry_only }}', '' )
-
-		## break before single_entry_only, since this is index
-		post_entry_html = post_entry_html.split( "{{ single_entry_only }}")
-
-		# replace all post tags, e.g. {{ post.title }}
-		post_entry_html = Parse().replace_tags( 'post', post, post_entry_html[0] )
-
-		## add latest post to the index file we're building
-		category_template += post_entry_html 
-
-		count += 1 
-
-		if count == site.max_index_entries:
-			break
-
-	## add footer html to index file
-	category_template += footer_html
-
-	## write index file
-	util.write_category_index( category.output_directory, category_template )
+		return
 
 
+	def write_category_index( self, published_category_directory_path, index_html ):
 
-	#
-	#	GENERATE RSS FEED FOR CATEGORY
-	#
+		published_category_directory_index = os.path.join( published_category_directory_path, 'index.html' )
 
-	with open( os.path.join( site.layout_path, 'feed.xml' ), 'rb' ) as f:
-		rss_template = f.read()
-
-	# replace all post tags, e.g. {{ site.name }}
-	rss_template = Parse().replace_tags( 'site', site, rss_template )
-
-	# if we're in root, replace accordingly
-	if category == 'root_posts':
-		feed_url = "%s/feed.xml" % site.url
-		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
-		rss_template = rss_template.replace( '{{ category }}', '' )
-		rss_template = rss_template.replace( '{{ category.description }}', site.description )
-
-	# if we're in subdirectory, replace with category tags
-	else: 
-		feed_url = "%s/%s/feed.xml" % ( site.url, category.name ) 
-		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
-		rss_template = rss_template.replace( '{{ category }}', category.name )
-		rss_template = rss_template.replace( '{{ category.description }}', category.description )
+		with open( published_category_directory_index, 'w' ) as f:
+			index_html = index_html.encode("utf-8") # was running into error w/o this with some chars
+			f.write( index_html )
+			print 'Published %s' % published_category_directory_index
 
 
-	# split at content loop
-	rss_template = rss_template.split( "{{ content_loop }}" )
+	def write_category_feed( self, published_category_directory_path, rss_feed_xml ):
 
-	rss_content = rss_template[1]
-	rss_footer = rss_template[2]
-	
-	rss_template = rss_template[0]
+		published_category_directory_feed = os.path.join( published_category_directory_path, 'feed.xml' )
 
-	count = 0
-
-	for post in posts_heap: 
-
-		# set date format for rss 
-		post.date = datetime.datetime.strftime( post.date.published_datetime, "%a, %d %b %Y %H:%M:%S EST" )
-
-		# reformat post.content so html chars are escaped
-		post.content = escape( post.content )
-
-		# replace all post tags, e.g. {{ post.title }} with post.title
-		rss_entry_template = Parse().replace_tags( 'post', post, rss_content )
-
-		# append rss_entry_template to full rss_template
-		rss_template += rss_entry_template
-
-		count += 1
-
-		if count == site.max_index_entries:
-			break
-
-	# append rss footer back to rss_template
-	rss_template += rss_footer
-
-	# write rss_template to file
-	util.write_category_feed ( category.output_directory, rss_template )
+		with open( published_category_directory_feed, 'w' ) as f:
+			rss_feed_xml = rss_feed_xml.encode("utf-8")
+			f.write( rss_feed_xml )
+			print 'Published %s' % published_category_directory_feed
 
 
-#
-#	One last thing: move config.DEFAULT_INDEX to site.output_path and replace with redirect
-#	ex: move /root/_site/default/index.html to root/_site/index.html
-#
+	def create_redirect( self, old_published_path, new_published_path ):
+		old_published_path = ensure_directory( old_published_path )
+		old_published_path_index = os.path.join( old_published_path, 'index.html' )
 
-if site.default_index == '':
-	default_directory_path = site.output_path
-else:
-	default_directory_path = os.path.join( site.output_path, site.default_index )
+		redirect_html = '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="refresh" content="0;url=%s" /></head></html>' % new_published_path
 
-default_path_index_src = os.path.join( default_directory_path, 'index.html' )
-default_path_index_dst = os.path.join( site.output_path, 'index.html' )
-
-if not default_path_index_src == default_path_index_dst:
-	shutil.copyfile( default_path_index_src, default_path_index_dst )
+		with open( old_published_path_index, 'w' ) as f:
+			f.write( redirect_html )
 
 
-# check for css
-util.confirm_css( os.path.join( site.root_path, 'css' ) )
-print site.name
-# there was a problem with infinite redirect on s3, though not local. not sure what going on
-#redirect_html = '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="refresh" content="0;url=/{{ path }}" /></head></html>'
+	def confirm_posts( self, cat_list ):
+		if not cat_list: 
+		 	raise RuntimeError( "ERROR: no _posts directory in root path or subdirectories" )
 
-#default_redirect_html = redirect_html.replace( '{{ path }}', '' )
-#default_directory_redirect_path = os.path.join( default_directory_path, 'index.html' )
 
-#with open( default_directory_redirect_path, 'w' ) as f:
-#	f.write( default_redirect_html )
+	def confirm_layouts( self, layout_path ):
+		if not os.path.isdir( layout_path ):
+		 	raise RuntimeError( "ERROR: no _layouts directory in root path" )
+
+
+	def confirm_css( self, css_path ):
+		if not os.path.isdir( css_path ):
+		 	print "\n**\nWARNING: NO CSS DIRECTORY \n**\n"
+
+
+	# TO-DO: make smart, page-by-page overwriting?
+	def prepare_output_dir( self, site_path ):
+		if os.path.exists( site_path ):
+			shutil.rmtree( site_path )
+		os.makedirs( site_path )
+
+
+class Category(object):
+
+
+    def __init__( self, category_name, site ):
+
+    	util = Util()
+
+    	# set category name
+    	self.name = category_name
+
+    	# set default category style & description to site style & description
+    	self.permalink_style = site.permalink_style
+    	self.description = site.description
+
+    	# set paths for files in /root/_posts directory
+    	if self.name == 'root_posts':
+    		self.posts_source_path = os.path.join( site.root_path, '_posts' )
+    		self.output_directory = site.output_path
+
+    	# set paths for files in /root/pages directory
+    	elif self.name == 'root_pages':
+    		self.posts_source_path = os.path.join( site.root_path, '_pages' )
+    		self.output_directory = site.output_path
+
+    	else:
+    		self.input_path = os.path.join( site.root_path, category_name)
+    		self.posts_source_path = os.path.join( self.input_path, '_posts')
+    		self.output_directory = util.ensure_directory( os.path.join( site.output_path, self.name ) )
+    		self.config_source_path = os.path.join( self.input_path, '_config.md' )
+
+
+    	# if there is a category config file, import it
+    	# todo: use .yaml for this
+    	try:
+    		with open( self.config_source_path, 'rb' ) as f:
+    			self.config_file = f.read()
+    			config_split = str.split( self.config_file, '\n' )
+
+    			for line in config_split:
+
+    				split_line = str.split(line, ":", 1)
+
+    				if split_line[0].lower().strip() == 'permalinks':
+    					self.permalink_style = split_line[1].lower().strip()
+
+    				if split_line[0].lower().strip() == 'description':
+    					self.description = split_line[1].strip()
+
+    	except:
+    		pass
+
+    	self.posts_list = os.listdir( self.posts_source_path ) 
+
+
+
+class FileHandler(object):
+
+	class SplitRawFile(object):
+
+		def __init__(self, file_source_path ):
+
+			with open( file_source_path, 'rb') as f: 
+				file_text = f.read()
+
+				print file_source_path
+
+			 	if '---\n' in file_text: 
+				 	split_file = str.split(file_text, '---\n', 2)
+				elif '---\r\n' in file_text:  
+				 	split_file = str.split(file_text, '---\r\n', 2)
+
+			 	try: 
+				 	self.meta_data = str(split_file[1])
+				 	self.content = str(split_file[2])
+			 	
+			 	except IndexError: 
+			 		raise RuntimeError('Post meta data isn\'t formatted properly: \n %s' % file_source_path)
+
+
+	def get_title( self, raw_meta_data_text, file_source_path ):
+
+	 	try:
+	 		title = re.search('itle:(.*)\\n', raw_meta_data_text ).group(1)
+
+	 	except: 
+	 		raise RuntimeError("This post lacks a title: %s" % file_source_path )
+
+	 	return title
+
+
+	def get_slug( self, raw_meta_data_text, title ):
+
+		util = Util()
+
+	 	try: 
+ 			post_slug = re.search('slug:(.*)\\n', raw_meta_data_text.lower() ).group(1)
+	 	
+	 	except:
+	 		post_slug = util.create_slug_from_title( title )
+
+	 	return post_slug
+
+
+	def get_url( self, year, month, day, slug, category, category_permalink_style ):
+
+		if category == 'root_pages':
+			post_url = '/%s/' % slug
+
+		else:
+			if category == 'root_posts' and category_permalink_style.lower() == 'date':
+				post_url = '/%s/%s/%s/%s/' % ( year, month, day, slug )
+			elif category == 'root_posts' and category_permalink_style.lower() == 'no-date':
+				post_url = '/%s/' % ( slug )
+
+			elif category_permalink_style.lower() == 'date':
+				post_url = '/%s/%s/%s/%s/%s/' % ( category, year, month, day, slug )
+			elif category_permalink_style.lower() == 'no-date':
+				post_url = '/%s/%s/' % ( category, slug )
+							
+		return post_url
+
+
+
+	class DateObject(object):
+		"""
+			Provides date object for each object. This is horrendously inelegant. I'm sure
+			python provides better ways to do this.
+		"""
+		def __init__(self, raw, entry_source_path ):
+
+			self.undated = False
+
+		 	try:
+				date_text = re.search('date:(.*)\\n', raw.meta_data.lower() ).group(1).strip()
+		 	except: 
+		 		date_text = str(datetime.datetime.now())
+		 		self.undated == True
+
+		 	print date_text
+
+			post_date_split = date_text.split( "-", 2 )
+			
+			self.year = post_date_split[0]
+			self.month = post_date_split[1]
+
+			if ' ' in date_text[2]:
+				post_day_split = date_text[2].split( " ", 1 )
+				self.day = post_day_split[0].strip()
+			else:
+				self.day = post_date_split[2]
+
+
+			try: 
+				post_hour_split = post_day_split[1].split( ":", 1 )
+				post_minute_split = post_hour_split[1].split( ":" )
+				self.hour = post_hour_split[0].strip()
+				self.minute = post_minute_split[0].strip()
+
+			except:
+				self.hour = '0'
+				self.minute = '0'
+
+			self.published_datetime = datetime.datetime( int( self.year ), int( self.month ), int( self.day ), int( self.hour ), int( self.minute ) )
+			self.y = datetime.datetime( 1970, 1, 1 )
+			self.timestamp = ( self.published_datetime - self.y ).total_seconds()
+
+			self.day_text = self.day
+
+			if self.day_text[0] == '0':
+				self.day_text = self.day_text[1:]
+			
+			self.month_text = datetime.datetime.fromtimestamp( int( self.timestamp ) ).strftime( '%B' )
+
+			self.text = "%s %s, %s" % ( self.month_text, self.day_text, self.year )
+
+	 		#
+			#	If we forgot to date initial post, we need to re-write 
+			# 	post with a date added so that it doesn't keep getting published 
+			#	under the current date. 
+			#
+			if self.undated == True:
+
+				raw.meta += u'Date: %s-%s-%s %s:%s\n' % ( self.year, self.month, self.day, self.hour, self.minute )
+
+				new_file = "---\n".join( [ raw.meta, raw.content ] )
+
+				with open( entry_source_path, 'w' ) as f:
+					new_file = new_file.encode("utf-8")
+					f.write( new_file )
+
+
+class Parse(object):
+
+	def replace_tags(self, tag, var_obj, html_template ):
+
+		if isinstance(var_obj, Struct) or isinstance(var_obj, Post):
+			var_dictionary = var_obj.__dict__
+		else:
+			var_dictionary = var_obj
+
+		# amend template
+		for key in var_dictionary:
+			html_tag = "{{ %s.%s }}" % ( tag, key )
+			html_text = str( var_dictionary[ key ] )
+			html_template = html_template.replace( html_tag, html_text )
+
+		return html_template
+
+
+class Post(object):
+    """A simple example class"""
+
+    def __init__( self, file_source_path, category, site ):
+
+    	handler = FileHandler()
+
+    	self.raw_file = handler.SplitRawFile( file_source_path )
+
+        self.title = handler.get_title( self.raw_file.meta_data, file_source_path )
+
+        self.title_encoded = urllib.quote_plus( self.title )
+
+        self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
+
+        self.content = markdown2.markdown( self.raw_file.content )
+
+        self.date = handler.DateObject( self.raw_file, file_source_path )
+
+        self.date_text = self.date.text # for template parsing
+
+        self.url = handler.get_url( self.date.year, self.date.month, self.date.day, self.slug, category.name, category.permalink_style )
+
+        self.url_encoded = urllib.quote_plus( "%s%s" % (site.url, self.url ) )
+
+
+
+class Snippet(object):
+
+	def __init__( self, site ):
+
+		# get a list of all items in root path
+		self.files = os.listdir( site.snippet_path )
+
+		self.dict = {}
+
+		for file in self.files:
+
+			if file[0] == '.' or file[0] == '_':
+				continue	
+
+			with open( os.path.join( site.snippet_path, file ), 'rb' ) as f:
+				raw_file = f.read()
+
+			file_split = file.split( "." )
+			file_name = file_split[0]
+
+			self.dict[file_name] = raw_file
+
 
