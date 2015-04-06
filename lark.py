@@ -1,10 +1,11 @@
 import os
 import sys
+import re
 import shutil
 import datetime, time
 from xml.sax.saxutils import escape #for rss feed
+from shutil import copytree, ignore_patterns
 from larklib import Util, FileHandler, Category, Post, Snippet, Site, Parse
-
 
 
 #
@@ -87,7 +88,10 @@ for item in root_items:
 		#
 		else:
 			item_layout_path = os.path.join( site.output_path, item )
-			shutil.copytree( item_source_path, item_layout_path )
+			if item_source_path.endswith( '/img' ):
+				shutil.copytree( item_source_path, item_layout_path, ignore=ignore_patterns( '*.pxm' ) )
+			else:
+				shutil.copytree( item_source_path, item_layout_path )
 
 	#
 	#	Copy all unexcepted files in site.root_path to site.output_path
@@ -250,6 +254,7 @@ for category_name in categories:
 	# if we're in root, replace accordingly
 	if category == 'root_posts':
 		feed_url = "%s/feed.xml" % site.url
+		print feed_url
 		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
 		rss_template = rss_template.replace( '{{ category }}', '' )
 		rss_template = rss_template.replace( '{{ category.description }}', site.description )
@@ -257,6 +262,7 @@ for category_name in categories:
 	# if we're in subdirectory, replace with category tags
 	else: 
 		feed_url = "%s/%s/feed.xml" % ( site.url, category.name ) 
+
 		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
 		rss_template = rss_template.replace( '{{ category }}', category.name )
 		rss_template = rss_template.replace( '{{ category.description }}', category.description )
@@ -279,6 +285,9 @@ for category_name in categories:
 
 		# reformat post.content so html chars are escaped
 		post.content = escape( post.content )
+
+		# replace all post tags, e.g. {{ post.title }} with post.title
+		post.content = Parse().rss_image_paths( site, post.content )
 
 		# replace all post tags, e.g. {{ post.title }} with post.title
 		rss_entry_template = Parse().replace_tags( 'post', post, rss_content )

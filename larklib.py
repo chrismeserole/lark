@@ -7,6 +7,7 @@ import yaml
 import urllib
 
 
+
 class Struct:
     def __init__(self, **entries): 
         self.__dict__.update(entries)
@@ -400,6 +401,23 @@ class Parse(object):
 
 		return html_template
 
+	def rss_image_paths( self, site, rss_content ):
+
+		# delet srcset, which messes with mailchimp to rss
+		rss_content = re.sub(r'srcset=\".*?\"', '', rss_content)
+
+		# for initial paths
+		abs_path = "src=\"%s/img/" % site.url
+		rss_content = rss_content.replace( "src=\"/img/", abs_path )
+
+		# for secondary paths on srcset
+		rss_content = rss_content.replace( "_1920.jpg 1920w" , "_480.jpg" )
+		rss_content = rss_content.replace( "_1920.jpg  1920w" , "_480.jpg" )
+		rss_content = rss_content.replace( "_1920.jpg" , "_480.jpg" )
+
+		return rss_content
+
+
 
 class Post(object):
     """A simple example class"""
@@ -417,6 +435,8 @@ class Post(object):
         self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
 
         self.content = markdown2.markdown( self.raw_file.content )
+
+        self.content = self.content.replace( ' -- ', ' &mdash; ')
 
         self.date = handler.DateObject( self.raw_file, file_source_path )
 

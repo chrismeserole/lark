@@ -62,7 +62,8 @@ a:hover
 
 img 
 	{
-		padding: 1em 0 0;
+		padding: 0em 0 0;
+		border: 1px solid #ccc;
 	}
 
 
@@ -151,7 +152,7 @@ pre code
 
 #banner 
 	{	
-		padding: 2em 0em 1em;
+		padding: 1em 0em 1em;
 		border-bottom: 1px solid #ddd;
 	}
 
@@ -409,6 +410,10 @@ h2.email-signup
 
 	}
 
+.mailchimp-signup
+	{
+		padding-top: 4em;
+	}
 
  @media only screen and (max-width: 720px) {
 	#nav, #content, #footer-info, #banner
@@ -417,12 +422,14 @@ h2.email-signup
 	}
 }
 
+
 @media only screen and (max-width: 480px) {
        #banner  {
-        	border-bottom: 1px #ababab solid;
+        	border-bottom: 1px #bcbcbc solid;
         }
 
         #nav li a {
         	color: #999;
         }
 }
+
