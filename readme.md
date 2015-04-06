@@ -75,6 +75,23 @@ PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink st
 [TODO: fill out more of the defaults.]
 
 
+
+### RSS Images
+
+Lark attempts to use resized images in RSS feeds, so that RSS-to-email packages will not send email with image sizes that far exceed the window of most phone and desktop email clients. 
+
+At present it works primarly by a hack. If a post contains *either* of the following: 
+
+	<img src="http://example.com/img/myimage_1920.jpg 1920" />
+	<img src="http://example.com/img/myimage_1920.jpg" />
+
+It will be corrected to:
+
+	<img src="http://example.com/img/myimage_480.jpg" />
+
+Note that to make this work, all original images must have "_1920.jpg" appended as a suffix, and there must also be an identifically named file with "_480.jpg" appended.  
+
+
 ### Deploying to S3
 
 If you've got s3cmd installed, you can deploy using the following: 
