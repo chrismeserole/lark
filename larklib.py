@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import markdown2
 import datetime, time
 import shutil
@@ -16,6 +17,8 @@ class Struct:
 class Site(object):
 
 	def __init__( self ):
+
+		util = Util()
 
 		# get root path
 		root_path = os.getcwd()
@@ -43,11 +46,13 @@ class Site(object):
 		self.config_vars.url = self.config_vars.site_url
 		self.config_vars.url_encoded = urllib.quote_plus( self.config_vars.url )
 
+		util.confirm_home_page( self.config_vars )
+
 
 	def set_header_vars( self, site, post_title, category, index=False ):
 
 		if category.name == 'root_pages':
-			site.title_tag_text = '%s > %s' % ( post_title, site.name )
+			site.title_tag = '%s > %s' % ( post_title, site.name )
 			site.banner_text = site.name.replace(' ', '')
 			site.banner_url = '/'
 
@@ -66,13 +71,12 @@ class Site(object):
 			else:
 				site.title_tag = '%s > %s > %s' % ( post_title, category.name, site.name )
 
-			site.banner_text = '%s/%s' % ( site.name.replace(' ', ''), category.upper() )
+			site.banner_text = '%s &mdash; %s' % ( site.name.replace(' ', ''), category.name.upper() )
 			site.banner_url = '/%s/' % ( category.name )
 
 		site.title_tag_encoded = urllib.quote_plus( site.title_tag )
 
 		return site
-
 
 
 class Util(object):
@@ -100,12 +104,24 @@ class Util(object):
 
 		return post_slug
 
-
 	def ensure_directory( self, directory ):
 		if not os.path.exists( directory ):
 			os.makedirs( directory )
 		return directory
 
+	def confirm_home_page( self, site ):
+		if site.default_index == '':
+			if not os.path.exists( os.path.join( site.root_path, '_posts' ) ):
+				print "ERROR: No home page specified: If there is no _posts subdirectory in the root path, set DEFAULT_INDEX in _config.yaml to another subdirectory."		
+				sys.exit()
+		else: 
+			if not os.path.exists( os.path.join( site.root_path, site.default_index ) ):
+				pages_path = os.path.join( site.root_path, '_pages' )
+				page_path = os.path.join( pages_path, site.default_index ) 
+				page_path = "%s.md" % page_path
+				if not os.path.exists( page_path ):
+					print "ERROR: The default index specified does not exist. Revise DEFAULT_INDEX in _config.yaml."		
+					sys.exit()							
 
 	def prep_html_template( self, site ):
 
@@ -123,7 +139,6 @@ class Util(object):
 	def write_entry( self, my_html, category, post, site ):
 
 		util = Util()
-		print category.name
 		if category.permalink_style.lower() == "no-date" or category.name == "root_pages":
 			entry_output_path = util.ensure_directory( os.path.join( category.output_directory, post.slug ) )
 
@@ -259,7 +274,7 @@ class FileHandler(object):
 			with open( file_source_path, 'rb') as f: 
 				file_text = f.read()
 
-				print file_source_path
+				print "Parsing %s ... " % file_source_path
 
 			 	if '---\n' in file_text: 
 				 	split_file = str.split(file_text, '---\n', 2)

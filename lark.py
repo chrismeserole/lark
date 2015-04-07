@@ -5,14 +5,13 @@ import shutil
 import datetime, time
 from xml.sax.saxutils import escape #for rss feed
 from shutil import copytree, ignore_patterns
-from larklib import Util, FileHandler, Category, Post, Snippet, Site, Parse
+from larklib import Util, FileHandler, Category, Post, Site, Parse
 
 
 #
 # get site variables (site.name, site.author, etc)
 # 
 site = Site().config_vars
-
 
 # 
 #	get Utility object
@@ -29,11 +28,6 @@ util.confirm_layouts( site.layout_path )
 #
 util.prepare_output_dir( site.output_path )
 
-
-# 
-#	INITIATE SNIPPET CLASS
-#
-snippet = Snippet( site )
 
 #
 #	1. GET LOCATION OF ALL DIRECTORIES IN site.root_path THAT HAVE _POSTS SUBDIRECTORY
@@ -123,6 +117,9 @@ for category_name in categories:
 	# get category object
 	category = Category( category_name, site )
 
+	# print category
+	print '\n%s' % category.name.upper()
+
 	# initialize variable to store all posts within category in memory
 	posts_heap = []
 
@@ -188,8 +185,7 @@ for category_name in categories:
 	#
 	#	Sort posts by timestamp
 	#
-	posts_heap = sorted( posts_heap, key=lambda post_data: post.date.timestamp, reverse=True )
-
+	posts_heap = sorted( posts_heap, key=lambda post: post.date.timestamp, reverse=True )
 
 	#
 	#	GENERATE CATEGORY INDEX
@@ -326,7 +322,8 @@ if not default_path_index_src == default_path_index_dst:
 
 # check for css
 util.confirm_css( os.path.join( site.root_path, 'css' ) )
-print site.name
+
+print '\nFinishined parsing \"%s\" \n' % site.name
 # there was a problem with infinite redirect on s3, though not local. not sure what going on
 #redirect_html = '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="refresh" content="0;url=/{{ path }}" /></head></html>'
 
