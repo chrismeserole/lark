@@ -68,7 +68,7 @@ The **preview.py** calls on the Site class in larklib.py, and previews the files
 
 ### Excepted Files
 
-With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_` or ending with '.py', '.pyc', '.yml' or '.yaml'. The excepted file types can be changed in _config.yaml. 
+With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_` or ending with `.py`, `.pyc`, `.yml` or `.yaml`. The excepted file types can be changed in _config.yaml. 
 
 All other files are copied recursively, with the same directory structure, into the _site/ folder at runtime. 
 
