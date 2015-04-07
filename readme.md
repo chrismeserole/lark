@@ -1,6 +1,6 @@
 ### Installing Lark 
 
-To get Lark up and running, first make sure you've got the modules below installed. (You may want to use a virtualenv.) 
+To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
 	pip install markdown2 pyyaml
 
