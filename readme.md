@@ -8,7 +8,7 @@ Then run the following:
 
 	git clone https://github.com/chrismeserole/lark.git; cd lark
 	python lark.py
-	cd _site; python -m SimpleHTTPServer; cd ..
+	python preview.py
 
 If you open localhost:8000 in your browser, you should now see a skeleton site. 
 
@@ -98,4 +98,6 @@ If you've got s3cmd installed, you can deploy using the following:
 
 	s3cmd sync _site/ s3://[YOUR-BUCKET]/ --delete-removed
 
-
+Alternately, you can just run the following, which will deploy to whatever `S3_BUCKET` is specified in _config.yaml: 
+	
+	python deploy.py
