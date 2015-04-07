@@ -248,7 +248,7 @@ for category_name in categories:
 	rss_template = Parse().replace_tags( 'site', site, rss_template )
 
 	# if we're in root, replace accordingly
-	if category == 'root_posts':
+	if category.name == 'root_posts':
 		feed_url = "%s/feed.xml" % site.url
 		print feed_url
 		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
