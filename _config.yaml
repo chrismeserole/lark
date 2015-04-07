@@ -40,3 +40,6 @@ EXCEPTED_PREFIXES: [ '_', '.' ]
 
 # Excepted suffixes (python script won't parse files with this suffix):
 EXCEPTED_SUFFIXES: ['.py', '.pyc', '.yaml', '.yml']
+
+# S3 bucket for use with deploy.py. Leave off trailing slash.
+S3_BUCKET: 's3://exemplum-bucket.org'
