@@ -20,7 +20,7 @@ Lark works by scanning the root directory *and all subdirectories* for a _posts 
 
 If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
-However, by scanning all subdirectorys for a _posts folder, Lark also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
+However, by scanning all subdirectories for a _posts folder, Lark also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
 
 ### Lark's Structure
 
@@ -36,8 +36,10 @@ A simple install of lark will look like the following:
 		_config.yaml
 		css/
 		img/
+		deploy.py
 		lark.py
 		larklib.py
+		preview.py
 		readme.md
 
 The **_drafts/** folder is for files you are not yet ready to publish. Lark does not parse them.
@@ -60,6 +62,9 @@ The **_config.yaml** file is where you set basic defaults. Within your html temp
 
 The **lark.py** file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
+The **deploy.py** calls on the Site class in larklib.py, and deploys to S3. s3cmd must already be installed.
+
+The **preview.py** calls on the Site class in larklib.py, and previews the files in _output_path/. Viewable in a browser at http://localhost:8000/. 
 
 ### Excepted Files
 
@@ -94,7 +99,7 @@ Note that to make this work, all original images must have "_1920.jpg" appended 
 
 ### Deploying to S3
 
-If you've got s3cmd installed, you can deploy using the following: 
+If you've got s3cmd installed, you can either deploy using the following: 
 
 	s3cmd sync _site/ s3://[YOUR-BUCKET]/ --delete-removed
 
