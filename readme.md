@@ -12,7 +12,7 @@ Then run the following:
 
 If you open localhost:8000 in your browser, you should now see a skeleton site. 
 
-In the future I may release Lark as a python module, but for now this works fine.
+In the future I may release Lark as a python package, but for now this works fine.
 
 ### How Lark Works 
 
