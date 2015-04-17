@@ -5,9 +5,7 @@ I know, right?
 
 ### \*Rolls Eyes\*
 
-Fair enough! 
-
-Basically Lark came about for three reasons: 
+OK, so basically Lark came about for three reasons: 
 
 1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall,  I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own. 
 
@@ -16,7 +14,7 @@ Basically Lark came about for three reasons:
 3. **Dissertation procrastination.** Why else do something? 
 
 
-### OK Enough Already Just Tell Me How To Install Lark 
+### Enough Already How Do You Install 
 
 To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
