@@ -3,9 +3,9 @@
 
 I know, right?
 
-### That's Not An Answer
+### \*Rolls Eyes\*
 
-Fine then. Lark came about for three reasons: 
+OK, basically Lark came about for three reasons: 
 
 1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall,  I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own. 
 
