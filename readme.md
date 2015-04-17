@@ -32,7 +32,7 @@ In the future I may release Lark as a python package, but for now this works fin
 
 ### How Lark Works 
 
-As I mentioned above, Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
+Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
 
 If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
