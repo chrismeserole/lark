@@ -3,13 +3,13 @@
 
 I know, right?
 
-### Then Why???
+### That's Not An Answer
 
-Three reasons: 
+Fine then. Lark came about for three reasons: 
 
-1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. I've got a lot of accumulated parts to my site after 10+ years, and with the upgrade to Yosemite to last fall, the hack I used on Jekyll to maintain that structure broke. I couldn't get it working again, either via Jekyll or Pelican, Hugo, etc. Ultimately it seemed less time consuming, long-term, to roll my own. 
+1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall,  I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own. 
 
-2. **Data writing.** I'm building Lark, long term, to make data analysis and presentation as seemless as possible. At present, Lark can execute python code blocks embedded in posts, and output the result in the resulting html. It's similar to python notebook, except static. There's a lot more I want to do on that front, and writing your own publishing environment, where you know and can manipulate the entire underlying architecture, makes integrating data and writing workflows a lot easier.  
+2. **Data writing.** I'm building Lark, long-term, to make data analysis and presentation as seemless as possible. At present, Lark can execute python code blocks embedded in posts, and output the result in the resulting html. It's similar to python notebook, except static. There's a lot more I want to do on that front though, and writing your own publishing environment, where you know and can manipulate the entire underlying architecture, will make it a lot easier to realize whatever cool stuff I can dream up.  
 
 3. **Dissertation procrastination.** Why else do something? 
 
