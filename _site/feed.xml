@@ -4,7 +4,95 @@
 		<title>exemplum</title>
 		<description>ludem ludem ludem</description>
 		<link>http://example.org</link>
-		<atom:link href="http://example.org/root_posts/feed.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="http://example.org/feed.xml" rel="self" type="application/rss+xml" />
+
+		
+
+			<item>
+				<title> Python Scripting Demo</title>
+				<description>&lt;p&gt;Lark now executes wrapped python code when it builds the site. &lt;/p&gt;
+
+&lt;p&gt;Markdown:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;```Python
+&amp;gt;&amp;gt;&amp;gt; x = 3
+&amp;gt;&amp;gt;&amp;gt; x + 1
+[should be 4]
+&amp;gt;&amp;gt;&amp;gt; 2 + 2*x
+missing or wrong results will be overwritten
+```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTML: &lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Markdown:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;```Python
+&amp;gt;&amp;gt;&amp;gt; animals = ["cat","dog","horse"]
+&amp;gt;&amp;gt;&amp;gt; animals[1]
+```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTML: &lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;animals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cat&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;dog&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;horse&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;animals&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;dog&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Markdown*: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;```Python
+&amp;gt;&amp;gt;&amp;gt; y = 10
+&amp;gt;&amp;gt;&amp;gt; x + y
+```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTML: &lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;span class="mi"&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;*All blocks in a file are run cumulatively, as a single script. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Code blocks thus remember state/inherit  values&lt;/strong&gt;.&lt;/p&gt;
+</description>
+				<pubDate>Wed, 15 Apr 2015 00:00:00 EST</pubDate>
+				<link>http://example.org/2015/04/15/python-scripting-demo/</link>
+				<guid isPermaLink="true">http://example.org/2015/04/15/python-scripting-demo/</guid>
+			</item>
+
+		
+
+			<item>
+				<title> Ludem ipsum lorem</title>
+				<description>&lt;p&gt;Vivamus eget gravida urna. Vivamus eget ante in felis tincidunt molestie. Maecenas venenatis porttitor ultricies. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce consequat scelerisque purus, eget porttitor ante molestie tincidunt. Ut nec diam diam. In nunc dui, mattis id nibh ac, commodo feugiat diam. Ut pellentesque dui vitae elit vulputate, vel faucibus nunc vestibulum. Sed fermentum lectus quis massa maximus varius. Nulla facilisi. Nulla pretium mi lectus, id efficitur tortor dictum congue. Vivamus scelerisque pharetra mauris, nec placerat diam mattis vel.&lt;/p&gt;
+
+&lt;h3&gt;In vitae ornare arcu&lt;/h3&gt;
+
+&lt;p&gt;In vitae ornare arcu. Etiam vulputate neque sit amet magna volutpat, sed fringilla turpis faucibus. Fusce ac dui molestie, mollis enim vel, accumsan enim. Fusce facilisis porttitor ligula in ultricies. Phasellus iaculis imperdiet velit, vitae faucibus purus aliquam nec. Duis sollicitudin mi sit amet justo convallis lobortis. Donec vel leo ex. Phasellus vulputate vitae nibh placerat fermentum. Nullam a nibh a turpis bibendum tristique ut ac lacus. Sed vitae scelerisque turpis. Cras scelerisque mauris vel mauris posuere congue ullamcorper vel metus. Sed pretium gravida purus sit amet scelerisque. Maecenas blandit malesuada convallis. Integer eu consectetur tellus, vitae luctus tortor. Nullam pellentesque suscipit dolor nec tristique. Ut semper tempor augue.&lt;/p&gt;
+
+&lt;p&gt;Aliquam vitae lectus at risus finibus volutpat quis sit amet nisi. Sed pretium id sem sit amet gravida. Donec et convallis metus. Ut et ex quis sapien vestibulum sollicitudin. Curabitur hendrerit dignissim purus, vitae vestibulum velit mattis eget. Mauris sed fringilla sapien. Sed libero augue, placerat vitae metus ut, egestas dictum sem. Pellentesque euismod enim ac sapien rhoncus, non lobortis neque sollicitudin. Integer molestie dui vitae nisi pharetra, nec luctus ex feugiat. Quisque feugiat tempor dolor eget fringilla. Vivamus tristique pulvinar elit, a efficitur elit iaculis ac.&lt;/p&gt;
+</description>
+				<pubDate>Mon, 23 Mar 2015 00:00:00 EST</pubDate>
+				<link>http://example.org/2015/03/23/ludem-ipsum-lorem/</link>
+				<guid isPermaLink="true">http://example.org/2015/03/23/ludem-ipsum-lorem/</guid>
+			</item>
 
 		
 
@@ -27,23 +115,6 @@
 				<pubDate>Sun, 15 Mar 2015 00:00:00 EST</pubDate>
 				<link>http://example.org/2015/03/15/dolor-sit-amet/</link>
 				<guid isPermaLink="true">http://example.org/2015/03/15/dolor-sit-amet/</guid>
-			</item>
-
-		
-
-			<item>
-				<title> Ludem ipsum lorem</title>
-				<description>&lt;p&gt;Vivamus eget gravida urna. Vivamus eget ante in felis tincidunt molestie. Maecenas venenatis porttitor ultricies. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce consequat scelerisque purus, eget porttitor ante molestie tincidunt. Ut nec diam diam. In nunc dui, mattis id nibh ac, commodo feugiat diam. Ut pellentesque dui vitae elit vulputate, vel faucibus nunc vestibulum. Sed fermentum lectus quis massa maximus varius. Nulla facilisi. Nulla pretium mi lectus, id efficitur tortor dictum congue. Vivamus scelerisque pharetra mauris, nec placerat diam mattis vel.&lt;/p&gt;
-
-&lt;h3&gt;In vitae ornare arcu&lt;/h3&gt;
-
-&lt;p&gt;In vitae ornare arcu. Etiam vulputate neque sit amet magna volutpat, sed fringilla turpis faucibus. Fusce ac dui molestie, mollis enim vel, accumsan enim. Fusce facilisis porttitor ligula in ultricies. Phasellus iaculis imperdiet velit, vitae faucibus purus aliquam nec. Duis sollicitudin mi sit amet justo convallis lobortis. Donec vel leo ex. Phasellus vulputate vitae nibh placerat fermentum. Nullam a nibh a turpis bibendum tristique ut ac lacus. Sed vitae scelerisque turpis. Cras scelerisque mauris vel mauris posuere congue ullamcorper vel metus. Sed pretium gravida purus sit amet scelerisque. Maecenas blandit malesuada convallis. Integer eu consectetur tellus, vitae luctus tortor. Nullam pellentesque suscipit dolor nec tristique. Ut semper tempor augue.&lt;/p&gt;
-
-&lt;p&gt;Aliquam vitae lectus at risus finibus volutpat quis sit amet nisi. Sed pretium id sem sit amet gravida. Donec et convallis metus. Ut et ex quis sapien vestibulum sollicitudin. Curabitur hendrerit dignissim purus, vitae vestibulum velit mattis eget. Mauris sed fringilla sapien. Sed libero augue, placerat vitae metus ut, egestas dictum sem. Pellentesque euismod enim ac sapien rhoncus, non lobortis neque sollicitudin. Integer molestie dui vitae nisi pharetra, nec luctus ex feugiat. Quisque feugiat tempor dolor eget fringilla. Vivamus tristique pulvinar elit, a efficitur elit iaculis ac.&lt;/p&gt;
-</description>
-				<pubDate>Mon, 23 Mar 2015 00:00:00 EST</pubDate>
-				<link>http://example.org/2015/03/23/ludem-ipsum-lorem/</link>
-				<guid isPermaLink="true">http://example.org/2015/03/23/ludem-ipsum-lorem/</guid>
 			</item>
 
 		

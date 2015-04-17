@@ -1,6 +1,6 @@
 ### Installing Lark 
 
-To get Lark up and running, first make sure you've got the modules below installed. (You may want to use a virtualenv.) 
+To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
 	pip install markdown2 pyyaml
 
@@ -8,11 +8,11 @@ Then run the following:
 
 	git clone https://github.com/chrismeserole/lark.git; cd lark
 	python lark.py
-	cd _site; python -m SimpleHTTPServer; cd ..
+	python preview.py
 
 If you open localhost:8000 in your browser, you should now see a skeleton site. 
 
-In the future I may release Lark as a python module, but for now this works fine.
+In the future I may release Lark as a python package, but for now this works fine.
 
 ### How Lark Works 
 
@@ -20,7 +20,7 @@ Lark works by scanning the root directory *and all subdirectories* for a _posts 
 
 If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
-However, by scanning all subdirectorys for a _posts folder, Lark also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
+However, by scanning all subdirectories for a _posts folder, Lark also lets you host multiple blogs off the same install. (These are termed 'categories' in the Lark code.)
 
 ### Lark's Structure
 
@@ -36,8 +36,10 @@ A simple install of lark will look like the following:
 		_config.yaml
 		css/
 		img/
+		deploy.py
 		lark.py
 		larklib.py
+		preview.py
 		readme.md
 
 The **_drafts/** folder is for files you are not yet ready to publish. Lark does not parse them.
@@ -60,10 +62,13 @@ The **_config.yaml** file is where you set basic defaults. Within your html temp
 
 The **lark.py** file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
+The **deploy.py** file calls on the Site class in larklib.py, and deploys to S3. s3cmd must already be installed.
+
+The **preview.py** file calls on the Site class in larklib.py, and previews the files in the directory specified by OUTPATH_PATH in _config.yaml. Viewable in a browser at http://localhost:8000/. (To kill the preview in Terminal, hit Ctrl-C.)
 
 ### Excepted Files
 
-With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_` or ending with '.py', '.pyc', '.yml' or '.yaml'. The excepted file types can be changed in _config.yaml. 
+With the exception of the folders listed above, Lark does not open, copy or parse any file or subdirectory beginning with `.` or `_` or ending with `.py`, `.pyc`, `.yml` or `.yaml`. The excepted file types can be changed in _config.yaml. 
 
 All other files are copied recursively, with the same directory structure, into the _site/ folder at runtime. 
 
@@ -75,10 +80,28 @@ PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink st
 [TODO: fill out more of the defaults.]
 
 
+### RSS Images
+
+Lark attempts to use resized images in RSS feeds, so that RSS-to-email packages will not send email with image sizes that far exceed the window of most phone and desktop email clients. 
+
+At present it works primarly by a hack. If a post contains *either* of the following: 
+
+	<img src="http://example.com/img/myimage_1920.jpg 1920" />
+	<img src="http://example.com/img/myimage_1920.jpg" />
+
+It will be corrected to:
+
+	<img src="http://example.com/img/myimage_480.jpg" />
+
+Note that to make this work, all original images must have "_1920.jpg" appended as a suffix, and there must also be an identifically named file with "_480.jpg" appended.  
+
+
 ### Deploying to S3
 
-If you've got s3cmd installed, you can deploy using the following: 
+If you've got s3cmd installed, you can either deploy using the following: 
 
 	s3cmd sync _site/ s3://[YOUR-BUCKET]/ --delete-removed
 
-
+Alternately, you can just run the following, which will deploy to whatever `S3_BUCKET` is specified in _config.yaml: 
+	
+	python deploy.py

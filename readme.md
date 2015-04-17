@@ -62,9 +62,9 @@ The **_config.yaml** file is where you set basic defaults. Within your html temp
 
 The **lark.py** file iteratively builds the site, and calls on several classes in larklib.py to do so. 
 
-The **deploy.py** calls on the Site class in larklib.py, and deploys to S3. s3cmd must already be installed.
+The **deploy.py** file calls on the Site class in larklib.py, and deploys to S3. s3cmd must already be installed.
 
-The **preview.py** calls on the Site class in larklib.py, and previews the files in _output_path/. Viewable in a browser at http://localhost:8000/. 
+The **preview.py** file calls on the Site class in larklib.py, and previews the files in the directory specified by OUTPATH_PATH in _config.yaml. Viewable in a browser at http://localhost:8000/. (To kill the preview in Terminal, hit Ctrl-C.)
 
 ### Excepted Files
 
@@ -78,7 +78,6 @@ All other files are copied recursively, with the same directory structure, into 
 PERMALINK_STYLE. The first option is 'date', which corresponds to a permalink structure of `root/[subdirectory/]Year/Month/Day/slug`, with the slug being compiled from the title. The second option is 'no-date', which corresponds to `root/[subdirectory/]slug`.
 
 [TODO: fill out more of the defaults.]
-
 
 
 ### RSS Images

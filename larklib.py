@@ -6,13 +6,14 @@ import datetime, time
 import shutil
 import yaml
 import urllib
-
-
+import pymarkdown
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import HtmlFormatter
 
 class Struct:
     def __init__(self, **entries): 
         self.__dict__.update(entries)
-
 
 class Site(object):
 
@@ -77,7 +78,6 @@ class Site(object):
 		site.title_tag_encoded = urllib.quote_plus( site.title_tag )
 
 		return site
-
 
 class Util(object):
 
@@ -209,7 +209,6 @@ class Util(object):
 			shutil.rmtree( site_path )
 		os.makedirs( site_path )
 
-
 class Category(object):
 
 
@@ -262,8 +261,6 @@ class Category(object):
     		pass
 
     	self.posts_list = os.listdir( self.posts_source_path ) 
-
-
 
 class FileHandler(object):
 
@@ -398,7 +395,6 @@ class FileHandler(object):
 					new_file = new_file.encode("utf-8")
 					f.write( new_file )
 
-
 class Parse(object):
 
 	def replace_tags(self, tag, var_obj, html_template ):
@@ -433,13 +429,78 @@ class Parse(object):
 		return rss_content
 
 
+	def highlighter( self, text ):
+
+
+		# pymarkdown processes all '```Python' strings, so we need to escape 
+		# the ones we want to appear in html
+		# THIS IS A TOTAL HACK
+
+		text_list = text.split('\t```Python')
+		
+		orig_blocks = []
+		replacement_blocks = []
+
+		if len(text_list) > 0: 
+			del text_list[0]
+
+			for block in text_list:
+				
+				block_list = block.split('\t```')
+
+				orig_block = '\t```Python%s\t```' % block_list[0]
+				orig_blocks.append( orig_block )
+
+				replacement_block = '\t```Python%s\t```' % block_list[0]
+				#replacement_block = replacement_block.replace( '\t>>>', '\t{{gt_markers}}')
+				
+				#print escaped_block
+				replacement_blocks.append( replacement_block )
+
+		# insert placeholder text while we process the 
+		for orig_block in orig_blocks:
+			print orig_block 
+			text = text.replace( orig_block, '{{ escaped }}')
+
+		# now that everythnig's escaped ... 
+
+		# 1. process python code
+		text = pymarkdown.process( text )
+
+		# 2. highlight python code
+		old_python_blocks = re.findall ( '```Python(.*?)```', text, re.DOTALL)
+		
+		new_python_blocks = []
+
+		for block in old_python_blocks:
+			block = highlight(block, PythonLexer(), HtmlFormatter())
+			new_python_blocks.append( block )
+
+
+		for old_block, new_block in zip(old_python_blocks, new_python_blocks):
+			text = text.replace( old_block, new_block )
+
+
+		# now add back in the escaped blocks
+		for replacement_block in replacement_blocks: 
+
+			text = text.replace( '{{ escaped }}', replacement_block, 1)
+
+
+		# delete the ```Python strings for the blocks we actually ran, so they 
+		# won't appear in HTML
+		text = text.replace( u'\n```Python', "" )
+		text = text.replace( u'\n```', "")
+
+		return text
+
 
 class Post(object):
-    """A simple example class"""
 
     def __init__( self, file_source_path, category, site ):
 
     	handler = FileHandler()
+    	parser = Parse()
 
     	self.raw_file = handler.SplitRawFile( file_source_path )
 
@@ -449,7 +510,10 @@ class Post(object):
 
         self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
 
-        self.content = markdown2.markdown( self.raw_file.content )
+       	self.content = parser.highlighter(  self.raw_file.content)
+
+        self.content = markdown2.markdown( self.content )
+
 
         self.content = self.content.replace( ' -- ', ' &mdash; ')
 

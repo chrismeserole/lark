@@ -16,7 +16,7 @@
 	<meta name="author" content="Tacitus Ciceronis" />
 
 
-	<title> Dolor sit Amet? > exemplum </title>
+	<title> Python Scripting Demo > exemplum </title>
 
 </head>
 <body>
@@ -43,22 +43,70 @@
 
 	    			
 
-					<h2 class="entry-title"><a rel="archive" href="/2015/03/15/dolor-sit-amet/"> Dolor sit Amet?</a></h2>
+					<h2 class="entry-title"><a rel="archive" href="/2015/04/15/python-scripting-demo/"> Python Scripting Demo</a></h2>
 				    
 				    <div class="entry-content">
-				    		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet laoreet metus, eu tempor felis. Aenean id lorem eu nisl viverra volutpat quis tincidunt est. Nullam malesuada posuere fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras commodo augue quis leo pretium bibendum. Nam vehicula lacus ligula, ut ornare justo pellentesque quis. Fusce urna leo, hendrerit ac nibh eu, aliquam euismod est. In ut ipsum ac felis commodo tincidunt at quis felis. Nunc consequat, est sed efficitur egestas, dolor velit gravida justo, id fermentum tortor neque eu massa. Maecenas mollis ex arcu, ac placerat turpis efficitur venenatis. Vivamus risus arcu, placerat vel lorem quis, tristique fermentum ex.</p>
+				    		<p>Lark now executes wrapped python code when it builds the site. </p>
 
-<h3>Praesent sit</h3>
+<p>Markdown:</p>
 
-<p>Praesent sit amet mi vitae magna fringilla dictum quis quis sapien. Sed sodales risus metus, sit amet lacinia eros ultrices sed. Duis et odio sit amet dolor tincidunt laoreet in quis orci. Duis viverra luctus dolor, eget hendrerit arcu sodales ut. Curabitur vulputate, dolor vitae viverra fringilla, urna est lobortis nibh, nec feugiat urna orci et lorem. Praesent quis nulla elit. Praesent sodales massa id est bibendum lobortis iaculis sit amet diam. Duis feugiat orci eget ipsum eleifend, sit amet commodo sem maximus. Aenean aliquam magna non libero euismod, sed eleifend massa pharetra.</p>
+<pre><code>```Python
+&gt;&gt;&gt; x = 3
+&gt;&gt;&gt; x + 1
+[should be 4]
+&gt;&gt;&gt; 2 + 2*x
+missing or wrong results will be overwritten
+```
+</code></pre>
 
-<p>Nunc id est lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. <strong>Vivamus dignissim</strong> tincidunt ipsum in pellentesque. Aenean ornare auctor est, et sollicitudin mi rhoncus in. Sed sed justo tellus. In lobortis odio nec tristique fermentum. Vivamus tristique semper leo, ac hendrerit felis venenatis in. Integer sagittis et libero at blandit. Etiam ligula mauris, viverra et egestas quis, facilisis nec neque. Integer a placerat odio, ac accumsan mi.</p>
+<p>HTML: </p>
 
-<p>Suspendisse semper fermentum maximus. Etiam dictum orci at diam luctus rhoncus. Sed tincidunt mauris sapien, sit amet fermentum neque hendrerit sed. Aliquam in metus magna. Integer non congue augue, quis venenatis elit. Suspendisse ultricies aliquam nunc quis sagittis. Proin vel velit sed justo dictum tristique eu et mauris. Aenean eleifend sodales pulvinar. Etiam condimentum, tortor ac semper elementum, metus turpis elementum odio, eget consequat ante eros eu nibh. Integer eu ornare urna. Pellentesque luctus libero tincidunt tortor facilisis fringilla. Praesent et leo ac ligula hendrerit suscipit. Nulla efficitur erat id aliquam mollis. Donec volutpat finibus lacinia. Aenean quis mollis urna, ac bibendum dolor.</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="mi">8</span>
+</pre></div>
 
-<h3>Aenean egestas</h3>
+<hr />
 
-<p>Aenean egestas leo vel vestibulum bibendum. Maecenas ac aliquet ipsum. Nulla condimentum consectetur pharetra. Donec luctus lectus erat, at varius neque pretium eget. Pellentesque quis commodo libero. Aenean cursus libero non orci vehicula, in consequat nunc rhoncus. In nec arcu a tortor sodales fermentum nec a justo. Morbi viverra dictum congue. Fusce ac tortor sit amet massa ornare fringilla consectetur bibendum lorem.</p>
+<p>Markdown:</p>
+
+<pre><code>```Python
+&gt;&gt;&gt; animals = ["cat","dog","horse"]
+&gt;&gt;&gt; animals[1]
+```
+</code></pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="s">&quot;dog&quot;</span><span class="p">,</span><span class="s">&quot;horse&quot;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">dog</span>
+</pre></div>
+
+<hr />
+
+<p>Markdown*: </p>
+
+<pre><code>```Python
+&gt;&gt;&gt; y = 10
+&gt;&gt;&gt; x + y
+```
+</code></pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="mi">13</span>
+</pre></div>
+
+<hr />
+
+<p>*All blocks in a file are run cumulatively, as a single script. </p>
+
+<p><strong>Code blocks thus remember state/inherit  values</strong>.</p>
 
 				    </div>
 
@@ -68,11 +116,11 @@
 
 
 		    			<div class="entry-share">
-					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Dolor+sit+Amet%3F&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F03%2F15%2Fdolor-sit-amet%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
-					    	<div class="fb-share-button" data-href="http://example.org/2015/03/15/dolor-sit-amet/" data-layout="button"></div>
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Python+Scripting+Demo&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F04%2F15%2Fpython-scripting-demo%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/2015/04/15/python-scripting-demo/" data-layout="button"></div>
 						</div>
 
-		    			<div class="entry-date"><h6>March 15, 2015</h6></div>
+		    			<div class="entry-date"><h6>April 15, 2015</h6></div>
 
 
 						    
