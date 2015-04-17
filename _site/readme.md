@@ -1,8 +1,24 @@
-### Installing Lark 
+
+### Another Static Site Engine, Really?
+
+I know, right?
+
+### Then Why???
+
+Three reasons: 
+
+1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. I've got a lot of accumulated parts to my site after 10+ years, and with the upgrade to Yosemite to last fall, the hack I used on Jekyll to maintain that structure broke. I couldn't get it working again, either via Jekyll or Pelican, Hugo, etc. Ultimately it seemed less time consuming, long-term, to roll my own. 
+
+2. **Data writing.** I'm building Lark, long term, to make data analysis and presentation as seemless as possible. At present, Lark can execute python code blocks embedded in posts, and output the result in the resulting html. It's similar to python notebook, except static. There's a lot more I want to do on that front, and writing your own publishing environment, where you know and can manipulate the entire underlying architecture, makes integrating data and writing workflows a lot easier.  
+
+3. **Dissertation procrastination.** Why else do something? 
+
+
+### OK Enough Already Just Tell Me How To Install Lark 
 
 To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
-	pip install markdown2 pyyaml
+	pip install markdown2 pyyaml pymarkdown
 
 Then run the following: 
 
@@ -16,7 +32,7 @@ In the future I may release Lark as a python package, but for now this works fin
 
 ### How Lark Works 
 
-Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
+As I mentioned above, Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
 
 If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
@@ -105,3 +121,7 @@ If you've got s3cmd installed, you can either deploy using the following:
 Alternately, you can just run the following, which will deploy to whatever `S3_BUCKET` is specified in _config.yaml: 
 	
 	python deploy.py
+
+### To-Do
+
+A lot. 
