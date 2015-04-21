@@ -29,11 +29,14 @@ SITE_URL: 'http://example.org'
 # Set path of _layouts directory relative to local root working directory
 LAYOUT_PATH: '_layouts'
 
-# Set path of _layouts directory relative to local root working directory
+# Set path of _site directory relative to local root working directory
 OUTPUT_PATH: '_site'
 
 # Set path of _snippets directory relative to local root working directory
 SNIPPET_PATH: '_snippets'
+
+# Set path of _snippets directory relative to local root working directory
+IMAGES_PATH: 'img'
 
 # Excepted prefixes (python script won't parse files with this prefix):
 EXCEPTED_PREFIXES: [ '_', '.' ]

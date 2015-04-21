@@ -1,6 +1,7 @@
 import re
 import os
 import sys
+import subprocess
 import markdown2
 import datetime, time
 import shutil
@@ -8,7 +9,7 @@ import yaml
 import urllib
 import pymarkdown
 from pygments import highlight
-from pygments.lexers import PythonLexer
+from pygments.lexers import PythonLexer, SLexer
 from pygments.formatters import HtmlFormatter
 
 class Struct:
@@ -80,7 +81,6 @@ class Site(object):
 		return site
 
 class Util(object):
-
 
 	def create_slug_from_title( self, title ):
 		post_slug = title.strip().lower()
@@ -429,12 +429,74 @@ class Parse(object):
 		return rss_content
 
 
-	def highlighter( self, text ):
+	def parseRBlocks( self, site, text ):
+
+		# current 
+		currdir = os.getcwd()
+
+		# write the file as .rmd to it
+		with open( 'lark-tmp.rmd', 'w') as rmd:
+			rmd.write( text )
+
+    	# set rmdcall call
+		rmdcall = "Rscript -e \"library(knitr); knit('lark-tmp.rmd')\"" 
+
+		# call knitr, which processes the r code & creates and saves .md file
+		print subprocess.Popen( rmdcall, 
+								shell=True, 
+								stdout=subprocess.PIPE).stdout.read()
+
+		# read in the newly created .md file
+		with open( 'lark-tmp.md', 'rb' ) as f:
+			text = f.read()
+
+		# remove the files we created  
+		os.remove( 'lark-tmp.rmd' )
+		os.remove( 'lark-tmp.md' )
+
+		print site.images_path
+
+		src_files = os.listdir('figure')
+
+		for file_name in src_files:
+			src = os.path.join( os.getcwd(), 'figure')
+			full_file_name = os.path.join(src, file_name)
+
+			imgs_path = os.path.join( site.root_path, site.images_path )
+			outputfile = os.path.join( imgs_path, file_name )
+
+			print full_file_name
+			print outputfile
+			
+			shutil.copy(full_file_name, outputfile)
+
+
+
+		old = "(figure/"
+		new = "(/%s/" % site.images_path
+
+
+
+		text = text.replace(old, new)
+		
+		#shutil.rmtree( 'figure' )
+
+		# return the new markdown file! 
+		return text
+
+
+	def highlighter( self, site, text ):
+
+		r_tag = '```{r'
+
+		if r_tag in text:
+
+			text = Parse().parseRBlocks( site, text )
 
 
 		# pymarkdown processes all '```Python' strings, so we need to escape 
 		# the ones we want to appear in html
-		# THIS IS A TOTAL HACK
+		# USING .SPLIT() IS A TOTAL HACK
 
 		text_list = text.split('\t```Python')
 		
@@ -452,48 +514,102 @@ class Parse(object):
 				orig_blocks.append( orig_block )
 
 				replacement_block = '\t```Python%s\t```' % block_list[0]
-				#replacement_block = replacement_block.replace( '\t>>>', '\t{{gt_markers}}')
 				
 				#print escaped_block
 				replacement_blocks.append( replacement_block )
 
 		# insert placeholder text while we process the 
 		for orig_block in orig_blocks:
-			print orig_block 
 			text = text.replace( orig_block, '{{ escaped }}')
 
-		# now that everythnig's escaped ... 
+		# now that everything's escaped ... 
 
 		# 1. process python code
 		text = pymarkdown.process( text )
 
 		# 2. highlight python code
 		old_python_blocks = re.findall ( '```Python(.*?)```', text, re.DOTALL)
-		
 		new_python_blocks = []
 
 		for block in old_python_blocks:
 			block = highlight(block, PythonLexer(), HtmlFormatter())
 			new_python_blocks.append( block )
 
-
 		for old_block, new_block in zip(old_python_blocks, new_python_blocks):
 			text = text.replace( old_block, new_block )
+
+		# 3. highlight R code
+		old_r_blocks = re.findall ( '```r(.*?)```', text, re.DOTALL)
+
+
+		new_r_blocks = []
+
+		for block in old_r_blocks:
+			block = highlight(block, SLexer(), HtmlFormatter())
+			new_r_blocks.append( block )
+
+		for old_block, new_block in zip(old_r_blocks, new_r_blocks):
+			text = text.replace( old_block, new_block )
+
 
 
 		# now add back in the escaped blocks
 		for replacement_block in replacement_blocks: 
-
 			text = text.replace( '{{ escaped }}', replacement_block, 1)
 
 
+		#----------------------------------------------------------------------
 		# delete the ```Python strings for the blocks we actually ran, so they 
 		# won't appear in HTML
+		#----------------------------------------------------------------------
+		old_all_blocks = re.findall ( '\n```(.*?)\n```', text, re.DOTALL)
+
+		old_blocks = []
+		new_blocks = []
+
+		for block in old_all_blocks:
+			old_block = block
+			if block[:6] == 'Python' or block[:1] == 'r':
+				new_block = block
+			else:
+				new_block = '<pre>%s</pre>' % block
+
+			old_blocks.append( old_block )
+			new_blocks.append( new_block ) 
+
+		for old_block, new_block in zip(old_blocks, new_blocks):
+			text = text.replace( old_block, new_block )
+
 		text = text.replace( u'\n```Python', "" )
+		text = text.replace( u'\n```r', "")
 		text = text.replace( u'\n```', "")
 
-		return text
 
+		#----------------------------------------------------------------------
+		# preserve any indented code blocks that you actually want to show 
+		#----------------------------------------------------------------------
+		
+		old_all_blocks = re.findall ( '\t```(.*?)\t```', text, re.DOTALL)
+
+		old_blocks = []
+		new_blocks = []
+
+		for block in old_all_blocks:
+			old_block = block
+			new_block = '<pre>```%s```</pre>' % block
+			old_blocks.append( old_block )
+			new_blocks.append( new_block ) 
+
+		for old_block, new_block in zip(old_blocks, new_blocks):
+			text = text.replace( old_block, new_block )
+
+		text = text.replace( u'\t```', "")
+
+
+		#----------------------------------------------------------------------
+
+
+		return text
 
 class Post(object):
 
@@ -510,10 +626,9 @@ class Post(object):
 
         self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
 
-       	self.content = parser.highlighter(  self.raw_file.content)
+       	self.content = parser.highlighter( site, self.raw_file.content )
 
         self.content = markdown2.markdown( self.content )
-
 
         self.content = self.content.replace( ' -- ', ' &mdash; ')
 

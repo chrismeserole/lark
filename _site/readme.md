@@ -5,7 +5,7 @@ I know, right?
 
 ### \*Rolls Eyes\*
 
-Fair enough. Basically Lark came about for three reasons: 
+OK, so basically Lark came about for three reasons: 
 
 1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall,  I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own. 
 
@@ -14,7 +14,7 @@ Fair enough. Basically Lark came about for three reasons:
 3. **Dissertation procrastination.** Why else do something? 
 
 
-### OK Enough Already Just Tell Me How To Install Lark 
+### Enough Already How Do You Install 
 
 To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
@@ -32,7 +32,7 @@ In the future I may release Lark as a python package, but for now this works fin
 
 ### How Lark Works 
 
-As I mentioned above, Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
+Lark works by scanning the root directory *and all subdirectories* for a _posts folder. 
 
 If you want to host a simple blog at the root of your Lark directory, like Jekyll or most other static site generators, the structure of Lark allows you to do that easily. 
 
