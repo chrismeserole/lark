@@ -136,7 +136,7 @@ pre code
 
 #banner 
 	{	
-		padding: 1em 0em 1em;
+		padding: 0.8em 0em 1em;
 		border-bottom: 1px solid #ddd;
 	}
 
@@ -149,7 +149,6 @@ pre code
 #header h1 
 	{ 		
 		font-size: 1.8em; 
-		line-height: 0.2em;
 		letter-spacing: .25em; 
 		padding-top: 3px 0em 0em;
 		color: black;
