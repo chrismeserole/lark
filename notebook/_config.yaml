@@ -1,0 +1,24 @@
+
+# Name of site
+NAME: 'Notebook'
+
+# Name of site
+DESCRIPTION: 'A Notebook For Coding Projects'
+
+# Name of site
+BANNER_TITLE: 'Code Notebook'
+
+# Permalink style. Options: 'date' and 'no-date'
+PERMALINK_STYLE: "no-date"
+
+# Default file for home page. If not using a page or subdirectory as home, use ''
+DEFAULT_INDEX: 'about'
+
+# Max number of entries allowed
+MAX_INDEX_ENTRIES: 10
+
+# Set path of _layouts directory relative to local root working directory
+LAYOUT_PATH: '_layouts'
+
+# Set path of _snippets directory relative to local root working directory
+SNIPPET_PATH: 'notebook/_snippets'

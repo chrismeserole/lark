@@ -27,13 +27,15 @@
 				<h1><a href="/">exemplum</a></h1>
 			</div>
 			<nav id="nav">
-		        <ul>
-		      		<li><a href="/about">About</a></li>		
-		      		<li>&middot;</li>	
-		      		<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>
-		      		<li>&middot;</li>		
-					<li><a href="/subscribe">Subscribe</a></li>
-		       </ul>
+				<ul>
+	<li><a href="/about">About</a></li>		
+	<li>&middot;</li>
+	<li><a href="/notebook/">Coding Notebook</a></li>
+	<li>&middot;</li>		
+	<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>
+	<li>&middot;</li>
+	<li><a href="/subscribe">Subscribe</a></li>
+</ul>
 		    </nav>
 		</header>
 
@@ -57,8 +59,8 @@
 <div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 <span class="kp">summary</span><span class="p">(</span>x<span class="p">)</span>
 </pre></div><pre>
-##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.87600 -0.71710 -0.07804 -0.04995  0.61360  3.02300</pre>
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -3.0710 -0.5779  0.2026  0.1243  0.8136  3.1680</pre>
 
 Now let's switch over to Python:
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
@@ -75,7 +77,7 @@ Now let's switch over to Python:
 <div class="highlight"><pre>plot<span class="p">(</span>cars<span class="p">)</span>
 </pre></div>
 
-<p><img src="img/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" /> </p>
+<p><img src="/img/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" /> </p>
 
 <p>Now let's try a plot in Python ... </p>
 
@@ -84,9 +86,9 @@ Now let's switch over to Python:
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10bee99d0</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10a393bd0</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span>
-<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10aa4a850</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x108ef3a50</span><span class="o">&gt;</span>
 </pre></div>
 
 <p>Bummer. Looks like fig object exists, it's just not being passed properly to Lark.</p>

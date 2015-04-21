@@ -16,7 +16,7 @@
 	<meta name="author" content="Tacitus Ciceronis" />
 
 
-	<title> Ludem ipsum lorem > exemplum </title>
+	<title> Python Scripting Demo > notebook > exemplum</title>
 
 </head>
 <body>
@@ -24,17 +24,17 @@
 
 		<header id="header">
 			<div id="banner">
-				<h1><a href="/">exemplum</a></h1>
+				<h1><a href="/notebook/">CODE NOTEBOOK</a></h1>
 			</div>
 			<nav id="nav">
 				<ul>
-	<li><a href="/about">About</a></li>		
+	<li><a href="/notebook/about">About</a></li>		
 	<li>&middot;</li>
-	<li><a href="/notebook/">Coding Notebook</a></li>
+	<li><a href="/">Home</a></li>
 	<li>&middot;</li>		
 	<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>
 	<li>&middot;</li>
-	<li><a href="/subscribe">Subscribe</a></li>
+	<li><a href="/notebook/subscribe">Subscribe</a></li>
 </ul>
 		    </nav>
 		</header>
@@ -45,16 +45,67 @@
 
 	    			
 
-					<h2 class="entry-title"><a rel="archive" href="/2015/03/23/ludem-ipsum-lorem/"> Ludem ipsum lorem</a></h2>
+					<h2 class="entry-title"><a rel="archive" href="/notebook/python-scripting-demo/"> Python Scripting Demo</a></h2>
 				    
 				    <div class="entry-content">
-				    		<p>Vivamus eget gravida urna. Vivamus eget ante in felis tincidunt molestie. Maecenas venenatis porttitor ultricies. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce consequat scelerisque purus, eget porttitor ante molestie tincidunt. Ut nec diam diam. In nunc dui, mattis id nibh ac, commodo feugiat diam. Ut pellentesque dui vitae elit vulputate, vel faucibus nunc vestibulum. Sed fermentum lectus quis massa maximus varius. Nulla facilisi. Nulla pretium mi lectus, id efficitur tortor dictum congue. Vivamus scelerisque pharetra mauris, nec placerat diam mattis vel.</p>
+				    		<p>Lark now executes wrapped python code when it builds the site. </p>
 
-<h3>In vitae ornare arcu</h3>
+<p>Markdown:</p>
 
-<p>In vitae ornare arcu. Etiam vulputate neque sit amet magna volutpat, sed fringilla turpis faucibus. Fusce ac dui molestie, mollis enim vel, accumsan enim. Fusce facilisis porttitor ligula in ultricies. Phasellus iaculis imperdiet velit, vitae faucibus purus aliquam nec. Duis sollicitudin mi sit amet justo convallis lobortis. Donec vel leo ex. Phasellus vulputate vitae nibh placerat fermentum. Nullam a nibh a turpis bibendum tristique ut ac lacus. Sed vitae scelerisque turpis. Cras scelerisque mauris vel mauris posuere congue ullamcorper vel metus. Sed pretium gravida purus sit amet scelerisque. Maecenas blandit malesuada convallis. Integer eu consectetur tellus, vitae luctus tortor. Nullam pellentesque suscipit dolor nec tristique. Ut semper tempor augue.</p>
+<pre>```Python
+    >>> x = 3
+    >>> x + 1
+    [should be 4]
+    >>> 2 + 2*x
+    missing or wrong results will be overwritten
+```</pre>
 
-<p>Aliquam vitae lectus at risus finibus volutpat quis sit amet nisi. Sed pretium id sem sit amet gravida. Donec et convallis metus. Ut et ex quis sapien vestibulum sollicitudin. Curabitur hendrerit dignissim purus, vitae vestibulum velit mattis eget. Mauris sed fringilla sapien. Sed libero augue, placerat vitae metus ut, egestas dictum sem. Pellentesque euismod enim ac sapien rhoncus, non lobortis neque sollicitudin. Integer molestie dui vitae nisi pharetra, nec luctus ex feugiat. Quisque feugiat tempor dolor eget fringilla. Vivamus tristique pulvinar elit, a efficitur elit iaculis ac.</p>
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="mi">8</span>
+</pre></div>
+
+<hr />
+
+<p>Markdown:</p>
+
+<pre>```Python
+    >>> animals = ["cat","dog","horse"]
+    >>> animals[1]
+```</pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="s">&quot;dog&quot;</span><span class="p">,</span><span class="s">&quot;horse&quot;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">dog</span>
+</pre></div>
+
+<hr />
+
+<p>Markdown*: </p>
+
+<pre>```Python
+    >>> y = 10
+    >>> x + y
+```</pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="mi">13</span>
+</pre></div>
+
+<hr />
+
+<p>*All blocks in a file are run cumulatively, as a single script. </p>
+
+<p><strong>Code blocks thus remember state/inherit  values</strong>.</p>
 
 				    </div>
 
@@ -64,11 +115,11 @@
 
 
 		    			<div class="entry-share">
-					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Ludem+ipsum+lorem&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F03%2F23%2Fludem-ipsum-lorem%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
-					    	<div class="fb-share-button" data-href="http://example.org/2015/03/23/ludem-ipsum-lorem/" data-layout="button"></div>
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Python+Scripting+Demo&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2Fnotebook%2Fpython-scripting-demo%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/notebook/python-scripting-demo/" data-layout="button"></div>
 						</div>
 
-		    			<div class="entry-date"><h6>March 23, 2015</h6></div>
+		    			<div class="entry-date"><h6>April 15, 2015</h6></div>
 
 
 						    

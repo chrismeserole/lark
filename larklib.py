@@ -13,8 +13,8 @@ from pygments.lexers import PythonLexer, SLexer
 from pygments.formatters import HtmlFormatter
 
 class Struct:
-    def __init__(self, **entries): 
-        self.__dict__.update(entries)
+	def __init__(self, **entries): 
+		self.__dict__.update(entries)
 
 class Site(object):
 
@@ -53,12 +53,7 @@ class Site(object):
 
 	def set_header_vars( self, site, post_title, category, index=False ):
 
-		if category.name == 'root_pages':
-			site.title_tag = '%s > %s' % ( post_title, site.name )
-			site.banner_text = site.name.replace(' ', '')
-			site.banner_url = '/'
-
-		elif category.name == 'root_posts': 
+		if category.name == 'root':
 			if index is True:
 				site.title_tag = '%s' % ( site.name )
 			else:
@@ -73,14 +68,59 @@ class Site(object):
 			else:
 				site.title_tag = '%s > %s > %s' % ( post_title, category.name, site.name )
 
-			site.banner_text = '%s &mdash; %s' % ( site.name.replace(' ', ''), category.name.upper() )
+			try: 
+				site.banner_text = category.config.banner_title.upper()
+			except: 
+				site.banner_text = '%s &mdash; %s' % ( site.name.replace(' ', ''), category.name.upper() )
+		
 			site.banner_url = '/%s/' % ( category.name )
 
+		site.category_name = category.name
 		site.title_tag_encoded = urllib.quote_plus( site.title_tag )
 
 		return site
 
 class Util(object):
+
+
+	def confirm_css( self, css_path ):
+		if not os.path.isdir( css_path ):
+			print "\n**\nWARNING: NO CSS DIRECTORY \n**\n"
+
+
+	def confirm_home_page( self, site ):
+		if site.default_index == '':
+			if not os.path.exists( os.path.join( site.root_path, '_posts' ) ):
+				print "ERROR: No home page specified: If there is no _posts subdirectory in the root path, set DEFAULT_INDEX in _config.yaml to another subdirectory."		
+				sys.exit()
+		else: 
+			if not os.path.exists( os.path.join( site.root_path, site.default_index ) ):
+				pages_path = os.path.join( site.root_path, '_pages' )
+				page_path = os.path.join( pages_path, site.default_index ) 
+				page_path = "%s.md" % page_path
+				if not os.path.exists( page_path ):
+					print "ERROR: The default index specified does not exist. Revise DEFAULT_INDEX in _config.yaml."		
+					sys.exit()							
+
+
+	def confirm_layouts( self, layout_path ):
+		if not os.path.isdir( layout_path ):
+			raise RuntimeError( "ERROR: no _layouts directory in root path" )
+
+
+	def confirm_posts( self, cat_list ):
+		if not cat_list: 
+			raise RuntimeError( "ERROR: no _posts directory in root path or subdirectories" )
+
+
+	def create_redirect( self, old_published_path, new_published_path ):
+		old_published_path = ensure_directory( old_published_path )
+		old_published_path_index = os.path.join( old_published_path, 'index.html' )
+
+		redirect_html = '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="refresh" content="0;url=%s" /></head></html>' % new_published_path
+
+		with open( old_published_path_index, 'w' ) as f:
+			f.write( redirect_html )
 
 	def create_slug_from_title( self, title ):
 		post_slug = title.strip().lower()
@@ -109,19 +149,25 @@ class Util(object):
 			os.makedirs( directory )
 		return directory
 
-	def confirm_home_page( self, site ):
-		if site.default_index == '':
-			if not os.path.exists( os.path.join( site.root_path, '_posts' ) ):
-				print "ERROR: No home page specified: If there is no _posts subdirectory in the root path, set DEFAULT_INDEX in _config.yaml to another subdirectory."		
-				sys.exit()
-		else: 
-			if not os.path.exists( os.path.join( site.root_path, site.default_index ) ):
-				pages_path = os.path.join( site.root_path, '_pages' )
-				page_path = os.path.join( pages_path, site.default_index ) 
-				page_path = "%s.md" % page_path
-				if not os.path.exists( page_path ):
-					print "ERROR: The default index specified does not exist. Revise DEFAULT_INDEX in _config.yaml."		
-					sys.exit()							
+	def get_description( self, category, site ):
+
+		try: 
+			description = category.config.description
+		except: 
+			description = site.description
+
+		return description 
+
+
+	def get_permalink_style( self, category, site ):
+
+		try: 
+			permalink_style = category.config.permalink_style
+		except: 
+			permalink_style = site.permalink_style
+
+		return permalink_style 
+
 
 	def prep_html_template( self, site ):
 
@@ -136,10 +182,56 @@ class Util(object):
 		return html_template
 
 
+	# TO-DO: make smart, page-by-page overwriting?
+	def prepare_output_dir( self, site_path ):
+		if os.path.exists( site_path ):
+			shutil.rmtree( site_path )
+		os.makedirs( site_path )
+
+	def set_file_src_path (self, category, file_name ):
+
+		if '*PAGE*' in file_name:
+			file_name = file_name.replace( '*PAGE*', '' )
+			file_source_path = os.path.join( category.pages_source_path, file_name )
+		if '*POST*' in file_name: 
+			file_name = file_name.replace( '*POST*', '')
+			file_source_path = os.path.join( category.posts_source_path, file_name )
+
+		return file_source_path
+
+	def set_page_status (self, file_src_path ):
+
+		file_is_page = False
+		if '_pages/' in file_src_path:
+			file_is_page = True
+		return file_is_page
+
+
+	def write_category_feed( self, published_category_directory_path, rss_feed_xml ):
+
+		published_category_directory_feed = os.path.join( published_category_directory_path, 'feed.xml' )
+
+		with open( published_category_directory_feed, 'w' ) as f:
+			rss_feed_xml = rss_feed_xml.encode("utf-8")
+			f.write( rss_feed_xml )
+			print 'Published %s' % published_category_directory_feed
+
+	def write_category_index( self, published_category_directory_path, index_html ):
+
+		published_category_directory_index = os.path.join( published_category_directory_path, 'index.html' )
+
+		with open( published_category_directory_index, 'w' ) as f:
+			index_html = index_html.encode("utf-8") # was running into error w/o this with some chars
+			f.write( index_html )
+			print 'Published %s' % published_category_directory_index
+
 	def write_entry( self, my_html, category, post, site ):
 
 		util = Util()
-		if category.permalink_style.lower() == "no-date" or category.name == "root_pages":
+
+		permalink_style = util.get_permalink_style( category, site )
+
+		if permalink_style.lower() == "no-date" or post.is_page is True:
 			entry_output_path = util.ensure_directory( os.path.join( category.output_directory, post.slug ) )
 
 		else:		
@@ -158,109 +250,89 @@ class Util(object):
 		return
 
 
-	def write_category_index( self, published_category_directory_path, index_html ):
 
-		published_category_directory_index = os.path.join( published_category_directory_path, 'index.html' )
-
-		with open( published_category_directory_index, 'w' ) as f:
-			index_html = index_html.encode("utf-8") # was running into error w/o this with some chars
-			f.write( index_html )
-			print 'Published %s' % published_category_directory_index
-
-
-	def write_category_feed( self, published_category_directory_path, rss_feed_xml ):
-
-		published_category_directory_feed = os.path.join( published_category_directory_path, 'feed.xml' )
-
-		with open( published_category_directory_feed, 'w' ) as f:
-			rss_feed_xml = rss_feed_xml.encode("utf-8")
-			f.write( rss_feed_xml )
-			print 'Published %s' % published_category_directory_feed
-
-
-	def create_redirect( self, old_published_path, new_published_path ):
-		old_published_path = ensure_directory( old_published_path )
-		old_published_path_index = os.path.join( old_published_path, 'index.html' )
-
-		redirect_html = '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="refresh" content="0;url=%s" /></head></html>' % new_published_path
-
-		with open( old_published_path_index, 'w' ) as f:
-			f.write( redirect_html )
-
-
-	def confirm_posts( self, cat_list ):
-		if not cat_list: 
-		 	raise RuntimeError( "ERROR: no _posts directory in root path or subdirectories" )
-
-
-	def confirm_layouts( self, layout_path ):
-		if not os.path.isdir( layout_path ):
-		 	raise RuntimeError( "ERROR: no _layouts directory in root path" )
-
-
-	def confirm_css( self, css_path ):
-		if not os.path.isdir( css_path ):
-		 	print "\n**\nWARNING: NO CSS DIRECTORY \n**\n"
-
-
-	# TO-DO: make smart, page-by-page overwriting?
-	def prepare_output_dir( self, site_path ):
-		if os.path.exists( site_path ):
-			shutil.rmtree( site_path )
-		os.makedirs( site_path )
 
 class Category(object):
 
 
-    def __init__( self, category_name, site ):
+	def __init__( self, category_name, site ):
 
-    	util = Util()
+		util = Util()
 
-    	# set category name
-    	self.name = category_name
+		# set category name
+		self.name = category_name
+		self.category_path = os.path.join( site.root_path, self.name )
 
-    	# set default category style & description to site style & description
-    	self.permalink_style = site.permalink_style
-    	self.description = site.description
+		if self.name != 'root':
+			try: 
+				with open( os.path.join( self.category_path, '_config.yaml' ), 'rb') as f:
+					config_file = f.read()
 
-    	# set paths for files in /root/_posts directory
-    	if self.name == 'root_posts':
-    		self.posts_source_path = os.path.join( site.root_path, '_posts' )
-    		self.output_directory = site.output_path
+				config_dict = yaml.load( config_file )
+				config_dict = dict((k.lower(), v) for k,v in config_dict.iteritems())
+				self.config = Struct( **config_dict )
 
-    	# set paths for files in /root/pages directory
-    	elif self.name == 'root_pages':
-    		self.posts_source_path = os.path.join( site.root_path, '_pages' )
-    		self.output_directory = site.output_path
+			except:
+				print "Note: no config file for %s." % self.name.upper()
 
-    	else:
-    		self.input_path = os.path.join( site.root_path, category_name)
-    		self.posts_source_path = os.path.join( self.input_path, '_posts')
-    		self.output_directory = util.ensure_directory( os.path.join( site.output_path, self.name ) )
-    		self.config_source_path = os.path.join( self.input_path, '_config.md' )
+		self.posts_list = []
+		self.pages_list = []
 
+		if self.name == 'root':
+			self.posts_source_path = os.path.join( site.root_path, '_posts' )
+			self.pages_source_path = os.path.join( site.root_path, '_pages' )
+			self.output_directory = site.output_path
 
-    	# if there is a category config file, import it
-    	# todo: use .yaml for this
-    	try:
-    		with open( self.config_source_path, 'rb' ) as f:
-    			self.config_file = f.read()
-    			config_split = str.split( self.config_file, '\n' )
+			if os.path.isdir( self.posts_source_path ):
+				self.posts_list = os.listdir( self.posts_source_path )
+				self.posts_list = ['*POST*{0}'.format(i) for i in self.posts_list]
+			if os.path.isdir( self.pages_source_path ):
+				print self.pages_source_path
+				self.pages_list = os.listdir( self.pages_source_path )
+				self.pages_list = ['*PAGE*{0}'.format(i) for i in self.pages_list]
 
-    			for line in config_split:
+		else:
+			self.input_path = os.path.join( site.root_path, category_name)
+			self.posts_source_path = os.path.join( self.input_path, '_posts')
+			self.pages_source_path = os.path.join( self.input_path, '_pages')
+			self.output_directory = util.ensure_directory( os.path.join( site.output_path, self.name ) )
+			self.config_source_path = os.path.join( self.input_path, '_config.md' )
 
-    				split_line = str.split(line, ":", 1)
+			if os.path.isdir( self.posts_source_path ):
+				self.posts_list = os.listdir( self.posts_source_path )
+				self.posts_list = ['*POST*{0}'.format(i) for i in self.posts_list]
 
-    				if split_line[0].lower().strip() == 'permalinks':
-    					self.permalink_style = split_line[1].lower().strip()
+			if os.path.isdir( self.pages_source_path ):
+				print self.pages_source_path
+				self.pages_list = os.listdir( self.pages_source_path ) 
+				self.pages_list = ['*PAGE*{0}'.format(i) for i in self.pages_list]
 
-    				if split_line[0].lower().strip() == 'description':
-    					self.description = split_line[1].strip()
+		self.content_list = self.posts_list + self.pages_list
+		print self.content_list
 
-    	except:
-    		pass
+		try:
+			with open( os.path.join( category.config.layout_path, 'index.html' ), 'rb' ) as f:
+				html_template = f.read()
+		except:
+			with open( os.path.join( site.layout_path, 'index.html' ), 'rb' ) as f:
+				html_template = f.read()
 
-    	self.posts_list = os.listdir( self.posts_source_path ) 
+		try:
+			self.snippet_path = self.config.snippet_path
+			cat_snippets = Snippet( self )
+			html_template = Parse().replace_tags( 'snippet', cat_snippets.dict, html_template )
+			print cat_snippets
+			sys.exit()
+		except: 
+			pass
+
+		try:
+			site_snippets = Snippet( site )
+			html_template = Parse().replace_tags( 'snippet', site_snippets.dict, html_template )
+		except:
+			pass
+		self.template = html_template
+
 
 class FileHandler(object):
 
@@ -273,58 +345,62 @@ class FileHandler(object):
 
 				print "Parsing %s ... " % file_source_path
 
-			 	if '---\n' in file_text: 
-				 	split_file = str.split(file_text, '---\n', 2)
+				if '---\n' in file_text: 
+					split_file = str.split(file_text, '---\n', 2)
 				elif '---\r\n' in file_text:  
-				 	split_file = str.split(file_text, '---\r\n', 2)
+					split_file = str.split(file_text, '---\r\n', 2)
 
-			 	try: 
-				 	self.meta_data = str(split_file[1])
-				 	self.content = str(split_file[2])
-			 	
-			 	except IndexError: 
-			 		raise RuntimeError('Post meta data isn\'t formatted properly: \n %s' % file_source_path)
+				try: 
+					self.meta_data = str(split_file[1])
+					self.content = str(split_file[2])
+				
+				except IndexError: 
+					raise RuntimeError('Post meta data isn\'t formatted properly: \n %s' % file_source_path)
 
 
 	def get_title( self, raw_meta_data_text, file_source_path ):
 
-	 	try:
-	 		title = re.search('itle:(.*)\\n', raw_meta_data_text ).group(1)
+		try:
+			title = re.search('itle:(.*)\\n', raw_meta_data_text ).group(1)
 
-	 	except: 
-	 		raise RuntimeError("This post lacks a title: %s" % file_source_path )
+		except: 
+			raise RuntimeError("This post lacks a title: %s" % file_source_path )
 
-	 	return title
+		return title
 
 
 	def get_slug( self, raw_meta_data_text, title ):
 
 		util = Util()
 
-	 	try: 
- 			post_slug = re.search('slug:(.*)\\n', raw_meta_data_text.lower() ).group(1)
-	 	
-	 	except:
-	 		post_slug = util.create_slug_from_title( title )
+		try: 
+			post_slug = re.search('slug:(.*)\\n', raw_meta_data_text.lower() ).group(1)
+		
+		except:
+			post_slug = util.create_slug_from_title( title )
 
-	 	return post_slug
+		return post_slug
 
 
-	def get_url( self, year, month, day, slug, category, category_permalink_style ):
+	def get_url( self, post, site, category ):
 
-		if category == 'root_pages':
-			post_url = '/%s/' % slug
+		permalink_style = Util().get_permalink_style( category, site )
+
+		print permalink_style
+
+		if category.name == 'root' and post.is_page is True:
+			post_url = '/%s/' % post.slug
 
 		else:
-			if category == 'root_posts' and category_permalink_style.lower() == 'date':
-				post_url = '/%s/%s/%s/%s/' % ( year, month, day, slug )
-			elif category == 'root_posts' and category_permalink_style.lower() == 'no-date':
-				post_url = '/%s/' % ( slug )
+			if category.name == 'root' and permalink_style.lower() == 'date':
+				post_url = '/%s/%s/%s/%s/' % ( post.date.year, post.date.month, post.date.day, post.slug )
+			elif category.name == 'root' and permalink_style.lower() == 'no-date':
+				post_url = '/%s/' % ( post.slug )
 
-			elif category_permalink_style.lower() == 'date':
-				post_url = '/%s/%s/%s/%s/%s/' % ( category, year, month, day, slug )
-			elif category_permalink_style.lower() == 'no-date':
-				post_url = '/%s/%s/' % ( category, slug )
+			elif permalink_style.lower() == 'date':
+				post_url = '/%s/%s/%s/%s/%s/' % ( category.name, post.date.year, post.date.month, post.date.day, post.slug )
+			elif permalink_style.lower() == 'no-date':
+				post_url = '/%s/%s/' % ( category.name, post.slug )
 							
 		return post_url
 
@@ -339,11 +415,11 @@ class FileHandler(object):
 
 			self.undated = False
 
-		 	try:
+			try:
 				date_text = re.search('date:(.*)\\n', raw.meta_data.lower() ).group(1).strip()
-		 	except: 
-		 		date_text = str(datetime.datetime.now())
-		 		self.undated == True
+			except: 
+				date_text = str(datetime.datetime.now())
+				self.undated == True
 
 			post_date_split = date_text.split( "-", 2 )
 			
@@ -380,7 +456,7 @@ class FileHandler(object):
 
 			self.text = "%s %s, %s" % ( self.month_text, self.day_text, self.year )
 
-	 		#
+			#
 			#	If we forgot to date initial post, we need to re-write 
 			# 	post with a date added so that it doesn't keep getting published 
 			#	under the current date. 
@@ -438,7 +514,7 @@ class Parse(object):
 		with open( 'lark-tmp.rmd', 'w') as rmd:
 			rmd.write( text )
 
-    	# set rmdcall call
+		# set rmdcall call
 		rmdcall = "Rscript -e \"library(knitr); knit('lark-tmp.rmd')\"" 
 
 		# call knitr, which processes the r code & creates and saves .md file
@@ -474,7 +550,6 @@ class Parse(object):
 
 		old = "(figure/"
 		new = "(/%s/" % site.images_path
-
 
 
 		text = text.replace(old, new)
@@ -613,34 +688,34 @@ class Parse(object):
 
 class Post(object):
 
-    def __init__( self, file_source_path, category, site ):
+	def __init__( self, file_source_path, category, site ):
 
-    	handler = FileHandler()
-    	parser = Parse()
+		handler = FileHandler() # handles raw .md file
+		parser = Parse() # parses python & r
 
-    	self.raw_file = handler.SplitRawFile( file_source_path )
+		self.raw_file = handler.SplitRawFile( file_source_path )
 
-        self.title = handler.get_title( self.raw_file.meta_data, file_source_path )
+		self.is_page = Util().set_page_status( file_source_path )
 
-        self.title_encoded = urllib.quote_plus( self.title )
+		self.title = handler.get_title( self.raw_file.meta_data, file_source_path )
 
-        self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
+		self.title_encoded = urllib.quote_plus( self.title )
 
-       	self.content = parser.highlighter( site, self.raw_file.content )
+		self.slug = handler.get_slug( self.raw_file.meta_data, self.title )
 
-        self.content = markdown2.markdown( self.content )
+		self.content = parser.highlighter( site, self.raw_file.content )
 
-        self.content = self.content.replace( ' -- ', ' &mdash; ')
+		self.content = markdown2.markdown( self.content )
 
-        self.date = handler.DateObject( self.raw_file, file_source_path )
+		self.content = self.content.replace( ' -- ', ' &mdash; ')
 
-        self.date_text = self.date.text # for template parsing
+		self.date = handler.DateObject( self.raw_file, file_source_path )
 
-        self.url = handler.get_url( self.date.year, self.date.month, self.date.day, self.slug, category.name, category.permalink_style )
+		self.date_text = self.date.text # for template parsing
 
-        self.url_encoded = urllib.quote_plus( "%s%s" % (site.url, self.url ) )
+		self.url = handler.get_url( self, site, category )
 
-
+		self.url_encoded = urllib.quote_plus( "%s%s" % (site.url, self.url ) )
 
 class Snippet(object):
 

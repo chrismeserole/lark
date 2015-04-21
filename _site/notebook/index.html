@@ -16,7 +16,7 @@
 	<meta name="author" content="Tacitus Ciceronis" />
 
 
-	<title> Example R and Python Code > exemplum </title>
+	<title>exemplum > notebook</title>
 
 </head>
 <body>
@@ -24,17 +24,17 @@
 
 		<header id="header">
 			<div id="banner">
-				<h1><a href="/">exemplum</a></h1>
+				<h1><a href="/notebook/">CODE NOTEBOOK</a></h1>
 			</div>
 			<nav id="nav">
 				<ul>
-	<li><a href="/about">About</a></li>		
+	<li><a href="/notebook/about">About</a></li>		
 	<li>&middot;</li>
-	<li><a href="/notebook/">Coding Notebook</a></li>
+	<li><a href="/">Home</a></li>
 	<li>&middot;</li>		
 	<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>
 	<li>&middot;</li>
-	<li><a href="/subscribe">Subscribe</a></li>
+	<li><a href="/notebook/subscribe">Subscribe</a></li>
 </ul>
 		    </nav>
 		</header>
@@ -45,7 +45,7 @@
 
 	    			
 
-					<h2 class="entry-title"><a rel="archive" href="/2015/04/17/example-r-and-python-code/"> Example R and Python Code</a></h2>
+					<h2 class="entry-title"><a rel="archive" href="/notebook/example-r-and-python-code/"> Example R and Python Code</a></h2>
 				    
 				    <div class="entry-content">
 				    		<p>This post is a demo. All R and Python code are executed at build, including images. </p>
@@ -59,8 +59,8 @@
 <div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 <span class="kp">summary</span><span class="p">(</span>x<span class="p">)</span>
 </pre></div><pre>
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-## -3.0710 -0.5779  0.2026  0.1243  0.8136  3.1680</pre>
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## -3.261000 -0.614600 -0.092350 -0.001353  0.690800  1.855000</pre>
 
 Now let's switch over to Python:
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
@@ -86,9 +86,9 @@ Now let's switch over to Python:
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10a393bd0</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10e77e150</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span>
-<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x108ef3a50</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10a37f310</span><span class="o">&gt;</span>
 </pre></div>
 
 <p>Bummer. Looks like fig object exists, it's just not being passed properly to Lark.</p>
@@ -101,44 +101,93 @@ Now let's switch over to Python:
 
 
 		    			<div class="entry-share">
-					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Example+R+and+Python+Code&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F04%2F17%2Fexample-r-and-python-code%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
-					    	<div class="fb-share-button" data-href="http://example.org/2015/04/17/example-r-and-python-code/" data-layout="button"></div>
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Example+R+and+Python+Code&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2Fnotebook%2Fexample-r-and-python-code%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/notebook/example-r-and-python-code/" data-layout="button"></div>
 						</div>
 
 		    			<div class="entry-date"><h6>April 17, 2015</h6></div>
 
 
 						    
-						    		
-<div class='mailchimp-signup'>
-<h2 class="email-signup">Follow By Email</h2>
-<div id="mc_embed_signup">
-<form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<div class="mc-field-group">
-		<label for="mce-EMAIL">Email Address </label>
-		<input type="email" value="" name="EMAIL" class="required email" size="50" id="mce-EMAIL">
-	</div>
-	<div id="mce-responses" class="clear">
-		<div class="response" id="mce-error-response" style="display:none"></div>
-		<div class="response" id="mce-success-response" style="display:none"></div>
-	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;"><input type="text" name="" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-</div>
-</div>
+
+					<h2 class="entry-title"><a rel="archive" href="/notebook/python-scripting-demo/"> Python Scripting Demo</a></h2>
+				    
+				    <div class="entry-content">
+				    		<p>Lark now executes wrapped python code when it builds the site. </p>
+
+<p>Markdown:</p>
+
+<pre>```Python
+    >>> x = 3
+    >>> x + 1
+    [should be 4]
+    >>> 2 + 2*x
+    missing or wrong results will be overwritten
+```</pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="mi">8</span>
+</pre></div>
+
+<hr />
+
+<p>Markdown:</p>
+
+<pre>```Python
+    >>> animals = ["cat","dog","horse"]
+    >>> animals[1]
+```</pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="s">&quot;dog&quot;</span><span class="p">,</span><span class="s">&quot;horse&quot;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">dog</span>
+</pre></div>
+
+<hr />
+
+<p>Markdown*: </p>
+
+<pre>```Python
+    >>> y = 10
+    >>> x + y
+```</pre>
+
+<p>HTML: </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="mi">13</span>
+</pre></div>
+
+<hr />
+
+<p>*All blocks in a file are run cumulatively, as a single script. </p>
+
+<p><strong>Code blocks thus remember state/inherit  values</strong>.</p>
+
+				    </div>
+
+				    <div class = "entry-footer">
+
+				    
+
+
+		    			<div class="entry-share">
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Python+Scripting+Demo&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2Fnotebook%2Fpython-scripting-demo%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/notebook/python-scripting-demo/" data-layout="button"></div>
+						</div>
+
+		    			<div class="entry-date"><h6>April 15, 2015</h6></div>
+
 
 						    
-
-					</div><!-- ends .entry-footer -->
-
-
-				    
-
-
-				    
 
 				</article>
 			</section>

@@ -39,12 +39,8 @@ util.prepare_output_dir( site.output_path )
 categories = []
 
 # check if there is a _POSTS or _PAGES file in rootpath, add to '' category list
-if os.path.isdir( os.path.join( site.root_path, '_posts' ) ):
-	categories.append( 'root_posts' )
-
-# check if there is a _POSTS or _PAGES file in rootpath, add to '' category list
-if os.path.isdir( os.path.join( site.root_path, '_pages' ) ):
-	categories.append( 'root_pages' )
+if os.path.isdir( os.path.join( site.root_path, '_posts' ) ) or os.path.isdir( os.path.join( site.root_path, '_pages' ) ):
+	categories.append( 'root' )
 
 
 # get a list of all items in root path
@@ -76,6 +72,13 @@ for item in root_items:
 		if os.path.exists( os.path.join( item_source_path, '_posts' ) ):
 			categories.append( item )
 
+		# 
+		#	If item is a directory with a _posts subdirectory, then add to 
+		#	'category' list but don't copy anything.
+		#
+		elif os.path.exists( os.path.join( item_source_path, '_pages' ) ):
+			categories.append( item )
+
 		#
 		#	If _posts directory doesnt exist, then copy all contents
 		#	recursively into site.output_path.
@@ -103,7 +106,7 @@ util.confirm_posts( categories )
 #
 #	PREPARE HTML TEMPLATE. (Retrieves templates & parses snippets.)
 #
-html_template = util.prep_html_template( site )
+#html_template = util.prep_html_template( site )
 
 
 #
@@ -124,10 +127,12 @@ for category_name in categories:
 	posts_heap = []
 
 	# loop through each item in /root/category/_posts
-	for file_name in category.posts_list:
+	for file_name in category.content_list:
 
-		# set file_name path, namely: /root/category/_posts/entry
-		file_source_path = os.path.join( category.posts_source_path, file_name )
+		# set file_name path, e.g.: /root/category/_posts/entry
+		file_source_path = util.set_file_src_path( category, file_name )
+
+		print file_source_path
 
 		# verify file_name is a file rather than subdirectory
 		if not os.path.isfile( file_source_path ):
@@ -148,7 +153,7 @@ for category_name in categories:
 		site = Site().set_header_vars( site, post.title, category, index=False  )
 
 		# replace all site tags, e.g. {{ site.url }}
-		post_template = Parse().replace_tags( 'site', site, html_template )
+		post_template = Parse().replace_tags( 'site', site, category.template )
 
 		# replace all post tags, e.g. {{ post.title }}
 		post_template = Parse().replace_tags( 'post', post, post_template )
@@ -158,7 +163,7 @@ for category_name in categories:
 		post_template = post_template.replace( '{{ single_entry_only }}', '' )
 
 		# for pages, ignore all content between {{ entry_only }} tags
-		if category.name == 'root_pages':
+		if post.is_page is True:
 			post_template = post_template.split( '{{ entry_only }}' )
 			post_template = "%s%s" % ( post_template[0], post_template[2] )
 			
@@ -171,34 +176,26 @@ for category_name in categories:
 		# write the post_template to file 
 		util.write_entry( post_template, category, post, site  )
 
-		# append post itself to heap, for reuse in category & rss files
-		posts_heap.append( post )
+		# append post itself to heap, for use in category index & rss feed
+		if post.is_page is not True:
+			posts_heap.append( post )
 		
-
-
-	#
-	#	End the pass through the for loop if the current category is "pages"
-	#
-	if category.name == 'root_pages':
-		continue
 
 	#
 	#	Sort posts by timestamp
 	#
 	posts_heap = sorted( posts_heap, key=lambda post: post.date.timestamp, reverse=True )
 
+
 	#
 	#	GENERATE CATEGORY INDEX
 	#
 
-	#
-	#	Regenerate site.title_tag, site.banner_url, site.banner_link
-	#
 	# add site.title_tag, site.banner_url, site.banner_text
 	site = Site().set_header_vars( site, '', category, index=True  )
 
 	# replace all site tags, e.g. {{ site.url }}
-	post_template = Parse().replace_tags( 'site', site, html_template )
+	post_template = Parse().replace_tags( 'site', site, category.template )
 
 	# split category template on content_loop tags
 	category_template = post_template.split( "{{ content_loop }}" )
@@ -248,9 +245,8 @@ for category_name in categories:
 	rss_template = Parse().replace_tags( 'site', site, rss_template )
 
 	# if we're in root, replace accordingly
-	if category.name == 'root_posts':
+	if category.name == 'root':
 		feed_url = "%s/feed.xml" % site.url
-		print feed_url
 		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
 		rss_template = rss_template.replace( '{{ category }}', '' )
 		rss_template = rss_template.replace( '{{ category.description }}', site.description )
@@ -259,9 +255,11 @@ for category_name in categories:
 	else: 
 		feed_url = "%s/%s/feed.xml" % ( site.url, category.name ) 
 
+		description = Util().get_description( category, site )
+
 		rss_template = rss_template.replace( '{{ feed.url }}', feed_url )
 		rss_template = rss_template.replace( '{{ category }}', category.name )
-		rss_template = rss_template.replace( '{{ category.description }}', category.description )
+		rss_template = rss_template.replace( '{{ category.description }}', description )
 
 
 	# split at content loop
