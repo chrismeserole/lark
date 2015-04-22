@@ -59,8 +59,8 @@
 <div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 <span class="kp">summary</span><span class="p">(</span>x<span class="p">)</span>
 </pre></div><pre>
-##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## -3.261000 -0.614600 -0.092350 -0.001353  0.690800  1.855000</pre>
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -2.00800 -0.57140 -0.01608  0.06968  0.64110  2.35100</pre>
 
 Now let's switch over to Python:
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
@@ -86,9 +86,9 @@ Now let's switch over to Python:
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10e77e150</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x111127b10</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span>
-<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10a37f310</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10fc7fe50</span><span class="o">&gt;</span>
 </pre></div>
 
 <p>Bummer. Looks like fig object exists, it's just not being passed properly to Lark.</p>

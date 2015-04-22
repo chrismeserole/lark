@@ -318,11 +318,9 @@ class Category(object):
 				html_template = f.read()
 
 		try:
-			self.snippet_path = self.config.snippet_path
+			self.snippet_path = os.path.join( site.root_path, self.config.snippet_path )
 			cat_snippets = Snippet( self )
 			html_template = Parse().replace_tags( 'snippet', cat_snippets.dict, html_template )
-			print cat_snippets
-			sys.exit()
 		except: 
 			pass
 

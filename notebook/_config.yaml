@@ -1,11 +1,10 @@
-
-# Name of site
+# Name of site or category
 NAME: 'Notebook'
 
-# Name of site
+# Description of site or category
 DESCRIPTION: 'A Notebook For Coding Projects'
 
-# Name of site
+# Name of site/category to appear in banner text
 BANNER_TITLE: 'Code Notebook'
 
 # Permalink style. Options: 'date' and 'no-date'
