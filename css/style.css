@@ -327,9 +327,10 @@ article
 		font-size: 1em
 	}
 
-.entry-date
+.entry-footer
 	{
-		padding-bottom: 4em;
+		padding-top: 2em;
+		padding-bottom: 6em;
 	}
 
 .entry-date h6
@@ -417,8 +418,56 @@ h2.email-signup
         }
 }
 
+
+#content .rwrap {	
+}
+
+#content .txtr, #content .txtr2 {
+	float: left; color: red; 
+	width: 10%; 
+	background: white; 
+	height: 100%;
+	font-size: .8em;
+}
+
+#content .txtr2 {
+	color: green;
+}
+
+#content .txtr p {
+	padding: 0em 0em;
+	margin-top: -.3em;
+}
+
+#content .txtr2 p {
+	padding: 0em 0;
+	margin-top: -.3em;
+}
+
+#content .outputr, #content .outputr2 {
+	display: inline-block; 
+	width: 90%;
+}
+
+.outputr, .outputr2 {
+  margin: -1.25em 0em;
+}
+
+.rwrap {
+	margin-top: 1em;
+}
+
+.outputr img {
+	margin-top: 1em;
+}
+
+
+#content .entry-content p:first-child {
+	padding-top: .5em;
+}
+
 #content .highlight .hll { background-color: #ffffcc }
-#content .highlight  { background: #f8f8f8; }
+/* #content .highlight  { background: #f8f8f8; } */
 #content .highlight .c { color: #408080; font-style: italic } /* Comment */
 #content .highlight .err { border: 1px solid #FF0000 } /* Error */
 #content .highlight .k { color: #008000; font-weight: bold } /* Keyword */

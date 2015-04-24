@@ -9,6 +9,169 @@
 		
 
 			<item>
+				<title> about obsval()</title>
+				<description>&lt;p&gt;&lt;strong&gt;obsval()&lt;/strong&gt; is an R package that aims to make it much easier to calculate predicted effects in R, particularly when using observed covariate values. It's based on &lt;a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1540-5907.2012.00602.x/abstract;jsessionid=AAADB9AE61EA032F8AA008550E5BB52E.f04t0"&gt;Hanmer and Kalkan (2013)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get up and running, see the sections below: &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#how-install"&gt;Installing obsval()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#how-use"&gt;Using obsval()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#why-use"&gt;Why Use Observed Values?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can also consult the following tutorials:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Logit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Probit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Ordinal Logit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Ordinal Probit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Conditional Logit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Multinomial Logit (Coming soon)&lt;/li&gt;
+&lt;li&gt;Poisson (Coming soon)&lt;/li&gt;
+&lt;li&gt;Negative Binomial (Coming soon)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h5&gt;&lt;a name="how-install"/&gt;&lt;/a&gt;How To Install obsval()&lt;/h5&gt;
+
+&lt;p&gt;At present the package is only available via Github. &lt;/p&gt;
+
+&lt;p&gt;To install it, run the following: &lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [1]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;install.packages&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;devtools&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;devtools&lt;span class="p"&gt;)&lt;/span&gt;
+devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;chrismeserole/obsval&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;obsval&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;That should let you call &lt;code&gt;obsval()&lt;/code&gt;. If you're seeing any error messages with this, please contact me. &lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5&gt;&lt;a name="how-use"/&gt;&lt;/a&gt;How to Use obsval()&lt;/h5&gt;
+
+&lt;p&gt;The example below should make it clear how to use obsval(). &lt;/p&gt;
+
+&lt;p&gt;First, load the libraries below: &lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [2]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;obsval&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mvtnorm&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;MASS&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: if you get any errors while running this, make sure all the packages are installed by running &lt;code&gt;install.packages(package_name)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The data we'll use comes from a dataset in the MASS package called quine, which contains information about a set of students in Australia, including their gender, ethnicity, age group, and days of school missed. &lt;/p&gt;
+
+&lt;p&gt;In this case, we're interested in the effect of age on the number of days missed. Since that number is probably overdispersed, we'll use a negative binomial model:&lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [3]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; obsval&lt;span class="p"&gt;(&lt;/span&gt; data &lt;span class="o"&gt;=&lt;/span&gt; quine&lt;span class="p"&gt;,&lt;/span&gt; 
+	specification &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Days~Eth+Sex+Age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+	reg_model &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;negbin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+	n_draws &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+	effect_var &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Age&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+	effect_var_low &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;F0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+	effect_var_high &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;F3&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;That's it. To get the effects, we can then run: &lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [4]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_sum
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [4]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;      &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%     Mean    97.5%&lt;/span&gt;
+ &lt;span class="m"&gt;-1.057192&lt;/span&gt; &lt;span class="m"&gt;7.005644&lt;/span&gt; &lt;span class="m"&gt;15.90497&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;That's combines information from the following: &lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [5]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_mean
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [5]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;7.005644&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [6]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_low_ci
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [6]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;     &lt;span class="m"&gt;2.5&lt;/span&gt;% 
+&lt;span class="m"&gt;-1.057192&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [7]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_high_ci
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [7]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;   &lt;span class="m"&gt;97.5&lt;/span&gt;% 
+&lt;span class="m"&gt;15.90497&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;You can also get that information by using the &lt;code&gt;$preds&lt;/code&gt; object, which in this case is a vector of all predicted effects:&lt;/p&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [8]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [8]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;        var_0    var_3
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;12.47260&lt;/span&gt; &lt;span class="m"&gt;20.21918&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;13.69178&lt;/span&gt; &lt;span class="m"&gt;16.13699&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;11.86301&lt;/span&gt; &lt;span class="m"&gt;22.32192&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;12.43836&lt;/span&gt; &lt;span class="m"&gt;25.80822&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;15.30822&lt;/span&gt; &lt;span class="m"&gt;17.63699&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;10.87671&lt;/span&gt; &lt;span class="m"&gt;18.34932&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [9]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [9]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;16.80905&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [10]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;quantile&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0.025&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;0.975&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [10]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%    97.5%&lt;/span&gt; 
+&lt;span class="m"&gt;10.18476&lt;/span&gt; &lt;span class="m"&gt;26.18682&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+
+
+&lt;p&gt;And that's that.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5&gt;&lt;a name="why-use"/&gt;&lt;/a&gt; Why Use Observed Values?&lt;/h5&gt;
+
+&lt;p&gt;Social scientists rely on statistics in order to tease out the effect of one variable on another, even when other variables ("covariates") might be intervening. &lt;/p&gt;
+
+&lt;p&gt;At present, most software packages calculate effects using the average values of those covariates. However, unless we have a specific theoretical interest in the average case, using average rather observed covariate values will often bias our results. If what we're interested in is the effect of a variable on a given population, then to calculate it we should be using all the information that we have about that population. &lt;/p&gt;
+
+&lt;p&gt;Put differently, for our theory to match our empirics, what we often want is the average effect overall, not the effect on the average case.&lt;/p&gt;
+
+&lt;p&gt;For a more in-depth explanation, see the excellent &lt;a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1540-5907.2012.00602.x/abstract;jsessionid=AAADB9AE61EA032F8AA008550E5BB52E.f04t0"&gt;AJPS paper by Hanmer and Kalkan&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+				<pubDate>Tue, 21 Apr 2015 00:00:00 EST</pubDate>
+				<link>http://example.org/2015/04/21/about/</link>
+				<guid isPermaLink="true">http://example.org/2015/04/21/about/</guid>
+			</item>
+
+		
+
+			<item>
 				<title> Ludem ipsum lorem</title>
 				<description>&lt;p&gt;Vivamus eget gravida urna. Vivamus eget ante in felis tincidunt molestie. Maecenas venenatis porttitor ultricies. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce consequat scelerisque purus, eget porttitor ante molestie tincidunt. Ut nec diam diam. In nunc dui, mattis id nibh ac, commodo feugiat diam. Ut pellentesque dui vitae elit vulputate, vel faucibus nunc vestibulum. Sed fermentum lectus quis massa maximus varius. Nulla facilisi. Nulla pretium mi lectus, id efficitur tortor dictum congue. Vivamus scelerisque pharetra mauris, nec placerat diam mattis vel.&lt;/p&gt;
 

@@ -11,7 +11,7 @@
 	<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 820px;}</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="author" content="Tacitus Ciceronis" />
 
@@ -45,57 +45,76 @@
 
 	    			
 
-					<h2 class="entry-title"><a rel="archive" href="/notebook/example-r-and-python-code/"> Example R and Python Code</a></h2>
+					<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr"><h2 class="entry-title"><a rel="archive" href="/notebook/example-r-and-python-code/"> Example R and Python Code</a></h2></div></div><!-- ends cell -->
 				    
-				    <div class="entry-content">
+				    <div class="entry-content"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 				    		<p>This post is a demo. All R and Python code are executed at build, including images. </p>
 
 <p>R is now working. Maplotlib appears to be working, but for some reason isn't saving locally. </p>
 
 <hr />
 
-<p>Here goes. First let's try R:</p>
+<p>Here goes. First let's try R. Markdown:</p>
 
-<div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
+</div></div><div class="rwrap"><div class="txtr"><p>In [1]:</p></div><div class="outputr"><div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 <span class="kp">summary</span><span class="p">(</span>x<span class="p">)</span>
-</pre></div><pre>
-##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.00800 -0.57140 -0.01608  0.06968  0.64110  2.35100</pre>
+</pre></div>
+</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [1]:</p></div><div class="outputr2"><div class="highlight"><pre>    Min.  <span class="m">1</span>st Qu.   Median     Mean  <span class="m">3</span>rd Qu.     Max. 
+<span class="m">-2.37600</span> <span class="m">-0.73190</span> <span class="m">-0.11870</span> <span class="m">-0.09058</span>  <span class="m">0.43360</span>  <span class="m">2.35400</span>
+</pre></div>
+</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
-Now let's switch over to Python:
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+
+<p>Now let's switch over to Python:</p>
+
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="mi">4</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
 <span class="mi">8</span>
 </pre></div>
+</div>
 
 <p>Ok. Let's try plotting stuff. </p>
 
 <p>First in R: </p>
 
-<div class="highlight"><pre>plot<span class="p">(</span>cars<span class="p">)</span>
+</div></div><div class="rwrap"><div class="txtr"><p>In [2]:</p></div><div class="outputr"><div class="highlight"><pre>plot<span class="p">(</span>cars<span class="p">)</span>
 </pre></div>
+</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
-<p><img src="/img/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" /> </p>
+
+<img src="/img/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:360px;" />
 
 <p>Now let's try a plot in Python ... </p>
 
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x111127b10</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x1084a5410</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span>
-<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10fc7fe50</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10708b310</span><span class="o">&gt;</span>
 </pre></div>
+</div>
 
 <p>Bummer. Looks like fig object exists, it's just not being passed properly to Lark.</p>
 
-				    </div>
+</div></div><div class="rwrap"><div class="txtr"><p>In [3]:</p></div><div class="outputr"><div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
+y <span class="o">&lt;-</span> <span class="m">2.5</span> <span class="o">+</span> <span class="m">2</span><span class="o">*</span>x <span class="o">+</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
+plot<span class="p">(</span>y<span class="o">~</span>x<span class="p">)</span>
+</pre></div>
+</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
-				    <div class = "entry-footer">
+
+<img src="/img/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:360px;" />
+
+<p>More text.</p>
+
+				    </div></div><!-- ends cell --><!-- ends .entry-content -->
+
+				    <div class="entry-footer"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 				    
 
@@ -110,61 +129,71 @@ Now let's switch over to Python:
 
 						    
 
-					<h2 class="entry-title"><a rel="archive" href="/notebook/python-scripting-demo/"> Python Scripting Demo</a></h2>
 				    
-				    <div class="entry-content">
+
+					</div><!-- ends .entry-footer -->
+
+
+				    
+
+					<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr"><h2 class="entry-title"><a rel="archive" href="/notebook/python-scripting-demo/"> Python Scripting Demo</a></h2></div></div><!-- ends cell -->
+				    
+				    <div class="entry-content"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 				    		<p>Lark now executes wrapped python code when it builds the site. </p>
 
 <p>Markdown:</p>
 
-<pre>```Python
-    >>> x = 3
-    >>> x + 1
-    [should be 4]
-    >>> 2 + 2*x
-    missing or wrong results will be overwritten
-```</pre>
+<div class="escpy"><pre>	```Python
+	>>> x = 3
+	>>> x + 1
+	[should be 4]
+	>>> 2 + 2*x
+	missing or wrong results will be overwritten
+	```</pre></div>
 
 <p>HTML: </p>
 
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="mi">4</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
 <span class="mi">8</span>
 </pre></div>
+</div>
 
 <hr />
 
 <p>Markdown:</p>
 
-<pre>```Python
-    >>> animals = ["cat","dog","horse"]
-    >>> animals[1]
-```</pre>
+<div class="escpy"><pre>	```Python
+	>>> animals = ["cat","dog","horse"]
+	>>> animals[1]
+	```</pre></div>
 
 <p>HTML: </p>
 
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="s">&quot;dog&quot;</span><span class="p">,</span><span class="s">&quot;horse&quot;</span><span class="p">]</span>
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="s">&quot;dog&quot;</span><span class="p">,</span><span class="s">&quot;horse&quot;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">dog</span>
 </pre></div>
+</div>
 
 <hr />
 
 <p>Markdown*: </p>
 
-<pre>```Python
-    >>> y = 10
-    >>> x + y
-```</pre>
+<div class="escpy"><pre>	```Python
+	>>> y = 10
+	>>> x + y
+	```</pre></div>
 
 <p>HTML: </p>
 
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="mi">13</span>
 </pre></div>
+</div>
 
 <hr />
 
@@ -172,9 +201,9 @@ Now let's switch over to Python:
 
 <p><strong>Code blocks thus remember state/inherit  values</strong>.</p>
 
-				    </div>
+				    </div></div><!-- ends cell --><!-- ends .entry-content -->
 
-				    <div class = "entry-footer">
+				    <div class="entry-footer"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 				    
 
@@ -188,6 +217,13 @@ Now let's switch over to Python:
 
 
 						    
+
+				    
+
+					</div><!-- ends .entry-footer -->
+
+
+				    
 
 				</article>
 			</section>

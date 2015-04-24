@@ -161,17 +161,31 @@ for category_name in categories:
 		# since this is single post, just delete both content & single entry tags
 		post_template = post_template.replace( '{{ content_loop }}', '' )
 		post_template = post_template.replace( '{{ single_entry_only }}', '' )
+		post_template = post_template.replace( '{{ /single_entry_only }}', '' )
 
 		# for pages, ignore all content between {{ entry_only }} tags
 		if post.is_page is True:
-			post_template = post_template.split( '{{ entry_only }}' )
-			post_template = "%s%s" % ( post_template[0], post_template[2] )
+
+			post_template = Parse().delSubstrInclusive( post_template, 
+														'{{ entry_only }}', 
+														'{{ /entry_only }}')
+
+			# blerg = re.findall( '{{ entry_only }}(.*?){{ /entry_only }}', post_template, re.DOTALL )
+			# for block in blerg:
+			# 	block = '{{ entry_only }}%s{{ /entry_only }}' % block 
+			# 	post_template = post_template.replace( block, '' )
+			#post_template = post_template.split( '{{ entry_only }}' )
+			#post_template = "%s%s" % ( post_template[0], post_template[2] )
 			
 		else:
 			post_template = post_template.replace( '{{ entry_only }}', '' )
+			post_template = post_template.replace( '{{ /entry_only }}', '' )
 
 		# replace snippets
 		post_template = Parse().replace_tags( 'snippet', site, post_template )
+
+		# reformat titles and entry footers if page includes R Code
+		post_template = Parse().reformatRHTML( post_template )
 
 		# write the post_template to file 
 		util.write_entry( post_template, category, post, site  )
@@ -211,12 +225,16 @@ for category_name in categories:
 
 		## for category page, we want everything between {{ entry_only }} tages 
 		post_entry_html = content_html.replace( '{{ entry_only }}', '' )
+		post_entry_html = post_entry_html.replace( '{{ /entry_only }}', '' )
 
 		## break before single_entry_only, since this is index
-		post_entry_html = post_entry_html.split( "{{ single_entry_only }}")
+		post_entry_html = Parse().delSubstrInclusive( post_entry_html, 
+														"{{ single_entry_only }}",
+														"{{ /single_entry_only }}"
+														)
 
 		# replace all post tags, e.g. {{ post.title }}
-		post_entry_html = Parse().replace_tags( 'post', post, post_entry_html[0] )
+		post_entry_html = Parse().replace_tags( 'post', post, post_entry_html )
 
 		## add latest post to the index file we're building
 		category_template += post_entry_html 
@@ -228,6 +246,9 @@ for category_name in categories:
 
 	## add footer html to index file
 	category_template += footer_html
+
+	# reformat titles and entry footers if page includes R Code
+	category_template = Parse().reformatRHTML( category_template )
 
 	## write index file
 	util.write_category_index( category.output_directory, category_template )
@@ -261,13 +282,10 @@ for category_name in categories:
 		rss_template = rss_template.replace( '{{ category }}', category.name )
 		rss_template = rss_template.replace( '{{ category.description }}', description )
 
-
 	# split at content loop
 	rss_template = rss_template.split( "{{ content_loop }}" )
-
 	rss_content = rss_template[1]
 	rss_footer = rss_template[2]
-	
 	rss_template = rss_template[0]
 
 	count = 0
@@ -299,6 +317,28 @@ for category_name in categories:
 
 	# write rss_template to file
 	util.write_category_feed ( category.output_directory, rss_template )
+
+	# 
+	try: 
+		if category.config.default_index == '':
+			default_cat_path = category.output_directory
+		else:
+
+			# site.output_path must be used, category.default_index starts at root
+			default_cat_path = os.path.join( site.output_path, category.config.default_index )
+
+		print default_cat_path
+
+		cat_output_path = os.path.join( site.output_path, category.name )
+
+		default_cat_path_index_src = os.path.join( default_cat_path, 'index.html' )
+		default_cat_path_index_dst = os.path.join( cat_output_path, 'index.html' )
+
+		if not default_cat_path_index_src == default_cat_path_index_dst:
+			shutil.copyfile( default_cat_path_index_src, default_cat_path_index_dst )
+	except: 
+		print 'No config file found. Default category index will be category directory.'
+
 
 
 #

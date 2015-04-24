@@ -53,6 +53,9 @@ class Site(object):
 
 	def set_header_vars( self, site, post_title, category, index=False ):
 
+
+
+
 		if category.name == 'root':
 			if index is True:
 				site.title_tag = '%s' % ( site.name )
@@ -68,6 +71,8 @@ class Site(object):
 			else:
 				site.title_tag = '%s > %s > %s' % ( post_title, category.name, site.name )
 
+			#print category.config.banner_title
+
 			try: 
 				site.banner_text = category.config.banner_title.upper()
 			except: 
@@ -75,7 +80,13 @@ class Site(object):
 		
 			site.banner_url = '/%s/' % ( category.name )
 
+			print site.banner_text
+			print category.name 
+
 		site.category_name = category.name
+
+		print site.category_name
+
 		site.title_tag_encoded = urllib.quote_plus( site.title_tag )
 
 		return site
@@ -263,8 +274,16 @@ class Category(object):
 		self.name = category_name
 		self.category_path = os.path.join( site.root_path, self.name )
 
+
+		print '\n\n%s' % self.name.upper()
+
+
+		# if we're not at root, parse the category's _config.yaml file if present
 		if self.name != 'root':
 			try: 
+
+				configpath = os.path.join( self.category_path, '_config.yaml' )
+
 				with open( os.path.join( self.category_path, '_config.yaml' ), 'rb') as f:
 					config_file = f.read()
 
@@ -275,9 +294,12 @@ class Category(object):
 			except:
 				print "Note: no config file for %s." % self.name.upper()
 
+
 		self.posts_list = []
 		self.pages_list = []
 
+		# set paths for all posts and pages in category, and get all post/page names
+		# also set output path
 		if self.name == 'root':
 			self.posts_source_path = os.path.join( site.root_path, '_posts' )
 			self.pages_source_path = os.path.join( site.root_path, '_pages' )
@@ -287,10 +309,8 @@ class Category(object):
 				self.posts_list = os.listdir( self.posts_source_path )
 				self.posts_list = ['*POST*{0}'.format(i) for i in self.posts_list]
 			if os.path.isdir( self.pages_source_path ):
-				print self.pages_source_path
 				self.pages_list = os.listdir( self.pages_source_path )
 				self.pages_list = ['*PAGE*{0}'.format(i) for i in self.pages_list]
-
 		else:
 			self.input_path = os.path.join( site.root_path, category_name)
 			self.posts_source_path = os.path.join( self.input_path, '_posts')
@@ -303,12 +323,11 @@ class Category(object):
 				self.posts_list = ['*POST*{0}'.format(i) for i in self.posts_list]
 
 			if os.path.isdir( self.pages_source_path ):
-				print self.pages_source_path
 				self.pages_list = os.listdir( self.pages_source_path ) 
 				self.pages_list = ['*PAGE*{0}'.format(i) for i in self.pages_list]
 
+		# merge list of files 
 		self.content_list = self.posts_list + self.pages_list
-		print self.content_list
 
 		try:
 			with open( os.path.join( category.config.layout_path, 'index.html' ), 'rb' ) as f:
@@ -320,6 +339,7 @@ class Category(object):
 		try:
 			self.snippet_path = os.path.join( site.root_path, self.config.snippet_path )
 			cat_snippets = Snippet( self )
+			
 			html_template = Parse().replace_tags( 'snippet', cat_snippets.dict, html_template )
 		except: 
 			pass
@@ -327,8 +347,10 @@ class Category(object):
 		try:
 			site_snippets = Snippet( site )
 			html_template = Parse().replace_tags( 'snippet', site_snippets.dict, html_template )
+
 		except:
 			pass
+
 		self.template = html_template
 
 
@@ -372,7 +394,7 @@ class FileHandler(object):
 		util = Util()
 
 		try: 
-			post_slug = re.search('slug:(.*)\\n', raw_meta_data_text.lower() ).group(1)
+			post_slug = re.search('slug: (.*)\\n', raw_meta_data_text.lower() ).group(1)
 		
 		except:
 			post_slug = util.create_slug_from_title( title )
@@ -384,8 +406,6 @@ class FileHandler(object):
 
 		permalink_style = Util().get_permalink_style( category, site )
 
-		print permalink_style
-
 		if category.name == 'root' and post.is_page is True:
 			post_url = '/%s/' % post.slug
 
@@ -394,11 +414,10 @@ class FileHandler(object):
 				post_url = '/%s/%s/%s/%s/' % ( post.date.year, post.date.month, post.date.day, post.slug )
 			elif category.name == 'root' and permalink_style.lower() == 'no-date':
 				post_url = '/%s/' % ( post.slug )
-
+			elif post.is_page is True or permalink_style.lower() == 'no-date':
+				post_url = '/%s/%s/' % ( category.name, post.slug )
 			elif permalink_style.lower() == 'date':
 				post_url = '/%s/%s/%s/%s/%s/' % ( category.name, post.date.year, post.date.month, post.date.day, post.slug )
-			elif permalink_style.lower() == 'no-date':
-				post_url = '/%s/%s/' % ( category.name, post.slug )
 							
 		return post_url
 
@@ -503,6 +522,7 @@ class Parse(object):
 		return rss_content
 
 
+
 	def parseRBlocks( self, site, text ):
 
 		# current 
@@ -518,7 +538,7 @@ class Parse(object):
 		# call knitr, which processes the r code & creates and saves .md file
 		print subprocess.Popen( rmdcall, 
 								shell=True, 
-								stdout=subprocess.PIPE).stdout.read()
+								stdout=subprocess.PIPE ).stdout.read()
 
 		# read in the newly created .md file
 		with open( 'lark-tmp.md', 'rb' ) as f:
@@ -539,9 +559,6 @@ class Parse(object):
 			imgs_path = os.path.join( site.root_path, site.images_path )
 			outputfile = os.path.join( imgs_path, file_name )
 
-			print full_file_name
-			print outputfile
-			
 			shutil.copy(full_file_name, outputfile)
 
 
@@ -558,130 +575,324 @@ class Parse(object):
 		return text
 
 
+	def reformatRPost( self, text ):
+
+#		text = '<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">%s</div></div>' % text
+
+		text = text.replace( '<p><div class="rwrap">', '</div></div><div class="rwrap">' )
+#		text = text.replace( '<div class="rwrap">', '</div></div><div class="rwrap">' )
+
+		text = text.replace( '<!-- end rwrap --></p>', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
+		text = text.replace( '<!-- end rwrap --> </p>', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
+		text = text.replace( '<!-- end rwrap -->\n', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
+
+		text = text.replace( '</p>\n\n<div class="rwrap">', '</p></div></div><!-- ends .cell -->\n\n<div class="rwrap">')
+
+		text = text.replace( '</div>\n</div><div class="txtr2">', '</div></div><div class="txtr2">')
+
+		return text
+
+
+	def reformatRHTML( self, text ):
+
+		if '<div class="rwrap">' in text: 
+
+			text = text.replace( '<h2 class="entry-title">', '<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr"><h2 class="entry-title">' )
+			text = text.replace( '</a></h2>', '</a></h2></div></div><!-- ends cell -->' )
+
+			text = text.replace( '<div class="entry-content">', '<div class="entry-content"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">')			
+			text = text.replace( '</div><!-- ends .entry-content -->', '</div></div><!-- ends cell --><!-- ends .entry-content -->' )
+
+			text = text.replace( '<div class="entry-footer">', '<div class="entry-footer"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">' )
+			text = text.replace( '<!-- ends .entry-footer -->' , '<!-- ends .entry-footer -->')
+
+			text = text.replace( 'href="/css/style.css"/>', 'href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 820px;}</style>')
+
+		return text
+
+	def delSubstrInclusive( self, text, str1, str2 ):
+
+		regx = '%s(.*?)%s' % (str1, str2)
+		regx_blox = re.findall( regx, text, re.DOTALL )
+		for block in regx_blox:
+			block = '%s%s%s' % (str1, block, str2 )
+			text = text.replace( block, '' )
+		return text
+
+	def removeKnitrHashes( self, text ):
+		# get rid of kntr ##s
+		code_blox = re.findall ( r'\n```r\n(.*?)\n```\n\n```\n(.*?)\n```\n', text, re.DOTALL)
+
+		#print code_blox
+		i=0
+		for block in code_blox:
+			for blck in block:
+				for b in block: 
+					if i % 2 == 1:
+						txt = '\n```\n%s\n```\n' % b
+						txtrep = txt.replace('\n## ','\n')
+						text = text.replace( txt, txtrep )
+					i=i+1
+		return text 
+
 	def highlighter( self, site, text ):
 
+		#
+		#	** THIS FUNCTION IS A TOTAL MESS AND I BOW MY HEAD IN SHAME **
+		#
+
+		#
+		#	ESCAPE EXAMPLE PYTHON CODE -------------------------------------------
+		#
+		if '\t```Python' in text:
+			code_blox = re.findall ( r'\t```Python(.*?)\t```', text, re.DOTALL)
+			orig_blox = []
+			esc_py_blox = []
+
+			for block in code_blox:
+				orig_block = '\t```Python%s\t```' % block
+				orig_blox.append( orig_block )
+
+				# run through pygments
+				block = '<pre>\t```Python%s\t```</pre>' % block
+				esc_py_blox.append( block )
+
+			for block in orig_blox: 
+				text=text.replace( block, '<div class="escpy">{{ esc-py-block }}</div>')
+
+
+		#
+		#	PROCESS PYTHON CODE ----------------------------------------------------
+		# 
+		python_tag = '```Python'
+		if python_tag in text:
+
+			# process markdown
+			text = pymarkdown.process( text )
+
+			# get everything wrapped in Python marker
+			code_blox = re.findall ( '```Python(.*?)```', text, re.DOTALL)
+			
+			# initialize lists to store original & pygmentized code  
+			orig_blox = []
+			py_blox = []
+
+			# loop through all python code blocks
+			for block in code_blox:
+
+				# recreate original
+				orig = '```Python%s```' % block
+				orig_blox.append( orig )
+
+				# pygmentize and wrap
+				pyg = highlight(block, PythonLexer(), HtmlFormatter())
+				py_blox.append( pyg )
+				#pyg = '<div class="py-block">%s</div>' % pyg
+				#pyg_blox.append( pyg )
+
+			# replace original blox with pygmentized version
+			for orig in orig_blox: 
+
+				text=text.replace( orig, '<div class="py-block">{{ py-block }}</div>' )
+
+
+		#
+		#	PROCESS R CODE ----------------------------------------------------
+		# 
 		r_tag = '```{r'
 
 		if r_tag in text:
 
+			# process R code, which relies on Knitr
 			text = Parse().parseRBlocks( site, text )
+			text = Parse().removeKnitrHashes( text )
+
+			# get everything wrapped as input-output R code
+			code_blox = re.findall ( r'(?<=[\n```r\n])(.*?)\n```\n\n```\n(.*?)\n```\n', text, re.DOTALL)
+
+			r_input_blox = []
+			r_output_blox = []
+			r_io_str_blox = []
+
+			# ok, so above regex matches on second to last (i think?) ```r before 
+			# the sequence we want ... couldn't figure out how to tweak it, so 
+			# what we do is take the first element of the first list returned, then
+			# split it on the *last* instance of the string, which always be the one
+			# we want ... then we could do our crazy thing with the strings and the divs
+			# god i hate myself right now
+			for blk in code_blox:
+
+				i=0
+				for it in blk:
+					if i % 2 == 0:
+						blerg = it.rsplit( '\n```r\n', 1 )
+						r_input = blerg[1] 
+					else: 
+						r_output = it
+					i=i+1
+
+				r_input_blox.append( r_input )
+				r_output_blox.append( r_output )
+				r_orig_str = '\n```r\n%s\n```\n\n```\n%s\n```\n' % (r_input, r_output )
+
+				text = text.replace( r_orig_str, '\n\n{{ r-i/o-block }}\n\n')
+				r_io_str = '<div class="rwrap"><div class="txtr"><p>In [i]:</p></div><div class="outputr">'
+				pyg_r_input = highlight(r_input, SLexer(), HtmlFormatter())
+
+				r_io_str = '%s%s' % (r_io_str, pyg_r_input )
+				r_io_str = '%s</div><!-- end outputr></div><!-- end rwrap -->' % r_io_str
+				r_io_str = '%s<div class="rwrap"><div class="txtr2"><p>Out [i]:</p></div><div class="outputr2">' % r_io_str
+				pyg_r_output = highlight(r_output, SLexer(), HtmlFormatter())
+				r_io_str = '%s%s</div></div><!-- end rwrap -->\n' % (r_io_str, pyg_r_output)
+				r_io_str_blox.append( r_io_str )
 
 
-		# pymarkdown processes all '```Python' strings, so we need to escape 
-		# the ones we want to appear in html
-		# USING .SPLIT() IS A TOTAL HACK
+			# get everything wrapped as input R code
+			code_blox = re.findall ( r'```r(.*?)```', text, re.DOTALL)
 
-		text_list = text.split('\t```Python')
+			r_blox = []
+			for block in code_blox:
+
+				# recreate original string, for use in .replace()		
+				match_str = '```r%s```' % block
+
+				if match_str in text: 
+					print 'applause!'
+
+				# p tags and trailing line breaks are important ... markdown won't always 
+				# parse subsequent text correctly w/o them
+				text = text.replace( match_str, '\n\n<p>{{ r-block }}</p>\n\n' )
+
+				# pygmentize block & wrap 
+				r_input = highlight(block, SLexer(), HtmlFormatter())
+				r_input = '<div class="rwrap"><div class="txtr"><p>In [i]:</p></div><div class="outputr">%s' % r_input 
+				r_input = '%s</div></div><!-- end rwrap -->' % r_input
+				r_blox.append( r_input )
+
+
+		# PROCESS NON-R and NON_PYTHON CODE -------------------------------------
 		
-		orig_blocks = []
-		replacement_blocks = []
+		if '```' in text:
+			code_blox = re.findall ( '```(.*?)```', text, re.DOTALL)
+			orig_blox = []
+			mod_blox = []
+			replacement_code_blocks = []
 
-		if len(text_list) > 0: 
-			del text_list[0]
+			for block in code_blox:		
+				orig = '```%s```' % block
+				orig_blox.append( orig )
 
-			for block in text_list:
+				block = '<pre>%s</pre>' % block
+				replacement_code_blocks.append( block )
+
+				block = '<div class="codeblock">{{ code-block }}</div>'
+				mod_blox.append( block )
+
+			# insert placeholder text while we process markdown 
+			for orig, mod in zip(orig_blox, mod_blox):
+				text = text.replace( orig, mod )
+
+
+
+
+		# PROCESS MARKDOWN !! ----------------------------------------------------
+
+		text = markdown2.markdown( text )
+
+
+		# clean up images that markdown missed b/c R
+
+		if '{{ r-block }}' in text or '{{ r-i/o-block }}' in text:
+
+			r_pix_blox = re.findall( r'{{ r-block }}</p>\n\n<p><img src="(.*?)" alt="(.*?)" /> </p>', text, re.DOTALL )
+
+			for img_blox in r_pix_blox: 
 				
-				block_list = block.split('\t```')
+				img_title = img_blox[0]
+				img_src = img_blox[1]
+				match_str = '{{ r-block }}</p>\n\n<p><img src="%s" alt="%s" /> </p>' % (img_title, img_src)
+				repl_str = '{{ r-block }}</p>\n\n<img src="%s" alt="%s" style="width:360px;" />' % (img_title, img_src)
 
-				orig_block = '\t```Python%s\t```' % block_list[0]
-				orig_blocks.append( orig_block )
-
-				replacement_block = '\t```Python%s\t```' % block_list[0]
-				
-				#print escaped_block
-				replacement_blocks.append( replacement_block )
-
-		# insert placeholder text while we process the 
-		for orig_block in orig_blocks:
-			text = text.replace( orig_block, '{{ escaped }}')
-
-		# now that everything's escaped ... 
-
-		# 1. process python code
-		text = pymarkdown.process( text )
-
-		# 2. highlight python code
-		old_python_blocks = re.findall ( '```Python(.*?)```', text, re.DOTALL)
-		new_python_blocks = []
-
-		for block in old_python_blocks:
-			block = highlight(block, PythonLexer(), HtmlFormatter())
-			new_python_blocks.append( block )
-
-		for old_block, new_block in zip(old_python_blocks, new_python_blocks):
-			text = text.replace( old_block, new_block )
-
-		# 3. highlight R code
-		old_r_blocks = re.findall ( '```r(.*?)```', text, re.DOTALL)
-
-
-		new_r_blocks = []
-
-		for block in old_r_blocks:
-			block = highlight(block, SLexer(), HtmlFormatter())
-			new_r_blocks.append( block )
-
-		for old_block, new_block in zip(old_r_blocks, new_r_blocks):
-			text = text.replace( old_block, new_block )
+				# <div class="rwrap"><div class="txtr"></div><div class="outputr"></div></div><!-- end rwrap -->
+				text = text.replace( match_str, repl_str )
 
 
 
-		# now add back in the escaped blocks
-		for replacement_block in replacement_blocks: 
-			text = text.replace( '{{ escaped }}', replacement_block, 1)
+		# REINSERT ANY CODE WE ESCAPED ---------------------------------------
+
+		# ---- r code blocks ----
+		try: 
+			for block in r_io_str_blox: 
+				text = text.replace( '{{ r-i/o-block }}', block, 1)
+			text = Parse().reformatRPost( text )
+
+		except:
+			pass
+
+		# ---- r code blocks ----
+		try: 
+			for block in r_blox: 
+				text = text.replace( '{{ r-block }}', block, 1)
+			text = Parse().reformatRPost( text )
+
+		except:
+			pass
 
 
-		#----------------------------------------------------------------------
-		# delete the ```Python strings for the blocks we actually ran, so they 
-		# won't appear in HTML
-		#----------------------------------------------------------------------
-		old_all_blocks = re.findall ( '\n```(.*?)\n```', text, re.DOTALL)
+		# ---- py code blocks ----
+		try: 
+			for block in py_blox: 
+				text = text.replace( '{{ py-block }}', block, 1)
+			text = Parse().reformatRPost( text )
 
-		old_blocks = []
-		new_blocks = []
+		except:
+			pass
 
-		for block in old_all_blocks:
-			old_block = block
-			if block[:6] == 'Python' or block[:1] == 'r':
-				new_block = block
-			else:
-				new_block = '<pre>%s</pre>' % block
+		# ---- non-r code blocks ----
+		try:
+			for block in replacement_code_blocks: 
+				text = text.replace( '{{ code-block }}', block, 1)
+		except:
+			pass
 
-			old_blocks.append( old_block )
-			new_blocks.append( new_block ) 
-
-		for old_block, new_block in zip(old_blocks, new_blocks):
-			text = text.replace( old_block, new_block )
-
-		text = text.replace( u'\n```Python', "" )
-		text = text.replace( u'\n```r', "")
-		text = text.replace( u'\n```', "")
+		# ---- example python code blocks ----
+		try:
+			for block in esc_py_blox: 
+				text = text.replace( "{{ esc-py-block }}", block, 1 )
+		except: 
+			pass
 
 
-		#----------------------------------------------------------------------
-		# preserve any indented code blocks that you actually want to show 
-		#----------------------------------------------------------------------
-		
-		old_all_blocks = re.findall ( '\t```(.*?)\t```', text, re.DOTALL)
+		# if there was input/output code, number it
+		if 'In [i]' in text: 
+			num = text.count( 'In [i]' )+1
+			i = 1
+			while i < num: 
 
-		old_blocks = []
-		new_blocks = []
+				s1 = text.find( 'In [i]' )
+				s2 = text.find( 'Out [i]' )
+				beg = s1+1
+				s3 = text.find( 'In [i]', beg )
 
-		for block in old_all_blocks:
-			old_block = block
-			new_block = '<pre>```%s```</pre>' % block
-			old_blocks.append( old_block )
-			new_blocks.append( new_block ) 
+				InTxt = 'In [%d]' % i
+				OutTxt = 'Out [%d]' % i
 
-		for old_block, new_block in zip(old_blocks, new_blocks):
-			text = text.replace( old_block, new_block )
+				text = text.replace( "In [i]", InTxt, 1)
 
-		text = text.replace( u'\t```', "")
-
-
-		#----------------------------------------------------------------------
+				if s2 > -1 and s3 > -1: 
+					if s2 < s3:
+						text = text.replace( "Out [i]", OutTxt, 1)
+				if s2 > -1 and s3 == -1: 
+					text = text.replace( "Out [i]", OutTxt, 1)
+				i=i+1
 
 
+		# finally, fix markdown bug ... i don't understand what's happening to 
+		# the leading <p> here ... markdown enclosed {{ r-block }} in p tags, but 
+		# sometimes only the trailing one remains after pygments does its thing?
+		text = text.replace( '<div class="outputr">\n</p>', '<div class="outputr">\n' )
+
+		# RETURN AT LONG LAST! ---------------------------------------------------	
 		return text
 
 class Post(object):
@@ -703,7 +914,7 @@ class Post(object):
 
 		self.content = parser.highlighter( site, self.raw_file.content )
 
-		self.content = markdown2.markdown( self.content )
+		#self.content = markdown2.markdown( self.content )
 
 		self.content = self.content.replace( ' -- ', ' &mdash; ')
 
@@ -736,5 +947,3 @@ class Snippet(object):
 			file_name = file_split[0]
 
 			self.dict[file_name] = raw_file
-
-

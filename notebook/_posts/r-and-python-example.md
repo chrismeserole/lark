@@ -10,7 +10,7 @@ R is now working. Maplotlib appears to be working, but for some reason isn't sav
 
 --------------
 
-Here goes. First let's try R:
+Here goes. First let's try R. Markdown:
 
 ```{r}
 x <- rnorm(100)
@@ -46,3 +46,11 @@ Now let's try a plot in Python ...
 ```
 
 Bummer. Looks like fig object exists, it's just not being passed properly to Lark.
+
+```{r}
+x <- rnorm(100)
+y <- 2.5 + 2*x + rnorm(100)
+plot(y~x)
+```
+
+More text.

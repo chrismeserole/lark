@@ -41,9 +41,9 @@
 				    
 				    <div class="entry-content">
 				    		{{ post.content }}
-				    </div>
+				    </div><!-- ends .entry-content -->
 
-				    <div class = "entry-footer">
+				    <div class="entry-footer">
 
 				    {{ entry_only }}
 
@@ -58,12 +58,11 @@
 
 						    {{ single_entry_only }}
 						    		{{ snippet.mailchimp_form }}
-						    {{ single_entry_only }}
+						    {{ /single_entry_only }}
+
+				    {{ /entry_only }}
 
 					</div><!-- ends .entry-footer -->
-
-
-				    {{ entry_only }}
 
 
 				    {{ content_loop }}

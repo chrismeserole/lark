@@ -11,7 +11,7 @@ BANNER_TITLE: 'Code Notebook'
 PERMALINK_STYLE: "no-date"
 
 # Default file for home page. If not using a page or subdirectory as home, use ''
-DEFAULT_INDEX: 'about'
+DEFAULT_INDEX: ''
 
 # Max number of entries allowed
 MAX_INDEX_ENTRIES: 10
