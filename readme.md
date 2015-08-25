@@ -16,7 +16,7 @@ If you want Lark to process python code, you'll also need to run:
 
 	pip install pymarkdown 
 
-Meanwhile, if you want Lark to process R code, you'll need to open R and run `install.packages('knitr')'.
+Meanwhile, if you want Lark to process R code, you'll need to open R and run `install.packages('knitr')`.
 
 Once you have all the packages installed just run the following: 
 
