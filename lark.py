@@ -170,13 +170,6 @@ for category_name in categories:
 														'{{ entry_only }}', 
 														'{{ /entry_only }}')
 
-			# blerg = re.findall( '{{ entry_only }}(.*?){{ /entry_only }}', post_template, re.DOTALL )
-			# for block in blerg:
-			# 	block = '{{ entry_only }}%s{{ /entry_only }}' % block 
-			# 	post_template = post_template.replace( block, '' )
-			#post_template = post_template.split( '{{ entry_only }}' )
-			#post_template = "%s%s" % ( post_template[0], post_template[2] )
-			
 		else:
 			post_template = post_template.replace( '{{ entry_only }}', '' )
 			post_template = post_template.replace( '{{ /entry_only }}', '' )

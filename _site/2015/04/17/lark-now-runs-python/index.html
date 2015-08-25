@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+
+<html lang="en-US">
+  <head>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<meta charset="UTF-8"/>
+
+	<meta name="viewport" content="initial-scale=1.0">
+	<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/style.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="Tacitus Ciceronis" />
+
+
+	<title> Lark Now Runs Python > exemplum </title>
+
+</head>
+<body>
+  	<div class="wrapper">
+
+		<header id="header">
+			<div id="banner">
+				<h1><a href="/">exemplum</a></h1>
+			</div>
+			<nav id="nav">
+				<ul>
+	<li><a href="/about">About</a></li>		
+	<li>&middot;</li>
+	<li><a href="/notebook/">Coding Notebook</a></li>
+	<li>&middot;</li>		
+	<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>
+	<li>&middot;</li>
+	<li><a href="/subscribe">Subscribe</a></li>
+</ul>
+		    </nav>
+		</header>
+
+		<div id="content">
+	    	<section>
+	    		<article>
+
+	    			
+
+					<h2 class="entry-title"><a rel="archive" href="/2015/04/17/lark-now-runs-python/"> Lark Now Runs Python</a></h2>
+				    
+				    <div class="entry-content">
+				    		<p>One reason I've been writing <a href="https://github.com/chrismeserole/lark/">Lark</a>, the static site generator that now powers this site, was to have the freedom to cook up unique ways of merging writing and data analysis. </p>
+
+<p>Thankfully, I'm glad to say I hit the first milestone on that path today. It took a bit of hacking, but thanks to Matthew Rocklin's great new <a href="https://github.com/mrocklin/pymarkdown">pymarkdown</a> module, <a href="https://github.com/chrismeserole/lark/blob/master/_posts/python-example.md">Lark now executes Python code blocks in posts</a> when it builds the site.</p>
+
+<p>The end result? I can now stick this in a post ... </p>
+
+<div class="escpy"><pre>	```Python
+	>>> x = 3
+	>>> x + 1
+	[should be 4]
+	>>> 2 + 2*x
+	missing or wrong results will be overwritten
+	```</pre></div>
+
+<p>... and have it show up as this:  </p>
+
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="mi">8</span>
+</pre></div>
+</div>
+
+<p>Lark still needs a lot of work, but it's fun to think about the possibilities this opens up.</p>
+
+				    </div><!-- ends .entry-content -->
+
+				    <div class="entry-footer">
+
+				    
+
+
+		    			<div class="entry-share">
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Lark+Now+Runs+Python&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F04%2F17%2Flark-now-runs-python%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/2015/04/17/lark-now-runs-python/" data-layout="button"></div>
+						</div>
+
+		    			<div class="entry-date"><h6>April 17, 2015</h6></div>
+
+
+						    
+						    		
+<div class='mailchimp-signup'>
+<h2 class="email-signup">Follow By Email</h2>
+<div id="mc_embed_signup">
+<form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<div class="mc-field-group">
+		<label for="mce-EMAIL">Email Address </label>
+		<input type="email" value="" name="EMAIL" class="required email" size="50" id="mce-EMAIL">
+	</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;"><input type="text" name="" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+</div>
+
+						    
+
+				    
+
+					</div><!-- ends .entry-footer -->
+
+
+				    
+
+				</article>
+			</section>
+		</div>
+
+
+	</div><!-- ends .wrapper -->
+
+
+	<footer id="footer">            
+		<div id="footer-info">
+				<ul>
+		      		<li><a href="/about">About</a></li>		
+		      		<li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fexample.org&screen_name=cicero&tw_p=followbutton" class="popup">Twitter</a></li>		
+					<li><a href="/subscribe">Subscribe</a></li>
+					<li class="copyright">&copy; Tacitus Ciceronis 2015</li>
+
+		       </ul>
+		</div>
+	</footer>
+
+
+	<script>
+		var x = document.getElementsByTagName('a');
+		for (var i=0;i<x.length;i++) {
+			if (x[i].getAttribute('type') == 'popup') {
+				x[i].onclick = function () {
+					return pop(this.href)
+				}
+				x[i].title += ' (Popup)';
+			}
+		}
+	</script>
+
+	<script>
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=113432408683533&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+	
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+	<!-- {{ snippet.google_analytics_script }} -->
+
+  </body>
+</html>

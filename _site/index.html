@@ -11,7 +11,7 @@
 	<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 820px;}</style>
+    <link rel="stylesheet" href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 900px;}</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="author" content="Tacitus Ciceronis" />
 
@@ -84,7 +84,7 @@
 devtools<span class="o">::</span>install_github<span class="p">(</span><span class="s">&quot;chrismeserole/obsval&quot;</span><span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>obsval<span class="p">)</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>That should let you call <code>obsval()</code>. If you're seeing any error messages with this, please contact me. </p>
@@ -101,7 +101,7 @@ devtools<span class="o">::</span>install_github<span class="p">(</span><span cla
 <span class="kn">library</span><span class="p">(</span>mvtnorm<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>MASS<span class="p">)</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p><strong>Note</strong>: if you get any errors while running this, make sure all the packages are installed by running <code>install.packages(package_name)</code>.</p>
@@ -118,49 +118,49 @@ devtools<span class="o">::</span>install_github<span class="p">(</span><span cla
 	effect_var_low <span class="o">=</span> <span class="s">&quot;F0&quot;</span><span class="p">,</span> 
 	effect_var_high <span class="o">=</span> <span class="s">&quot;F3&quot;</span> <span class="p">)</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>That's it. To get the effects, we can then run: </p>
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [4]:</p></div><div class="outputr"><div class="highlight"><pre>mod<span class="o">$</span>effect_sum
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [4]:</p></div><div class="outputr2"><div class="highlight"><pre>      <span class="m">2.5</span><span class="o">%     Mean    97.5%</span>
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [4]:</p></div><div class="outputr2"><div class="highlight"><pre>      <span class="m">2.5</span><span class="o">%     Mean    97.5%</span>
  <span class="m">-1.057192</span> <span class="m">7.005644</span> <span class="m">15.90497</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>That's combines information from the following: </p>
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [5]:</p></div><div class="outputr"><div class="highlight"><pre>mod<span class="o">$</span>effect_mean
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [5]:</p></div><div class="outputr2"><div class="highlight"><pre><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">7.005644</span>
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [5]:</p></div><div class="outputr2"><div class="highlight"><pre><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">7.005644</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [6]:</p></div><div class="outputr"><div class="highlight"><pre>mod<span class="o">$</span>effect_low_ci
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [6]:</p></div><div class="outputr2"><div class="highlight"><pre>     <span class="m">2.5</span>% 
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [6]:</p></div><div class="outputr2"><div class="highlight"><pre>     <span class="m">2.5</span>% 
 <span class="m">-1.057192</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [7]:</p></div><div class="outputr"><div class="highlight"><pre>mod<span class="o">$</span>effect_high_ci
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [7]:</p></div><div class="outputr2"><div class="highlight"><pre>   <span class="m">97.5</span>% 
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [7]:</p></div><div class="outputr2"><div class="highlight"><pre>   <span class="m">97.5</span>% 
 <span class="m">15.90497</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>You can also get that information by using the <code>$preds</code> object, which in this case is a vector of all predicted effects:</p>
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [8]:</p></div><div class="outputr"><div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>mod<span class="o">$</span>preds<span class="p">)</span>
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [8]:</p></div><div class="outputr2"><div class="highlight"><pre>        var_0    var_3
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [8]:</p></div><div class="outputr2"><div class="highlight"><pre>        var_0    var_3
 <span class="p">[</span><span class="m">1</span><span class="p">,]</span> <span class="m">12.47260</span> <span class="m">20.21918</span>
 <span class="p">[</span><span class="m">2</span><span class="p">,]</span> <span class="m">13.69178</span> <span class="m">16.13699</span>
 <span class="p">[</span><span class="m">3</span><span class="p">,]</span> <span class="m">11.86301</span> <span class="m">22.32192</span>
@@ -168,22 +168,22 @@ devtools<span class="o">::</span>install_github<span class="p">(</span><span cla
 <span class="p">[</span><span class="m">5</span><span class="p">,]</span> <span class="m">15.30822</span> <span class="m">17.63699</span>
 <span class="p">[</span><span class="m">6</span><span class="p">,]</span> <span class="m">10.87671</span> <span class="m">18.34932</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [9]:</p></div><div class="outputr"><div class="highlight"><pre><span class="kp">mean</span><span class="p">(</span>mod<span class="o">$</span>preds<span class="p">)</span>
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [9]:</p></div><div class="outputr2"><div class="highlight"><pre><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">16.80905</span>
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [9]:</p></div><div class="outputr2"><div class="highlight"><pre><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">16.80905</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [10]:</p></div><div class="outputr"><div class="highlight"><pre>quantile<span class="p">(</span>mod<span class="o">$</span>preds<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">0.025</span><span class="p">,</span><span class="m">0.975</span><span class="p">))</span>
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [10]:</p></div><div class="outputr2"><div class="highlight"><pre>    <span class="m">2.5</span><span class="o">%    97.5%</span> 
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [10]:</p></div><div class="outputr2"><div class="highlight"><pre>    <span class="m">2.5</span><span class="o">%    97.5%</span> 
 <span class="m">10.18476</span> <span class="m">26.18682</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>And that's that.</p>
@@ -215,6 +215,59 @@ devtools<span class="o">::</span>install_github<span class="p">(</span><span cla
 						</div>
 
 		    			<div class="entry-date"><h6>April 21, 2015</h6></div>
+
+
+						    
+
+				    
+
+					</div><!-- ends .entry-footer -->
+
+
+				    
+
+					<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr"><h2 class="entry-title"><a rel="archive" href="/2015/04/17/lark-now-runs-python/"> Lark Now Runs Python</a></h2></div></div><!-- ends cell -->
+				    
+				    <div class="entry-content"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+				    		<p>One reason I've been writing <a href="https://github.com/chrismeserole/lark/">Lark</a>, the static site generator that now powers this site, was to have the freedom to cook up unique ways of merging writing and data analysis. </p>
+
+<p>Thankfully, I'm glad to say I hit the first milestone on that path today. It took a bit of hacking, but thanks to Matthew Rocklin's great new <a href="https://github.com/mrocklin/pymarkdown">pymarkdown</a> module, <a href="https://github.com/chrismeserole/lark/blob/master/_posts/python-example.md">Lark now executes Python code blocks in posts</a> when it builds the site.</p>
+
+<p>The end result? I can now stick this in a post ... </p>
+
+<div class="escpy"><pre>	```Python
+	>>> x = 3
+	>>> x + 1
+	[should be 4]
+	>>> 2 + 2*x
+	missing or wrong results will be overwritten
+	```</pre></div>
+
+<p>... and have it show up as this:  </p>
+
+<div class="py-block"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="mi">8</span>
+</pre></div>
+</div>
+
+<p>Lark still needs a lot of work, but it's fun to think about the possibilities this opens up.</p>
+
+				    </div></div><!-- ends cell --><!-- ends .entry-content -->
+
+				    <div class="entry-footer"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+
+				    
+
+
+		    			<div class="entry-share">
+					    	<div class="twitter-class"><a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fexample.org&text=+Lark+Now+Runs+Python&tw_p=tweetbutton&url=http%3A%2F%2Fexample.org%2F2015%2F04%2F17%2Flark-now-runs-python%2F&via=cicero" class="twitter-share-button" data-count="none">Tweet</a></div>
+					    	<div class="fb-share-button" data-href="http://example.org/2015/04/17/lark-now-runs-python/" data-layout="button"></div>
+						</div>
+
+		    			<div class="entry-date"><h6>April 17, 2015</h6></div>
 
 
 						    

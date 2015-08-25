@@ -46,7 +46,7 @@
 devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;chrismeserole/obsval&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;obsval&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;That should let you call &lt;code&gt;obsval()&lt;/code&gt;. If you're seeing any error messages with this, please contact me. &lt;/p&gt;
@@ -63,7 +63,7 @@ devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mvtnorm&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;MASS&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: if you get any errors while running this, make sure all the packages are installed by running &lt;code&gt;install.packages(package_name)&lt;/code&gt;.&lt;/p&gt;
@@ -80,49 +80,49 @@ devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt
 	effect_var_low &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;F0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
 	effect_var_high &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;F3&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;That's it. To get the effects, we can then run: &lt;/p&gt;
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [4]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_sum
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [4]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;      &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%     Mean    97.5%&lt;/span&gt;
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [4]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;      &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%     Mean    97.5%&lt;/span&gt;
  &lt;span class="m"&gt;-1.057192&lt;/span&gt; &lt;span class="m"&gt;7.005644&lt;/span&gt; &lt;span class="m"&gt;15.90497&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;That's combines information from the following: &lt;/p&gt;
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [5]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_mean
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [5]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;7.005644&lt;/span&gt;
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [5]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;7.005644&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [6]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_low_ci
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [6]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;     &lt;span class="m"&gt;2.5&lt;/span&gt;% 
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [6]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;     &lt;span class="m"&gt;2.5&lt;/span&gt;% 
 &lt;span class="m"&gt;-1.057192&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [7]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;effect_high_ci
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [7]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;   &lt;span class="m"&gt;97.5&lt;/span&gt;% 
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [7]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;   &lt;span class="m"&gt;97.5&lt;/span&gt;% 
 &lt;span class="m"&gt;15.90497&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;You can also get that information by using the &lt;code&gt;$preds&lt;/code&gt; object, which in this case is a vector of all predicted effects:&lt;/p&gt;
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [8]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [8]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;        var_0    var_3
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [8]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;        var_0    var_3
 &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;12.47260&lt;/span&gt; &lt;span class="m"&gt;20.21918&lt;/span&gt;
 &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;13.69178&lt;/span&gt; &lt;span class="m"&gt;16.13699&lt;/span&gt;
 &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;11.86301&lt;/span&gt; &lt;span class="m"&gt;22.32192&lt;/span&gt;
@@ -130,22 +130,22 @@ devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt
 &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;15.30822&lt;/span&gt; &lt;span class="m"&gt;17.63699&lt;/span&gt;
 &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,]&lt;/span&gt; &lt;span class="m"&gt;10.87671&lt;/span&gt; &lt;span class="m"&gt;18.34932&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [9]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [9]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;16.80905&lt;/span&gt;
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [9]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="m"&gt;16.80905&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;/div&gt;&lt;/div&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr"&gt;&lt;p&gt;In [10]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;quantile&lt;span class="p"&gt;(&lt;/span&gt;mod&lt;span class="o"&gt;$&lt;/span&gt;preds&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0.025&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;0.975&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;!-- end outputr&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [10]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%    97.5%&lt;/span&gt; 
+&lt;/div&gt;&lt;!-- end outputr &gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="rwrap"&gt;&lt;div class="txtr2"&gt;&lt;p&gt;Out [10]:&lt;/p&gt;&lt;/div&gt;&lt;div class="outputr2"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="m"&gt;2.5&lt;/span&gt;&lt;span class="o"&gt;%    97.5%&lt;/span&gt; 
 &lt;span class="m"&gt;10.18476&lt;/span&gt; &lt;span class="m"&gt;26.18682&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="rightcol"&gt;&lt;/div&gt;&lt;!-- end rwrap --&gt;&lt;div class="cell"&gt;&lt;div class="txtr"&gt;&amp;nbsp;&lt;/div&gt;&lt;div class="outputr"&gt;
 
 
 &lt;p&gt;And that's that.&lt;/p&gt;
@@ -167,6 +167,41 @@ devtools&lt;span class="o"&gt;::&lt;/span&gt;install_github&lt;span class="p"&gt
 				<pubDate>Tue, 21 Apr 2015 00:00:00 EST</pubDate>
 				<link>http://example.org/2015/04/21/about/</link>
 				<guid isPermaLink="true">http://example.org/2015/04/21/about/</guid>
+			</item>
+
+		
+
+			<item>
+				<title> Lark Now Runs Python</title>
+				<description>&lt;p&gt;One reason I've been writing &lt;a href="https://github.com/chrismeserole/lark/"&gt;Lark&lt;/a&gt;, the static site generator that now powers this site, was to have the freedom to cook up unique ways of merging writing and data analysis. &lt;/p&gt;
+
+&lt;p&gt;Thankfully, I'm glad to say I hit the first milestone on that path today. It took a bit of hacking, but thanks to Matthew Rocklin's great new &lt;a href="https://github.com/mrocklin/pymarkdown"&gt;pymarkdown&lt;/a&gt; module, &lt;a href="https://github.com/chrismeserole/lark/blob/master/_posts/python-example.md"&gt;Lark now executes Python code blocks in posts&lt;/a&gt; when it builds the site.&lt;/p&gt;
+
+&lt;p&gt;The end result? I can now stick this in a post ... &lt;/p&gt;
+
+&lt;div class="escpy"&gt;&lt;pre&gt;	```Python
+	&gt;&gt;&gt; x = 3
+	&gt;&gt;&gt; x + 1
+	[should be 4]
+	&gt;&gt;&gt; 2 + 2*x
+	missing or wrong results will be overwritten
+	```&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;... and have it show up as this:  &lt;/p&gt;
+
+&lt;div class="py-block"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Lark still needs a lot of work, but it's fun to think about the possibilities this opens up.&lt;/p&gt;
+</description>
+				<pubDate>Fri, 17 Apr 2015 00:00:00 EST</pubDate>
+				<link>http://example.org/2015/04/17/lark-now-runs-python/</link>
+				<guid isPermaLink="true">http://example.org/2015/04/17/lark-now-runs-python/</guid>
 			</item>
 
 		

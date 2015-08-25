@@ -1,34 +1,30 @@
+### Why Lark?
 
-### Another Static Site Engine, Really?
+Lark came about for two reasons:
 
-I know, right?
+-Custom subdirectory structure. Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a _posts subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall, I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own.
 
-### \*Rolls Eyes\*
+-Data writing. I'm building Lark, long-term, to make data analysis and presentation as seemless as possible. At present, Lark can execute python code blocks embedded in posts, and output the result in the resulting html. It's similar to python notebook, except static. There's a lot more I want to do on that front though, and writing your own publishing environment, where you know and can manipulate the entire underlying architecture, will make it a lot easier to realize whatever cool stuff I can dream up.
 
-OK, so basically Lark came about for three reasons: 
-
-1. **Custom subdirectory structure.** Lark recursively searches through all subdirectories, and builds a blog anywhere it finds a `_posts` subdirectory. This used to be possible, sort-of, using a hack on Jekyll. But the hack broke with an upgrade to Yosemite last fall,  I couldn't get it working again. I also couldn't replicate it via Pelican, Hugo, etc. Ultimately it seemed less time consuming to roll my own. 
-
-2. **Data writing.** I'm building Lark, long-term, to make data analysis and presentation as seemless as possible. At present, Lark can execute python code blocks embedded in posts, and output the result in the resulting html. It's similar to python notebook, except static. There's a lot more I want to do on that front though, and writing your own publishing environment, where you know and can manipulate the entire underlying architecture, will make it a lot easier to realize whatever cool stuff I can dream up.  
-
-3. **Dissertation procrastination.** Why else do something? 
-
-
-### Enough Already How Do You Install 
+### Installing Lark 
 
 To get Lark up and running, first make sure you've got the packages below installed. (You may want to use a virtualenv.) 
 
-	pip install markdown2 pyyaml pymarkdown
+	pip install markdown2 pyyaml pygments
 
-Then run the following: 
+If you want Lark to process python code, you'll also need to run:
+
+	pip install pymarkdown 
+
+Meanwhile, if you want Lark to process R code, you'll need to open R and run `install.packages('knitr')'.
+
+Once you have all the packages installed just run the following: 
 
 	git clone https://github.com/chrismeserole/lark.git; cd lark
 	python lark.py
 	python preview.py
 
 If you open localhost:8000 in your browser, you should now see a skeleton site. 
-
-In the future I may release Lark as a python package, but for now this works fine.
 
 ### How Lark Works 
 

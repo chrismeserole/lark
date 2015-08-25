@@ -430,6 +430,10 @@ h2.email-signup
 	font-size: .8em;
 }
 
+#content .rightcol, #content .rightcol {
+	width: 10%; 
+}
+
 #content .txtr2 {
 	color: green;
 }
@@ -446,7 +450,7 @@ h2.email-signup
 
 #content .outputr, #content .outputr2 {
 	display: inline-block; 
-	width: 90%;
+	width: 80%;
 }
 
 .outputr, .outputr2 {

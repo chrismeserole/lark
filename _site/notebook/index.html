@@ -11,7 +11,7 @@
 	<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 820px;}</style>
+    <link rel="stylesheet" href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 900px;}</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="author" content="Tacitus Ciceronis" />
 
@@ -59,10 +59,10 @@
 </div></div><div class="rwrap"><div class="txtr"><p>In [1]:</p></div><div class="outputr"><div class="highlight"><pre>x <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 <span class="kp">summary</span><span class="p">(</span>x<span class="p">)</span>
 </pre></div>
-</div><!-- end outputr></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [1]:</p></div><div class="outputr2"><div class="highlight"><pre>    Min.  <span class="m">1</span>st Qu.   Median     Mean  <span class="m">3</span>rd Qu.     Max. 
-<span class="m">-2.37600</span> <span class="m">-0.73190</span> <span class="m">-0.11870</span> <span class="m">-0.09058</span>  <span class="m">0.43360</span>  <span class="m">2.35400</span>
+</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap --><div class="rwrap"><div class="txtr2"><p>Out [1]:</p></div><div class="outputr2"><div class="highlight"><pre>    Min.  <span class="m">1</span>st Qu.   Median     Mean  <span class="m">3</span>rd Qu.     Max. 
+<span class="m">-3.73800</span> <span class="m">-0.58540</span>  <span class="m">0.04015</span> <span class="m">-0.04363</span>  <span class="m">0.53990</span>  <span class="m">2.21100</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
 <p>Now let's switch over to Python:</p>
@@ -81,10 +81,10 @@
 
 </div></div><div class="rwrap"><div class="txtr"><p>In [2]:</p></div><div class="outputr"><div class="highlight"><pre>plot<span class="p">(</span>cars<span class="p">)</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
-<img src="/img/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:360px;" />
+<img src="/img/lark/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:360px;" />
 
 <p>Now let's try a plot in Python ... </p>
 
@@ -93,9 +93,9 @@
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x1084a5410</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10a4eb410</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">fig</span>
-<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10708b310</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x1090de0d0</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 
@@ -105,10 +105,10 @@
 y <span class="o">&lt;-</span> <span class="m">2.5</span> <span class="o">+</span> <span class="m">2</span><span class="o">*</span>x <span class="o">+</span> rnorm<span class="p">(</span><span class="m">100</span><span class="p">)</span>
 plot<span class="p">(</span>y<span class="o">~</span>x<span class="p">)</span>
 </pre></div>
-</div></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
+</div></div><div class="rightcol"></div><!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">
 
 
-<img src="/img/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:360px;" />
+<img src="/img/lark/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:360px;" />
 
 <p>More text.</p>
 

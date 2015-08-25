@@ -550,26 +550,31 @@ class Parse(object):
 
 		print site.images_path
 
-		src_files = os.listdir('figure')
-
-		for file_name in src_files:
-			src = os.path.join( os.getcwd(), 'figure')
-			full_file_name = os.path.join(src, file_name)
-
-			imgs_path = os.path.join( site.root_path, site.images_path )
-			outputfile = os.path.join( imgs_path, file_name )
-
-			shutil.copy(full_file_name, outputfile)
+		img_path = os.path.join( site.root_path, site.images_path )
+		img_path = os.path.join( img_path, 'lark' )
 
 
+		if not os.path.isdir( img_path ):
+			os.mkdir( img_path )
 
-		old = "(figure/"
-		new = "(/%s/" % site.images_path
+		if os.path.isdir( os.path.join( site.root_path, 'figure' ) ):
+			src_files = os.listdir('figure')
 
+			for file_name in src_files:
+				
+				src = os.path.join( os.getcwd(), 'figure')
+				input_file_path = os.path.join(src, file_name)
+				output_file_path = os.path.join( img_path, file_name )
+				print input_file_path
+				print output_file_path
+				shutil.copy(input_file_path, output_file_path)
 
-		text = text.replace(old, new)
-		
-		#shutil.rmtree( 'figure' )
+			old = "(figure/"
+			new = "(/%s/lark/" % site.images_path
+
+			text = text.replace(old, new)
+			
+			shutil.rmtree( 'figure' )
 
 		# return the new markdown file! 
 		return text
@@ -577,17 +582,11 @@ class Parse(object):
 
 	def reformatRPost( self, text ):
 
-#		text = '<div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">%s</div></div>' % text
-
 		text = text.replace( '<p><div class="rwrap">', '</div></div><div class="rwrap">' )
-#		text = text.replace( '<div class="rwrap">', '</div></div><div class="rwrap">' )
-
 		text = text.replace( '<!-- end rwrap --></p>', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
 		text = text.replace( '<!-- end rwrap --> </p>', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
 		text = text.replace( '<!-- end rwrap -->\n', '<!-- end rwrap --><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">\n')
-
-		text = text.replace( '</p>\n\n<div class="rwrap">', '</p></div></div><!-- ends .cell -->\n\n<div class="rwrap">')
-
+		text = text.replace( '</p>\n\n<div class="rwrap">', '</p></div></div><div class="rightcol"></div><!-- ends .cell -->\n\n<div class="rwrap">')
 		text = text.replace( '</div>\n</div><div class="txtr2">', '</div></div><div class="txtr2">')
 
 		return text
@@ -606,7 +605,7 @@ class Parse(object):
 			text = text.replace( '<div class="entry-footer">', '<div class="entry-footer"><div class="cell"><div class="txtr">&nbsp;</div><div class="outputr">' )
 			text = text.replace( '<!-- ends .entry-footer -->' , '<!-- ends .entry-footer -->')
 
-			text = text.replace( 'href="/css/style.css"/>', 'href="/css/style.css"/><style type="text/css">#content, #footer-info {max-width: 820px;}</style>')
+			text = text.replace( 'style.css"/>', 'style.css"/><style type="text/css">#content, #footer-info {max-width: 900px;}</style>')
 
 		return text
 
@@ -636,6 +635,7 @@ class Parse(object):
 		return text 
 
 	def highlighter( self, site, text ):
+
 
 		#
 		#	** THIS FUNCTION IS A TOTAL MESS AND I BOW MY HEAD IN SHAME **
@@ -735,15 +735,19 @@ class Parse(object):
 				r_output_blox.append( r_output )
 				r_orig_str = '\n```r\n%s\n```\n\n```\n%s\n```\n' % (r_input, r_output )
 
-				text = text.replace( r_orig_str, '\n\n{{ r-i/o-block }}\n\n')
-				r_io_str = '<div class="rwrap"><div class="txtr"><p>In [i]:</p></div><div class="outputr">'
 				pyg_r_input = highlight(r_input, SLexer(), HtmlFormatter())
-
-				r_io_str = '%s%s' % (r_io_str, pyg_r_input )
-				r_io_str = '%s</div><!-- end outputr></div><!-- end rwrap -->' % r_io_str
-				r_io_str = '%s<div class="rwrap"><div class="txtr2"><p>Out [i]:</p></div><div class="outputr2">' % r_io_str
 				pyg_r_output = highlight(r_output, SLexer(), HtmlFormatter())
-				r_io_str = '%s%s</div></div><!-- end rwrap -->\n' % (r_io_str, pyg_r_output)
+
+
+				text = text.replace( r_orig_str, '\n\n{{ r-i/o-block }}\n\n')
+				
+				# apologies for string length
+				r_io_str = '''<div class="rwrap"><div class="txtr"><p>In [i]:</p></div><div class="outputr">%s</div><!-- end outputr ></div><div class="rightcol"></div><!-- end rwrap -->''' % pyg_r_input
+
+				r_io_str2 = '''<div class="rwrap"><div class="txtr2"><p>Out [i]:</p></div><div class="outputr2">%s</div></div><div class="rightcol"></div><!-- end rwrap -->''' % pyg_r_output
+				
+				r_io_str = '%s%s' % (r_io_str, r_io_str2)
+
 				r_io_str_blox.append( r_io_str )
 
 
@@ -766,7 +770,7 @@ class Parse(object):
 				# pygmentize block & wrap 
 				r_input = highlight(block, SLexer(), HtmlFormatter())
 				r_input = '<div class="rwrap"><div class="txtr"><p>In [i]:</p></div><div class="outputr">%s' % r_input 
-				r_input = '%s</div></div><!-- end rwrap -->' % r_input
+				r_input = '%s</div></div><div class="rightcol"></div><!-- end rwrap -->' % r_input
 				r_blox.append( r_input )
 
 
